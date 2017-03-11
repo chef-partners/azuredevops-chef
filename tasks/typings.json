@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "q": "registry:dt/q#0.0.0+20161119044246"
+  },
+  "globalDependencies": {
+    "mocha": "registry:dt/mocha#2.2.5+20170204022515",
+    "node": "registry:dt/node#7.0.0+20170204020307",
+    "sprintf-js": "registry:dt/sprintf-js#0.0.0+20160510002910"
+  }
+}

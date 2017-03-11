@@ -1,0 +1,33 @@
+{
+  "name": "chef-vsts-tasks",
+  "description": "Chef Tasks for VSTS",
+  "author": "Russell Seymour",
+  "scripts": {
+    "initdev:npm": "npm install && pushd tasks/update_environment && npm install && popd",
+    "initdev:typings": "pushd tasks && typings install && popd",
+    "initdev": "npm run initdev:npm && npm run initdev:typings",
+    "clean": "rimraf build",
+    "build:tasks": "npm run clean && npm run build:tasks:noclean",
+    "build:tasks:noclean": "npm run compile:tasks && pushd tasks/update_environment && npm install --prefix ../../build/tasks/update_environment . && popd && npm run version && npm run copyfiles",
+    "compile:tasks": "tsc scripts/*.ts && tsc --project tasks/tsconfig.build.json",
+    "copyfiles": "node scripts/copy_files.js",
+    "version": "node scripts/version.js",
+    "package:tasks": "tfx extension create --root build --output-path build --manifest-globs vss-extension.json"
+  },
+  "devDependencies": {
+    "fs-extra": "^2.0.0",
+    "mkdirp": "^0.5.1",
+    "q": "^1.4.1",
+    "rimraf": "^2.6.1",
+    "semver": "^5.3.0",
+    "tfx-cli": "^0.3.49",
+    "tsconfig-glob": "^0.4.3",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1",
+    "typings": "^2.1.0"
+  },
+  "dependencies": {
+    "q": "^1.4.1",
+    "vsts-task-lib": "^1.1.0"
+  }
+}

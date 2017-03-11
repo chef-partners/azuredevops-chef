@@ -1,0 +1,14 @@
+{
+    "name": "task-update_environment",
+    "version": "1.0.0",
+    "dependencies": {
+        "@types/sprintf-js": "0.0.27",
+        "http": "0.0.0",
+        "moment": "^2.17.1",
+        "node-rsa": "^0.4.2",
+        "request": "^2.80.0",
+        "request-promise": "^4.1.1",
+        "sprintf-js": "^1.0.3",
+        "vsts-task-lib": "^1.1.0"
+    }
+}
