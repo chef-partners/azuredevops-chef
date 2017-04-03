@@ -3,7 +3,7 @@
   "description": "Chef Tasks for VSTS",
   "author": "Russell Seymour",
   "scripts": {
-    "initdev:npm": "npm install && pushd tasks/update_environment && npm install && popd",
+    "initdev:npm": "npm install && pushd tasks/update_environment && npm install && popd && pushd tasks/upload_cookbook && npm install && popd",
     "initdev:typings": "pushd tasks && typings install && popd",
     "initdev": "npm run initdev:npm && npm run initdev:typings",
     "clean": "rimraf build",
