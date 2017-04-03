@@ -10,6 +10,7 @@ import * as path from "path";
 import * as fs from "fs-extra";
 import * as Q from "q";
 import * as child from "child_process";
+import * as process from "process";
 import {sprintf} from "sprintf-js";
 
 // Iterate around the tasks
@@ -30,11 +31,19 @@ function installDeps() {
 
   let tasks = get_tasks();
 
+  // determine the base path to work from
+  let base_path = process.cwd();
+
   // iterate around the tasks and run the depdencies
   let task_files = tasks.map(function (task_name) {
 
+    // change to the task directory
+    let taskdir = sprintf("%s/tasks/%s", base_path, task_name);
+    console.log(taskdir);
+    process.chdir(taskdir);
+
     // build up the command to run
-    let cmd = sprintf("npm install --prefix build/tasks/%s tasks/%s", task_name, task_name);
+    let cmd = sprintf("npm install --prefix %s/build/tasks/%s .", base_path, task_name);
 
     // run the command to install the depdencies
     child.exec(cmd, status);
