@@ -7,7 +7,7 @@
     "sourceMap": true
   },
   "exclude": [
-    "tasks/common",
+    "common",
     "typings"
   ]
 }

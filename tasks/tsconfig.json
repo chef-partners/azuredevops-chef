@@ -8,7 +8,7 @@
     "watch": true
   },
   "exclude": [
-    "Common",
+    "common",
     "typings"
   ]
 }
