@@ -8,7 +8,7 @@
     "initdev": "npm run initdev:npm && npm run initdev:typings",
     "clean": "rimraf build",
     "build:tasks": "npm run clean && npm run build:tasks:noclean",
-    "build:tasks:noclean": "npm run compile:tasks && cd tasks/update_environment && npm install --prefix ../../build/tasks/update_environment . && cd ../.. && npm run version && npm run copyfiles",
+    "build:tasks:noclean": "npm run compile:tasks && node scripts/taskdeps.js && npm run version && npm run copyfiles",
     "compile:tasks": "tsc scripts/*.ts && tsc --project tasks/tsconfig.build.json",
     "copyfiles": "node scripts/copy_files.js",
     "version": "node scripts/version.js",
@@ -24,7 +24,8 @@
     "tsconfig-glob": "^0.4.3",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1",
-    "typings": "^2.1.0"
+    "typings": "^2.1.0",
+    "sprintf-js": "^1.0.3"
   },
   "dependencies": {
     "q": "^1.4.1",
