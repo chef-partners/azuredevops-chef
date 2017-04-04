@@ -2,7 +2,7 @@
     "manifestVersion": "1",
     "id": "vsts-chef-tasks",
     "name": "Extension to communicate with the Chef API",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "publisher": "russellseymour",
     "targets": [
         {
@@ -38,6 +38,30 @@
         }
     ],
     "contributions": [
+        {
+            "id": "chef-server-endpoint",
+            "description": "Service Endpoint for Chef Servers",
+            "type": "ms.vss-endpoint.service-endpoint-task",
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
+            ],
+            "properties": {
+                "name": "chef-server",
+                "displayName": "Chef Server Connection",
+                "url": {
+                    "displayName": "Chef Server URL",
+                    "helpText": "URL to the Chef Server including the Organization"
+                },
+                "nodename": {
+                    "displayName": "Username",
+                    "helpText": "User or node name to use with the connection"
+                },
+                "key": {
+                    "displayName": "Key",
+                    "helpText": "Private key associated with the specified user"
+                }
+            }
+        },
         {
             "id": "vsts-chef-tasks-update-environment",
             "type": "ms.vss-distributed-task.task",
