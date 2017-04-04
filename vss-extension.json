@@ -2,7 +2,7 @@
     "manifestVersion": "1",
     "id": "vsts-chef-tasks",
     "name": "Extension to communicate with the Chef API",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "publisher": "russellseymour",
     "targets": [
         {
