@@ -7,7 +7,7 @@
     "sourceMap": true
   },
   "exclude": [
-    "Common",
+    "common",
     "typings"
   ]
 }

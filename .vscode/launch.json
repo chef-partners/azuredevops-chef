@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceRoot}/dist/tasks/update_environment/update_environment.js",
+      "program": "${workspaceRoot}/dist/tasks/upload_cookbook/upload_cookbook.js",
       "outFiles": [],
       "env": {
         "NODE_ENV": "dev",

@@ -2,7 +2,6 @@
     "name": "task-update_environment",
     "version": "1.0.0",
     "dependencies": {
-        "@types/sprintf-js": "0.0.27",
         "http": "0.0.0",
         "moment": "^2.17.1",
         "node-rsa": "^0.4.2",
