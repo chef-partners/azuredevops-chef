@@ -28,7 +28,7 @@
       "type": "string",
       "label": "Chef Server URL",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "URL to the Chef Server including Organization"
     },
     {
@@ -36,7 +36,7 @@
       "type": "string",
       "label": "Chef Username",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Username with API access to the Chef Server"
     },
     {
@@ -44,7 +44,7 @@
       "type": "string",
       "label": "Chef User Key",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "User key for signing the request"
     },
     {
@@ -52,7 +52,7 @@
       "type": "string",
       "label": "Chef Environment",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Name of the environment to modify"
     },
     {

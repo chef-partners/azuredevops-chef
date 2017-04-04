@@ -25,7 +25,11 @@ export function parse(process, tl) {
     }
 
   } else {
-    // get the inputs from the agent
+    // get the necessary inputs from the specified endpoint
+    let auth = tl.getEndpointAuthorization(tl.getInput("chefServerEndpoint", true));
+
+    console.log("Endpoint: %s", tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true));
+
     inputs["chefServerUrl"] = tl.getInput("chefServerUrl");
     inputs["chefUsername"] = tl.getInput("chefUsername");
     inputs["chefUserKey"] = tl.getInput("chefUserKey");
