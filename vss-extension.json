@@ -59,7 +59,22 @@
                 "key": {
                     "displayName": "Key",
                     "helpText": "Private key associated with the specified user"
-                }
+                },
+                "dataSources": [],
+                "authenticationSchemes": [
+                    {
+                        "id": "endpoint-auth-scheme-none",
+                        "description": "i18n:Creates an endpoint authentication scheme with no authentication.",
+                        "type": "ms.vss-endpoint.service-endpoint-auth-scheme",
+                        "targets": [
+                            "ms.vss-endpoint.endpoint-auth-schemes"
+                        ],
+                        "properties": {
+                            "name": "None",
+                            "displayName": "i18n:No Authentication"
+                        }
+                    }
+                ]
             }
         },
         {
