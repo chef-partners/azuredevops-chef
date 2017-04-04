@@ -17,7 +17,7 @@
   "inputs": [
     {
       "name": "chefServerEndpoint",
-      "type": "connectedService:chef-server",
+      "type": "connectedService:Chefserverendpoint",
       "label": "Chef Server Endpoint",
       "defaultValue": "",
       "required": true,

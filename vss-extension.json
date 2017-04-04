@@ -46,7 +46,7 @@
                 "ms.vss-endpoint.endpoint-types"
             ],
             "properties": {
-                "name": "chef-server",
+                "name": "chefserverendpoint",
                 "displayName": "Chef Server Connection",
                 "url": {
                     "displayName": "Chef Server URL",
@@ -74,7 +74,8 @@
                             "displayName": "i18n:No Authentication"
                         }
                     }
-                ]
+                ],
+                "helpMarkDown": "Please provide the requested information so that VSTS can access your Chef server instance"
             }
         },
         {
