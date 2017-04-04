@@ -41,7 +41,7 @@
         {
             "id": "chef-server-endpoint",
             "description": "Service Endpoint for Chef Servers",
-            "type": "ms.vss-endpoint.service-endpoint-task",
+            "type": "ms.vss-endpoint.service-endpoint-type",
             "targets": [
                 "ms.vss-endpoint.endpoint-types"
             ],
