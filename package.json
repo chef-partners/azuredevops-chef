@@ -8,7 +8,7 @@
     "initdev": "npm run initdev:npm && npm run initdev:typings",
     "clean": "rimraf build",
     "build:tasks": "npm run clean && npm run build:tasks:noclean",
-    "build:tasks:noclean": "npm run compile:tasks && npm run taskdeps && npm run version && npm run copyfiles",
+    "build:tasks:noclean": "npm run compile:tasks && npm run taskdeps && npm run copyfiles",
     "compile:tasks": "tsc scripts/*.ts && tsc --project tasks/tsconfig.build.json",
     "copyfiles": "node scripts/copy_files.js",
     "version": "node scripts/version.js",
