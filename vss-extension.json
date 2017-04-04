@@ -57,7 +57,7 @@
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
                         "inputDescriptors": [
                             {
-                                "id": "nodename",
+                                "id": "username",
                                 "name": "Username (Node Name)",
                                 "description": "Chef Server Username",
                                 "inputMode": "textbox",
@@ -68,7 +68,7 @@
                                 }
                             },
                             {
-                                "id": "key",
+                                "id": "password",
                                 "name": "Client Key",
                                 "description": "Private key associated with the specified user",
                                 "inputMode": "textarea",
