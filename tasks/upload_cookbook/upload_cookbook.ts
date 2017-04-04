@@ -73,7 +73,11 @@ async function run() {
   }
 
   // upload the cookbook to the chef server
-  
+  try {
+    let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").arg("upload").exec();
+  } catch (err) {
+    tl.setResult(tl.TaskResult.Failed, err.message);
+  }
 
 }
 
