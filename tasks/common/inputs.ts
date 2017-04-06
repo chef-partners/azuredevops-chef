@@ -49,7 +49,7 @@ export function parse(process, tl) {
   }
 
   // decode the base64 encoding of the userkey
-  inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64");
+  inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
   return inputs;
 }

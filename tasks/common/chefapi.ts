@@ -34,6 +34,9 @@ export function call(tl, config, path: string, method: string = "get", body: str
     method: method.toUpperCase()
   };
 
+  // output debug information
+  tl.debug(sprintf("%s%s", options["host"], options["path"]));
+
   // Return a promise for the API Call
   return Q.Promise(function(resolve, notify, reject) {
 
@@ -58,8 +61,8 @@ export function call(tl, config, path: string, method: string = "get", body: str
           // callback(JSON.parse(data), config)
           resolve(JSON.parse(data));
         } else {
-          // console.log(sprintf("%s: %s", chef_server_url.href, res.statusCode))
-          reject(new Error(sprintf("%s: %s", chef_server_url.href, res.statusCode)));
+          console.log(sprintf("%s%s: %s", options.host, options.path, res.statusCode))
+          reject(new Error(sprintf("%s%s: %s", options.host, options.path, res.statusCode)));
         }
 
       });
@@ -143,7 +146,7 @@ function generateAuthorization(method, path, content_hash, username, userkey, ti
   let canonicalized_header = al.join("\n");
 
   // create a key object from the userkey
-  let priv_key = new node_rsa(userkey);
+  let priv_key = new node_rsa(userkey, "pkcs1");
 
   // encrypt the canonicalized_header with the private key
   let encrypted = priv_key.encryptPrivate(canonicalized_header, "base64");
