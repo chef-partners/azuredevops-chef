@@ -24,22 +24,6 @@
       "helpMarkDown": "URL to the Chef Server including Organization"
     },
     {
-      "name": "chefUsername",
-      "type": "string",
-      "label": "Chef Username",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "Username with API access to the Chef Server"
-    },
-    {
-      "name": "chefUserKey",
-      "type": "string",
-      "label": "Chef User Key",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "User key for signing the request"
-    },
-    {
       "name": "chefEnvName",
       "type": "string",
       "label": "Chef Environment",

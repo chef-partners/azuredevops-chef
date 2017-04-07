@@ -26,17 +26,11 @@ export function parse(process, tl) {
 
   } else {
     // get the necessary inputs from the specified endpoint
-    //let username = tl.getEndpointAuthorizationParameter(tl.getInput("chefServerEndpoint", "username", true));
-    //let key = "fred";
-
-    //console.log("Username: %s", username);
-
     let auth = tl.getEndpointAuthorization(tl.getInput("chefServerEndpoint", true));
-    // console.log(tl.getEndpointUrl(tl.getInput("chefServerEndpoint", true)) + " " + auth.parameters.username + " " + auth.parameters.password + " " + JSON.stringify(auth));
 
     // get the URL from the endpoint
     inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
-    inputs["chefUsername"] = auth.parameters.username; //tl.getInput("chefUsername"); 
+    inputs["chefUsername"] = auth.parameters.username;
     inputs["chefUserKey"] = auth.parameters.password;
 
     // get the chef environment name
