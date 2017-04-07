@@ -34,7 +34,7 @@ async function run() {
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);
 
-  chefapi.call(tl, params, path)
+  chefapi.call(tl, params, path, "get", null)
     .then(update_environment.bind(null, params))
     .then(chefapi.call.bind(null, tl, params, path, "put"))
     .then(function (response) {
