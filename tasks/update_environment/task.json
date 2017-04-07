@@ -24,14 +24,6 @@
       "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
     {
-      "name": "chefServerUrl",
-      "type": "string",
-      "label": "Chef Server URL",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "URL to the Chef Server including Organization"
-    },
-    {
       "name": "chefUsername",
       "type": "string",
       "label": "Chef Username",
