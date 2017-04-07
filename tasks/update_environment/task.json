@@ -24,22 +24,6 @@
       "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
     {
-      "name": "chefUsername",
-      "type": "string",
-      "label": "Chef Username",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "Username with API access to the Chef Server"
-    },
-    {
-      "name": "chefUserKey",
-      "type": "string",
-      "label": "Chef User Key",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "User key for signing the request"
-    },
-    {
       "name": "chefEnvName",
       "type": "string",
       "label": "Chef Environment",
