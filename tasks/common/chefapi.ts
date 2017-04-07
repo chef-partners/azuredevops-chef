@@ -12,16 +12,23 @@ let node_rsa = require("node-rsa");
 export function call(tl, config, path: string, method: string, body: string) {
 
   // ensure that parameters that are not defined are defaulted
-  method = typeof method !== "undefined" ? method : "get";
-  body = typeof body !== "undefined" ? JSON.stringify(body) : null;
-  
   /*
+  method = typeof method !== "undefined" ? method : "get";
+  body = typeof body !== "undefined" ? JSON.stringify(body) : "";
+  
   if (body == null) {
     body = "";
-  } else {
+  }
+  else {
     body = JSON.stringify(body);
   }
   */
+
+  // if the body has been set then ensure it is a string
+  if (body !== "")
+  {
+    body = JSON.stringify(body);
+  }
 
   // parse the URL of the server so it can be used to configure the request
   let chef_server_url = url.parse(config["chefServerUrl"]);
@@ -38,7 +45,7 @@ export function call(tl, config, path: string, method: string, body: string) {
   };
 
   // output debug information
-  tl.debug(sprintf("%s%s", options["host"], options["path"]));
+  tl.debug(sprintf("%s: %s%s", options["method"], options["host"], options["path"]));
 
   // Return a promise for the API Call
   return Q.Promise(function(resolve, notify, reject) {
@@ -64,8 +71,8 @@ export function call(tl, config, path: string, method: string, body: string) {
           // callback(JSON.parse(data), config)
           resolve(JSON.parse(data));
         } else {
-          console.log(sprintf("%s%s: %s", options.host, options.path, res.statusCode))
-          reject(new Error(sprintf("%s%s: %s", options.host, options.path, res.statusCode)));
+          console.log(sprintf("%s: %s%s: %s", options.method, options.host, options.path, res.statusCode));
+          reject(new Error(sprintf("%s%s: %s", options.method, options.host, options.path, res.statusCode)));
         }
 
       });
