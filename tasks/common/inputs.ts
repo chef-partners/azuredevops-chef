@@ -36,7 +36,7 @@ export function parse(process, tl) {
 
     // get the URL from the endpoint
     inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
-    inputs["chefUsername"] = auth.parameters.username;
+    inputs["chefUsername"] = tl.getInput("chefUsername"); //auth.parameters.username;
     inputs["chefUserKey"] = auth.parameters.password;
 
     // get the chef environment name
