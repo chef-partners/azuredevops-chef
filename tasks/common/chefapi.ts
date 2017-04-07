@@ -9,14 +9,24 @@ import {sprintf} from "sprintf-js";
 let node_rsa = require("node-rsa");
 
 /** Exported function to call the Chef API and return the result */
-export function call(tl, config, path: string, method: string = "get", body: string = null) {
+export function call(tl, config, path: string, method: string, body: string) {
 
   // ensure that parameters that are not defined are defaulted
-  // var method = typeof method !== "undefined" ? method : "get"
-  // var body = typeof body !== "undefined" ? JSON.stringify(body) : ""
+  /*
+  method = typeof method !== "undefined" ? method : "get";
+  body = typeof body !== "undefined" ? JSON.stringify(body) : "";
+  
   if (body == null) {
     body = "";
-  } else {
+  }
+  else {
+    body = JSON.stringify(body);
+  }
+  */
+
+  // if the body has been set then ensure it is a string
+  if (body !== "")
+  {
     body = JSON.stringify(body);
   }
 
@@ -33,6 +43,9 @@ export function call(tl, config, path: string, method: string = "get", body: str
     headers: getHeaders(api_path, method, body, config["chefUsername"], config["chefUserKey"]),
     method: method.toUpperCase()
   };
+
+  // output debug information
+  tl.debug(sprintf("%s: %s%s", options["method"], options["host"], options["path"]));
 
   // Return a promise for the API Call
   return Q.Promise(function(resolve, notify, reject) {
@@ -58,8 +71,8 @@ export function call(tl, config, path: string, method: string = "get", body: str
           // callback(JSON.parse(data), config)
           resolve(JSON.parse(data));
         } else {
-          // console.log(sprintf("%s: %s", chef_server_url.href, res.statusCode))
-          reject(new Error(sprintf("%s: %s", chef_server_url.href, res.statusCode)));
+          console.log(sprintf("%s: %s%s: %s", options.method, options.host, options.path, res.statusCode));
+          reject(new Error(sprintf("%s%s: %s", options.method, options.host, options.path, res.statusCode)));
         }
 
       });
@@ -143,7 +156,7 @@ function generateAuthorization(method, path, content_hash, username, userkey, ti
   let canonicalized_header = al.join("\n");
 
   // create a key object from the userkey
-  let priv_key = new node_rsa(userkey);
+  let priv_key = new node_rsa(userkey, "pkcs1");
 
   // encrypt the canonicalized_header with the private key
   let encrypted = priv_key.encryptPrivate(canonicalized_header, "base64");

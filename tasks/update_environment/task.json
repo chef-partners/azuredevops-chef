@@ -16,35 +16,19 @@
   ],
   "inputs": [
     {
-      "name": "chefServerUrl",
-      "type": "string",
-      "label": "Chef Server URL",
+      "name": "chefServerEndpoint",
+      "type": "connectedService:Chefserverendpoint",
+      "label": "Chef Server Endpoint",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "URL to the Chef Server including Organization"
-    },
-    {
-      "name": "chefUsername",
-      "type": "string",
-      "label": "Chef Username",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "Username with API access to the Chef Server"
-    },
-    {
-      "name": "chefUserKey",
-      "type": "string",
-      "label": "Chef User Key",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "User key for signing the request"
+      "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
     {
       "name": "chefEnvName",
       "type": "string",
       "label": "Chef Environment",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Name of the environment to modify"
     },
     {

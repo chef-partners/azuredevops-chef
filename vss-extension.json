@@ -2,7 +2,7 @@
     "manifestVersion": "1",
     "id": "vsts-chef-tasks",
     "name": "Extension to communicate with the Chef API",
-    "version": "0.1.7",
+    "version": "0.1.9",
     "publisher": "russellseymour",
     "targets": [
         {
@@ -38,6 +38,52 @@
         }
     ],
     "contributions": [
+        {
+            "id": "chef-server-endpoint",
+            "description": "Service Endpoint for Chef Servers",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
+            ],
+            "properties": {
+                "name": "chefserverendpoint",
+                "displayName": "Chef Server Connection",
+                "url": {
+                    "displayName": "Chef Server URL",
+                    "helpText": "URL to the Chef Server including the Organization"
+                },
+                "authenticationSchemes": [
+                    {
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
+                        "inputDescriptors": [
+                            {
+                                "id": "username",
+                                "name": "Username (Node Name)",
+                                "description": "Chef Server Username",
+                                "inputMode": "textbox",
+                                "isConfidential": false,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string"
+                                }
+                            },
+                            {
+                                "id": "password",
+                                "name": "Client Key",
+                                "description": "Private key associated with the specified user",
+                                "inputMode": "textarea",
+                                "isConfidential": true,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "helpMarkDown": "Please provide the requested information so that VSTS can access your Chef server instance"
+            }
+        },
         {
             "id": "vsts-chef-tasks-update-environment",
             "type": "ms.vss-distributed-task.task",

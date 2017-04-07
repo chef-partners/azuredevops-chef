@@ -25,10 +25,13 @@ export function parse(process, tl) {
     }
 
   } else {
-    // get the inputs from the agent
-    inputs["chefServerUrl"] = tl.getInput("chefServerUrl");
-    inputs["chefUsername"] = tl.getInput("chefUsername");
-    inputs["chefUserKey"] = tl.getInput("chefUserKey");
+    // get the necessary inputs from the specified endpoint
+    let auth = tl.getEndpointAuthorization(tl.getInput("chefServerEndpoint", true));
+
+    // get the URL from the endpoint
+    inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
+    inputs["chefUsername"] = auth.parameters.username;
+    inputs["chefUserKey"] = auth.parameters.password;
 
     // get the chef environment name
     if (tl.getInput("chefEnvName") != null) {
@@ -45,7 +48,7 @@ export function parse(process, tl) {
   }
 
   // decode the base64 encoding of the userkey
-  inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64");
+  inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
   return inputs;
 }
