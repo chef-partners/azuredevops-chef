@@ -8,16 +8,16 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceRoot}/dist/tasks/upload_cookbook/upload_cookbook.js",
+      "program": "${workspaceRoot}/dist/tasks/update_environment/update_environment.js",
       "outFiles": [],
       "env": {
         "NODE_ENV": "dev",
-        "chefUsername": "",
-        "chefServerUrl": "",
-        "chefUserKey": "",
-        "chefEnvName": "",
-        "chefCookbookName": "",
-        "chefCookbookVersion": ""
+        "chefUsername": "russells2",
+        "chefServerUrl": "https://chef.turtlesystems.com/organizations/turtlesystems",
+        "chefUserKey": "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb2dJQkFBS0NBUUVBdlJ0anZlUHBVRzBnbk9XSnQzbVU2YjBXZ0tBSWplRW5FWGJSSlF0OEplL3pIZENrClJNOE05dTAxcTRla3lZcTlhWkRmd1Zid2pWZ2pydkVzSDBBZFNtdGw4amZtUEhTdTZyUE51b3VrYkZvbkpBWFAKRXRuQklUZk9JWUhudlZLellVeExEallPMm4yQ3ZoT29JenBmZVpOaWMxRWFocGptMjhicEdkSXRlYXA3bGgzRAp0UmQrc0wwVTl1bzd4dU5hRFg1TFozZkg4V0xFOWNlcHJheXFSelZVc0lWMjFNcUpoWFo1NzloL1ZtSEdMcy84CmFhZXRPK0NHV1dKK1hiclJPS09DcWY5ZmZWSFd0U1JVZytQZXdFRkovL0RMTzRtNkEzQWRreGthNGxQRzd4dWoKTmZxREp3ZUJ6UGxlYkk5WXIvbTlHR0VPN3NuRzZGNjRMUFRRR1FJREFRQUJBb0lCQUJRbnZDeThBdDBBbEk1RQpaTFk2YmlXdmNwdUk4d0IwTTk3SHBDam5uWGJKcVViUE93TGVjb3BLNUFLQk5ZNEpqSUNZNFZCUS9OaUR3V0hlCjhJM3dIbThWSFV1QXE3aGIwMXpPaHluUHdsbU9Ea2ZubXBkdXdBZlRVOVA4YlgrZk5lRXo2WGY5U1AzK2pKWEgKc0k3NHBMNW5lQUhFYmloVVdaNnBCNlVwNHBEcDdMU0pzT3IzaFhzUUpIdlBQMlEvcHdIUUV2cVN0NHhyZEdFaQpjWm0vNE9rM3QwQXdiLzR6YnZHRmUxL1p5Z0R4YWlMTkRSWDV4WWtzbXhsNU41M2luSmRic2UwMzNVYjNob2d5Ck5xUDVQN1ZSTWZqUGxvamJ4M2FSTmZhYm9ZY2NNMStUOHdCZzJJYnNNWW5PWURidXFUNWd5L1Nudmw1aDYxckQKT1JaVU5GVUNnWUVBN09ILzFNS0ZBSDRqVjNZUjRoN1VLdXA4UER6RjNrSUlZc0hwa2NVdy9kdEllN29KK0xDQwpyb2V2NkJwaG8zVk9FcUF4aDcrZWJaMm1jLzg3R2xFMm55am9GTU03UDB2NmM4VktMTCs1amtmVmJIblRnNHdVCmlYZ2g1RXZXRzh4bzgzc05oRks0VElBa1cxT0Z3aUc3VThHeWp1OUt5RUJLY3NRenljWk5KemNDZ1lFQXpGNVgKYTZTc3lvNEU5VC9wUm04SHhYNlg1Rlg5WHVMMHdyZU9yc0NYSXdSd2VoMis5V241S2FUUGhCMVVNWURiQUVIdwp2VEdKU09SNnlSWUNqZVkrMWh1WW8xY2JIVmNaR1pMcXpPZDJtRFhVOTRJc0hFL21XbGxkRlkwaG85WXhaV2JRCkRSQlgvSzRlR21xbDdoN1E3eWpGR094eFBZMFpSS1ptaDVQZXl5OENnWUIvL3c0UmxKbnhUamNpaHpYYWpQWHYKeW93ZXNHZnFWSnZiWVJRb0kvajQ4b2dUOHM1NGhrZldycEtxUTdjR2I5Z2owRk56R21Nc3I4YkZYdUE4dEMxagppdUw4ZFJHS2ZpOXladVJSa2JkZDNnckFkb09IelNVN3NxSDlqY3kvY0pBMUlBU0p2M2krUFc5bnVaWEk5QmtZCmhNMUsxcG45NGw5WDdCUmZycnI1dVFLQmdHeFhhekxXbHYrK3NHUXZvSVJGWWpKUnZVWkFTOVRjcm5MM2luMmIKL2NPRG0va3hBY1hxaXp1SGNyZVFNTTBaaVlBbWRQQm5iV2NtTU8yZmJIVTdaWDV1SE1vaTZHM3llWXowTk9PeApwVTVsNDJQZkwzRkc3bEJoWlphQ1BoNHo4L1hVdm1EZWxEYVJPOFkzV1lYVjhsK0hGbzN5OHNsMW5ycWxHRit4CmhYL2pBb0dBSFdkZ3RQYlFsSDZ5K1daZElNSy9DTStjTTN3M1UzdFAyUHlGOGl0V3k0Zk0vRWx4QjVKV2ZLUlUKeWlWaHBiTFZFU2VBc2FRQWpvK0FOUGI5dXdxZXdVUUJiWkdyb0l0Nnc4VHlXbzV4cGxQMzM0N3NXbVVnbm9WUwpqQXhnaHJkcDhvWWNqcnVZalVYeVg3VFdudGZld0dZUlpmM2I0NGtkM2tjNlIyblg1M2M9Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCgo=",
+        "chefEnvName": "home",
+        "chefCookbookName": "dynamic-dns",
+        "chefCookbookVersion": "99.0.1"
       }
     },
     {
