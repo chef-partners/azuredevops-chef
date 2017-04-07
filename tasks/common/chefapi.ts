@@ -9,16 +9,19 @@ import {sprintf} from "sprintf-js";
 let node_rsa = require("node-rsa");
 
 /** Exported function to call the Chef API and return the result */
-export function call(tl, config, path: string, method: string = "get", body: string = null) {
+export function call(tl, config, path: string, method: string, body: string) {
 
   // ensure that parameters that are not defined are defaulted
-  // var method = typeof method !== "undefined" ? method : "get"
-  // var body = typeof body !== "undefined" ? JSON.stringify(body) : ""
+  method = typeof method !== "undefined" ? method : "get";
+  body = typeof body !== "undefined" ? JSON.stringify(body) : null;
+  
+  /*
   if (body == null) {
     body = "";
   } else {
     body = JSON.stringify(body);
   }
+  */
 
   // parse the URL of the server so it can be used to configure the request
   let chef_server_url = url.parse(config["chefServerUrl"]);
