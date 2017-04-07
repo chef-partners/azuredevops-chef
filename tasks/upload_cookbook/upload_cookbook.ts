@@ -6,6 +6,9 @@ import * as fs from "fs-extra";
 
 import {sprintf} from "sprintf-js";
 
+// Import common tasks
+import * as inputs from "./common/inputs";
+
 // Function to check if ChefDK is installed and if not install it
 function installChefDK() {
 
@@ -64,6 +67,12 @@ async function run() {
 
   // ensure chefdk is installed
   installChefDK();
+
+  // Get the parameters that have been set on the task
+  let params = inputs.parse(process, tl);
+
+  // configure chef
+  configureChef(params["chefServerUrl"], params["chefUsername"], params["chefUserKey"]);
 
   // install the necessary cookbook dependencies
   try {

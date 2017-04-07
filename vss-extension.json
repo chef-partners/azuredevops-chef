@@ -93,6 +93,16 @@
             "properties": {
                 "name": "tasks/update_environment"
             }
+        },
+        {
+            "id": "vsts-chef-tasks-upload-cookbook",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/upload_cookbook"
+            }
         }
     ]
 }
