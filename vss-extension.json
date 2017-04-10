@@ -95,7 +95,7 @@
             }
         },
         {
-            "id": "vsts-chef-tasks-upload-cookbook",
+            "id": "vsts-chef-tasks-cookbook-upload",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
