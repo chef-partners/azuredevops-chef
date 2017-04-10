@@ -6,6 +6,9 @@ import * as fs from "fs-extra";
 
 import {sprintf} from "sprintf-js";
 
+// Import common tasks
+import * as inputs from "./common/inputs";
+
 // Function to check if ChefDK is installed and if not install it
 function installChefDK() {
 
@@ -17,7 +20,9 @@ function installChefDK() {
     // download and install ChefDK on the agent
     try {
 
-      let exit_code: number = tl.tool("bash").arg("curl https://omnitruck.chef.io/install.sh | bash -s -- -c current -P chefdk").exec();
+      // let exit_code: number = tl.tool("curl").line("https://omnitruck.chef.io/install.sh | bash -s -- -c current -P chefdk").exec();
+      let curl_exit_code = tl.tool("curl").line("https://omnitruck.chef.io/install.sh --output /tmp/chefdk_install.sh").execSync();
+      let install_exit_code = tl.tool("bash").line("/tmp/chefdk_install.sh -c current -P chefdk").execSync();
     } catch (err) {
       tl.setResult(tl.TaskResult.Failed, err.message);
     }
@@ -28,7 +33,7 @@ function installChefDK() {
 }
 
 // Function to ensure that the configuration files are in place for communicating with the Chef Server
-function configureChef(chef_server_url, nodename, key) {
+function configureChef(chef_server_url, nodename, key, sslVerify) {
 
   // ensure that the chef directory exists
   if (!fs.existsSync("/etc/chef")) {
@@ -47,14 +52,26 @@ function configureChef(chef_server_url, nodename, key) {
   }
 
   // write out the configuration file for knife
-  let config = `node_name  "${nodename}"
-  client_key  "${key_filename}"
-  chef_server_url "${chef_server_url}"
-  `;
+  //let config = `node_name  "${nodename}"
+  //client_key  "${key_filename}"
+  //chef_server_url "${chef_server_url}"
+  //`;
+
+  // create the necessary configuration file for berkshelf
+  let berks_config = {
+    "chef": {
+      "chef_server_url": chef_server_url,
+      "client_key": key_filename,
+      "node_name": nodename
+    },
+    "ssl": {
+      "verify": sslVerify
+    }
+  };
 
   // write out the configuration file
   try {
-    fs.writeFileSync("/etc/chef/knife.rb", config);
+    fs.writeFileSync("/etc/chef/berks.config.json", JSON.stringify(berks_config));
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
@@ -65,16 +82,23 @@ async function run() {
   // ensure chefdk is installed
   installChefDK();
 
+  // Get the parameters that have been set on the task
+  let params = inputs.parse(process, tl);
+
+  // configure chef
+  configureChef(params["chefServerUrl"], params["chefUsername"], params["chefUserKey"], params["chefSSLVerify"]);
+
   // install the necessary cookbook dependencies
   try {
-    let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").arg("install").exec();
+    let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").line("install").exec();
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
 
   // upload the cookbook to the chef server
   try {
-    let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").arg("upload").exec();
+    // let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").arg("upload").arg("-c /etc/chef/berks.config.json").exec();
+    let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").line("upload -c /etc/chef/berks.config.json").exec();
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
