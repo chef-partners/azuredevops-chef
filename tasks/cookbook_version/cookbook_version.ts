@@ -6,6 +6,8 @@ import * as Q from "q";
 // Import tasks for the filesystem
 import * as fs from "fs-extra";
 
+import * as replace from "replace";
+
 import {sprintf} from "sprintf-js";
 
 // create search and replace function
@@ -41,9 +43,16 @@ async function run() {
 
   console.log("Attempting to set cookbook version: %s", tl.getVariable("Build.BuildNumber"));
 
-  searchReplaceInFile("^version.*$", sprintf("version '%s'", tl.getVariable("Build.BuildNumber")), "metadata.rb")
-  .catch(function(err) {
-    console.log(err);
+  //searchReplaceInFile("^version.*$", sprintf("version '%s'", tl.getVariable("Build.BuildNumber")), "metadata.rb")
+  //.catch(function(err) {
+  //  console.log(err);
+  //});
+
+  // replace the version number in the metadata file
+  replace({
+    regex: "^version.*$",
+    replacement: sprintf("version '%s'", tl.getVariable("Build.BuildNumber")),
+    paths: ["metadata.rb"]
   });
 };
 

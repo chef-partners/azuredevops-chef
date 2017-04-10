@@ -4,6 +4,7 @@
     "dependencies": {
         "vsts-task-lib": "^1.1.0",
         "fs-extra": "^2.0.0",
-        "sprintf-js": "^1.0.3"
+        "sprintf-js": "^1.0.3",
+        "replace": "0.3.0"
     }
 }
