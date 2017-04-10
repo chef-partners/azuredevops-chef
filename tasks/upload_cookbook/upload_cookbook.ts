@@ -20,7 +20,7 @@ function installChefDK() {
     // download and install ChefDK on the agent
     try {
 
-      let exit_code: number = tl.tool("bash").line("curl https://omnitruck.chef.io/install.sh | bash -s -- -c current -P chefdk").exec();
+      let exit_code: number = tl.tool("curl").line("https://omnitruck.chef.io/install.sh | bash -s -- -c current -P chefdk").exec();
     } catch (err) {
       tl.setResult(tl.TaskResult.Failed, err.message);
     }
