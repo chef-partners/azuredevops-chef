@@ -21,6 +21,7 @@ function searchReplaceInFile(pattern, replacement, filename) {
     });
 
     file.on("end", function () {
+      console.log(updated);
       fs.writeFile(filename, updated, function(err) {
         if (err) {
           console.log(err);
@@ -35,7 +36,7 @@ function searchReplaceInFile(pattern, replacement, filename) {
 
 async function run() {
 
-  console.log("Attempting to set cookbook version: %s", tl.getVariable("Buid.BuildNumber"));
+  console.log("Attempting to set cookbook version: %s", tl.getVariable("Build.BuildNumber"));
 
   searchReplaceInFile(/^version.*$/, sprintf("version '%s'", tl.getVariable("Build.BuildNumber")), "metadata.rb")
   .catch(function(err) {
