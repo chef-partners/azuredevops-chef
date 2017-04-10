@@ -21,6 +21,8 @@ async function run() {
     // replace the version line of the metadata file
     let updated_metadata = data.replace(/^version.*$/, sprintf("version '%s'", tl.getVariable("Build.BuildNumber")));
 
+    console.log(updated_metadata);
+
     // write out the version to the metadata file
     fs.writeFileSync("metadata.rb", updated_metadata, "utf-8", function (err) {
       if (err) {
