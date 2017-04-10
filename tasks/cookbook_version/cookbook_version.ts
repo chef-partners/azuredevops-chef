@@ -6,9 +6,6 @@ import * as fs from "fs-extra";
 
 import {sprintf} from "sprintf-js";
 
-// Import common tasks
-import * as inputs from "./common/inputs";
-
 async function run() {
 
   console.log("Setting cookbook version: %s", tl.getVariable("Build.BuildNumber"));
