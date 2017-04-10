@@ -20,7 +20,7 @@ function searchReplaceInFile(pattern, replacement, filename) {
     console.log("Replacement: %s", replacement);
 
     file.on("data", function (chunk) {
-      updated += chunk.toString().replace(pattern, replacement);
+      updated += chunk.toString().replace(/#{pattern}/, replacement);
     });
 
     file.on("end", function () {
@@ -41,7 +41,7 @@ async function run() {
 
   console.log("Attempting to set cookbook version: %s", tl.getVariable("Build.BuildNumber"));
 
-  searchReplaceInFile(/^version.*$/, sprintf("version '%s'", tl.getVariable("Build.BuildNumber")), "metadata.rb")
+  searchReplaceInFile("^version.*$", sprintf("version '%s'", tl.getVariable("Build.BuildNumber")), "metadata.rb")
   .catch(function(err) {
     console.log(err);
   });
