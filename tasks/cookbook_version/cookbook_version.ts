@@ -1,35 +1,45 @@
 // Import tasks from vsts
 import * as tl from "vsts-task-lib/task";
 
+import * as Q from "q";
+
 // Import tasks for the filesystem
 import * as fs from "fs-extra";
 
 import {sprintf} from "sprintf-js";
 
-async function run() {
+// create search and replace function
+function searchReplaceInFile(pattern, replacement, filename) {
 
-  console.log("Setting cookbook version: %s", tl.getVariable("Build.BuildNumber"));
+  return Q.Promise(function(resolve, notify, reject) {
 
-  // read in the contents of the metadata.rb file
-  fs.readFileSync("metadata.rb", "utf-8", function (err, data) {
+    let file = fs.createReadStream(filename, "utf-8");
+    let updated = "";
 
-    // if there is an error output to the console
-    if (err) {
-      return console.log(err);
-    }
-
-    // replace the version line of the metadata file
-    let updated_metadata = data.replace(/^version.*$/, sprintf("version '%s'", tl.getVariable("Build.BuildNumber")));
-
-    console.log(updated_metadata);
-
-    // write out the version to the metadata file
-    fs.writeFileSync("metadata.rb", updated_metadata, "utf-8", function (err) {
-      if (err) {
-        return console.log(err);
-      }
+    file.on("data", function (chunk) {
+      updated += chunk.toString().replace(pattern, replacement);
     });
 
+    file.on("end", function () {
+      fs.writeFile(filename, updated, function(err) {
+        if (err) {
+          console.log(err);
+          reject(new Error(err));
+        } else {
+          console.log("Updated cookbook version");
+        }
+      });
+    });
+  });
+}
+
+async function run() {
+
+  console.log("Attempting to set cookbook version: %s", tl.getVariable("Buid.BuildNumber"));
+
+  searchReplaceInFile(/^version.*$/, sprintf("version '%s'", tl.getVariable("Build.BuildNumber")), "metadata.rb")
+  .catch(function(err) {
+    console.log(err);
   });
 };
 
