@@ -21,7 +21,8 @@ function installChefDK() {
     try {
 
       // let exit_code: number = tl.tool("curl").line("https://omnitruck.chef.io/install.sh | bash -s -- -c current -P chefdk").exec();
-      let exit_code: number = tl.tool("curl").arg("https://omnitruck.chef.io/install.sh").arg("|").arg("bash").arg("-s").arg("--").arg("-c").arg("current").arg("-P").arg("chefdk").exec();
+      let curl_exit_code: number = tl.tool("curl").line("https://omnitruck.chef.io/install.sh --output chefdk_install.sh").exec();
+      let install_exit_code: number = tl.tool("bash").line("./chefdk_install.sh -s -- -c current -P chefdk").exec();
     } catch (err) {
       tl.setResult(tl.TaskResult.Failed, err.message);
     }
