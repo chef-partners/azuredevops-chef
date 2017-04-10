@@ -103,6 +103,16 @@
             "properties": {
                 "name": "tasks/upload_cookbook"
             }
+        },
+        {
+            "id": "vsts-chef-tasks-cookbook-version",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/cookbook_version"
+            }
         }
     ]
 }

@@ -1,0 +1,24 @@
+{
+  "id": "99b27ffc-7e88-4937-ac86-f1170b41695c",
+  "name": "vsts-chef-task-cookbook-version",
+  "friendlyName": "VSTS Chef Cookbook Version",
+  "description": "Set the version of the cookbook based on the build number",
+  "helpMarkDown": "",
+  "category": "Build",
+  "author": "Russell Seymour",
+  "version": {
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 2
+  },
+  "instanceNameFormat": "$(chefServerUrl)",
+  "groups": [
+  ],
+  "inputs": [
+  ],
+  "execution": {
+    "Node": {
+      "target": "cookbook_version.js"
+    }
+  }
+}
