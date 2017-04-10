@@ -58,9 +58,9 @@ function configureChef(chef_server_url, nodename, key, sslVerify) {
   // create the necessary configuration file for berkshelf
   let berks_config = {
     "chef": {
-      "chef_server_url": "${chef_server_url}",
-      "client_key": "${key_filename}",
-      "node_name": "${nodename}"
+      "chef_server_url": chef_server_url,
+      "client_key": key_filename,
+      "node_name": nodename
     },
     "ssl": {
       "verify": sslVerify

@@ -32,6 +32,7 @@ export function parse(process, tl) {
     inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
     inputs["chefUsername"] = auth.parameters.username;
     inputs["chefUserKey"] = auth.parameters.password;
+    inputs["chefSSLVerify"] = tl.getInput("chefSSLVerify");
 
     // get the chef environment name
     if (tl.getInput("chefEnvName") != null) {
