@@ -16,6 +16,9 @@ function searchReplaceInFile(pattern, replacement, filename) {
     let file = fs.createReadStream(filename, "utf-8");
     let updated = "";
 
+    console.log("Pattern: %s", pattern);
+    console.log("Replacement: %s", replacement);
+
     file.on("data", function (chunk) {
       updated += chunk.toString().replace(pattern, replacement);
     });
