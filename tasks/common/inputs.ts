@@ -25,14 +25,26 @@ export function parse(process, tl) {
     }
 
   } else {
-    // get the necessary inputs from the specified endpoint
-    let auth = tl.getEndpointAuthorization(tl.getInput("chefServerEndpoint", true));
 
-    // get the URL from the endpoint
-    inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
-    inputs["chefUsername"] = auth.parameters.username;
-    inputs["chefUserKey"] = auth.parameters.password;
-    inputs["chefSSLVerify"] = tl.getInput("chefSSLVerify");
+    // only attempt to get the endpoint details if the chefServerEndpoint has been set
+    if (tl.getInput("chefServerEndpoint") != null) {
+
+      // get the necessary inputs from the specified endpoint
+      let auth = tl.getEndpointAuthorization(tl.getInput("chefServerEndpoint", true));
+
+      // get the URL from the endpoint
+      inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
+      inputs["chefUsername"] = auth.parameters.username;
+      inputs["chefUserKey"] = auth.parameters.password;
+
+      // decode the base64 encoding of the userkey
+      inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
+
+      if (tl.getInput("chefSSLVerify") != null) {
+        inputs["chefSSLVerify"] = tl.getInput("chefSSLVerify");
+      }
+
+    }
 
     // get the chef environment name
     if (tl.getInput("chefEnvName") != null) {
@@ -46,10 +58,11 @@ export function parse(process, tl) {
     if (tl.getInput("chefCookbookVersion") != null) {
       inputs["chefCookbookVersion"] = tl.getInput("chefCookbookVersion");
     }
-  }
 
-  // decode the base64 encoding of the userkey
-  inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
+    if (tl.getInput("chefCookbookMetadata") != null) {
+      inputs["chefCookbookMetadata"] = tl.getInput("chefCookbookMetadata");
+    }
+  }
 
   return inputs;
 }

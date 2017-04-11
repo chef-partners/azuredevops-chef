@@ -24,28 +24,12 @@
       "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
     {
-      "name": "chefCookbookName",
-      "type": "string",
-      "label": "Cookbook Name",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "Name of cookbook that will be version pinned in the environment"
-    },
-    {
       "name": "chefSSLVerify",
       "type": "boolean",
       "label": "SSL Verification",
       "defaultValue": true,
       "required": "false",
       "helpMarkDown": "State of Berkshelf should verify the Chef certificate.  Uncheck if using self-signed certificates."
-    },
-    {
-      "name": "chefCookbookVersion",
-      "type": "string",
-      "label": "Cookbook Version",
-      "defaultValue": "$(Build.BuildNumber)",
-      "required": false,
-      "helpMarkDown": "Version of the cookbook to pin."
     }
   ],
   "execution": {

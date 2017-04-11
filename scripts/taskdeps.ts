@@ -42,11 +42,15 @@ function installDeps() {
     console.log(taskdir);
     process.chdir(taskdir);
 
-    // build up the command to run
-    let cmd = sprintf("npm install --prefix %s/build/tasks/%s .", base_path, task_name);
+    // create command so that the modules are in place during compilation
+    let npm_compile_install_cmd = "npm install";
+    child.exec(npm_compile_install_cmd, status);
+
+    // create command for the dependencies at run time
+    let npm_runtime_install_cmd = sprintf("npm install --prefix %s/build/tasks/%s .", base_path, task_name);
 
     // run the command to install the depdencies
-    child.exec(cmd, status);
+    child.exec(npm_runtime_install_cmd, status);
 
   });
 
