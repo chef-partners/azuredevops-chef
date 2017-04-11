@@ -60,10 +60,10 @@ let tasks = get_tasks();
 let task_files_to_copy = ["task.json", "icon.png"];
 
 // perform the operation to copy task files
-let task_files = tasks.map(function (task_name, task_files_to_copy) {
+let task_files = tasks.map(function (task_name) {
 
   // iterate around the files to copy
-  task_files_to_copy.forEach(function (filename, task_name) {
+  task_files_to_copy.forEach(function (filename) {
 
     // copy the task file into the build location
     let source = path.join(__dirname, "..", "tasks", task_name, filename);
