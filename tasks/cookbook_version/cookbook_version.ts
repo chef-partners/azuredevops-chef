@@ -50,7 +50,7 @@ async function run() {
 
   // replace the version number in the metadata file
   replace({
-    regex: "^version.*$",
+    regex: /version\s+['"].*['"]/,
     replacement: sprintf("version '%s'", tl.getVariable("Build.BuildNumber")),
     paths: ["metadata.rb"]
   });
