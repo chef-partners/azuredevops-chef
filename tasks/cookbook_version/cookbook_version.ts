@@ -20,7 +20,7 @@ async function run() {
   replace({
     regex: /version\s+['"].*['"]/,
     replacement: sprintf("version '%s'", params["chefCookbookVersion"]),
-    paths: [inputs["chefCookbookMetadata"]]
+    paths: [params["chefCookbookMetadata"]]
   });
 };
 
