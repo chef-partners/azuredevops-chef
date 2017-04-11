@@ -43,6 +43,8 @@ There are no inputs associated with this task as it will take the Build Number a
 
 However the BuildNumber **must** be set as a semantic version in the configuration of VSTS.
 
+This is set in the "Options" of the build.  An example format would be `1.0.$(BuildID)` which would ensure that it is a semantic version and it increments each time.  The major and minor versions would then be updated as required for the build.
+
 ## Contributors
 
 This extension was created by Chef

@@ -46,6 +46,10 @@ export function parse(process, tl) {
     if (tl.getInput("chefCookbookVersion") != null) {
       inputs["chefCookbookVersion"] = tl.getInput("chefCookbookVersion");
     }
+
+    if (tl.getInput("chefCookbookMetadata") != null) {
+      inputs["chefCookbookMetadata"] = tl.getInput("chefCookbookMetadata");
+    }
   }
 
   // decode the base64 encoding of the userkey
