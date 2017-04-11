@@ -14,12 +14,12 @@ async function run() {
   // Get the parameters that have been set on the task
   let params = inputs.parse(process, tl);
 
-  console.log("Attempting to set cookbook version: %s", inputs["chefCookbookVersion"]);
+  console.log("Attempting to set cookbook version: %s", params["chefCookbookVersion"]);
 
   // replace the version number in the metadata file
   replace({
     regex: /version\s+['"].*['"]/,
-    replacement: sprintf("version '%s'", inputs["chefCookbookVersion"]),
+    replacement: sprintf("version '%s'", params["chefCookbookVersion"]),
     paths: [inputs["chefCookbookMetadata"]]
   });
 };
