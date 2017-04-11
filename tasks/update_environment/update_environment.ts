@@ -25,7 +25,7 @@ function update_environment(params, environment) {
 
     Object.keys(process.env).forEach(function (key) {
       console.log("'%s' : %s", key, process.env[key]);
-    })
+    });
   }
 
   // return the envrionment so that it can be sent

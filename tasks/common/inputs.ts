@@ -40,10 +40,6 @@ export function parse(process, tl) {
       // decode the base64 encoding of the userkey
       inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
-      if (tl.getInput("chefSSLVerify") != null) {
-        inputs["chefSSLVerify"] = tl.getInput("chefSSLVerify");
-      }
-
     }
 
     // create array of inputs that should be checked for
@@ -51,7 +47,9 @@ export function parse(process, tl) {
       "chefEnvName",
       "chefCookbookName",
       "chefCookbookVersion",
-      "addEnvironmentAttributes"
+      "chefCookbookMetadata",
+      "addEnvironmentAttributes",
+      "chefSSLVerify"
     ];
 
     input_fields.forEach(function (input_field) {
