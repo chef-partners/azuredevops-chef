@@ -2,7 +2,7 @@
   "id": "955ea316-b3e4-4abf-9cb6-b26ebbfb4c6a",
   "name": "vsts-chef-task-env",
   "friendlyName": "VSTS Chef Environment",
-  "description": "Set the cookbook version constraint on the specified environment",
+  "description": "Set the cookbook version constraint on the named Chef environment.  Optionally add attributes to the environment from the release environment",
   "helpMarkDown": "",
   "category": "Deploy",
   "author": "Russell Seymour",
@@ -46,6 +46,14 @@
       "defaultValue": "$(Build.BuildNumber)",
       "required": true,
       "helpMarkDown": "Version of the cookbook to pin."
+    },
+    {
+      "name": "addEnvironmentAttributes",
+      "type": "boolean",
+      "label": "Add Environment attributes",
+      "defaultValue": true,
+      "required": false,
+      "helpMarkDown": "Add Release environment variables to the Chef environment"
     }
   ],
   "execution": {
