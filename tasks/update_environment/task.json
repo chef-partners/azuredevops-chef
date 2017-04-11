@@ -46,6 +46,14 @@
       "defaultValue": "$(Build.BuildNumber)",
       "required": true,
       "helpMarkDown": "Version of the cookbook to pin."
+    },
+    {
+      "name": "addEnvironmentAttributes",
+      "type": "boolean",
+      "label": "Add Environment attributes",
+      "defaultValue": true,
+      "required": false,
+      "helpMarkDown": "Add Release environment variables to the Chef environment"
     }
   ],
   "execution": {

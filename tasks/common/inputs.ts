@@ -46,22 +46,20 @@ export function parse(process, tl) {
 
     }
 
-    // get the chef environment name
-    if (tl.getInput("chefEnvName") != null) {
-      inputs["chefEnvName"] = tl.getInput("chefEnvName");
-    }
+    // create array of inputs that should be checked for
+    let input_fields = [
+      "chefEnvName",
+      "chefCookbookName",
+      "chefCookbookVersion",
+      "addEnvironmentAttributes"
+    ];
 
-    if (tl.getInput("chefCookbookName") != null) {
-      inputs["chefCookbookName"] = tl.getInput("chefCookbookName");
-    }
+    input_fields.forEach(function (input_field) {
+      if (tl.getInput(input_field) != null) {
+        inputs[input_field] = tl.getInput(input_field);
+      }
+    });
 
-    if (tl.getInput("chefCookbookVersion") != null) {
-      inputs["chefCookbookVersion"] = tl.getInput("chefCookbookVersion");
-    }
-
-    if (tl.getInput("chefCookbookMetadata") != null) {
-      inputs["chefCookbookMetadata"] = tl.getInput("chefCookbookMetadata");
-    }
   }
 
   return inputs;

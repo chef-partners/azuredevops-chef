@@ -20,6 +20,14 @@ function update_environment(params, environment) {
 
   environment["cookbook_versions"][params["chefCookbookName"]] = params["chefCookbookVersion"];
 
+  // determine if adding environment attributes
+  if (params["addEnvironmentAttributes"]) {
+
+    Object.keys(process.env).forEach(function (key) {
+      console.log("'%s' : %s", key, process.env[key]);
+    })
+  }
+
   // return the envrionment so that it can be sent
   return environment;
 
