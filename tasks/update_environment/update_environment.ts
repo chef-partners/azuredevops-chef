@@ -23,8 +23,29 @@ function update_environment(params, environment) {
   // determine if adding environment attributes
   if (params["addEnvironmentAttributes"]) {
 
-    Object.keys(process.env).forEach(function (key) {
-      console.log("'%s' : %s", key, process.env[key]);
+    // create an array of variable names that should be not included
+    let not_include = ["agent", "release", "system", "MSDEPLOY_HTTP_USER_AGENT", "AZURE_HTTP_USER_AGENT"];
+
+    // iterate around the variables for the release environment
+    let include = true;
+    let release_env_vars = tl.getVariables();
+    release_env_vars.forEach(function (release_env_var) {
+
+      // reset the include var
+      include = true;
+
+      // determine if the varible name begins with one of the not_include vars
+      not_include.forEach(function (start_string) {
+        if (release_env_var.name.startsWith(start_string)) {
+          include = false;
+        };
+      });
+
+      // only add to the environment of the include is true
+      if (include) {
+        console.log("'%s' : %s", release_env_var.name, release_env_var.value);
+      };
+
     });
   }
 
