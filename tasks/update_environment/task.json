@@ -53,7 +53,15 @@
       "label": "Add Environment attributes",
       "defaultValue": true,
       "required": false,
-      "helpMarkDown": "Add Release environment variables to the Chef environment"
+      "helpMarkDown": "Add Release environment variables to the Chef environment."
+    },
+    {
+      "name": "chefEnvironmentNamespace",
+      "type": "string",
+      "label": "Chef Environment Namespace",
+      "defaultValue": "vsts_environment_variables",
+      "required": true,
+      "helpMarkDown": "Top level namespace for the attributes on the Chef Environment, e.g. where release vars will be placed under"
     }
   ],
   "execution": {
