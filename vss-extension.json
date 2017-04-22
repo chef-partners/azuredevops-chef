@@ -1,7 +1,7 @@
 {
     "manifestVersion": "1",
     "id": "vsts-chef-tasks",
-    "name": "Extension to communicate with the Chef API",
+    "name": "Chef Integration",
     "version": "0.1.9",
     "publisher": "russellseymour",
     "targets": [
@@ -9,7 +9,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Tasks for running opertaions against the Chef API",
+    "description": "Tasks for performing common operations against Chef Server.",
     "categories": [
         "Build and release"
     ],
