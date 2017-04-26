@@ -10,7 +10,7 @@ This extension contains tasks that can modify items on a Chef server using the A
 
 ## Required information
 
-An endpoint called 'Chef Server Connection' is bundled with this extension.  This allows multiple Chef servers to be configured and reused when required.
+An endpoint called 'Chef Server' is bundled with this extension.  This allows multiple Chef servers to be configured and reused when required.
 
 The endpoint securely contains the following information:
 

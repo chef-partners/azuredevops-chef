@@ -3,7 +3,7 @@
     "id": "vsts-chef-tasks",
     "name": "Chef Integration",
     "version": "0.1.9",
-    "publisher": "russellseymour",
+    "publisher": "chef-software",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
@@ -47,7 +47,7 @@
             ],
             "properties": {
                 "name": "chefserverendpoint",
-                "displayName": "Chef Server Connection",
+                "displayName": "Chef Server",
                 "url": {
                     "displayName": "Chef Server URL",
                     "helpText": "URL to the Chef Server including the Organization"
