@@ -1,7 +1,7 @@
 {
   "name": "chef-vsts-tasks",
   "description": "Chef Tasks for VSTS",
-  "author": "Russell Seymour",
+  "author": "Chef",
   "scripts": {
     "initdev:npm": "npm install && cd tasks/update_environment && npm install && cd ../..",
     "initdev:typings": "pushd tasks && typings install && popd",
