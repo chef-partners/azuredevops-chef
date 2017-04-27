@@ -5,11 +5,11 @@
     "description": "Set the version of the cookbook based on the build number",
     "helpMarkDown": "",
     "category": "Build",
-    "author": "Russell Seymour",
+    "author": "Chef",
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 2
+        "Patch": 3
     },
     "instanceNameFormat": "$(chefServerUrl)",
     "groups": [],
