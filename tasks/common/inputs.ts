@@ -40,28 +40,25 @@ export function parse(process, tl) {
       // decode the base64 encoding of the userkey
       inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
-      if (tl.getInput("chefSSLVerify") != null) {
-        inputs["chefSSLVerify"] = tl.getInput("chefSSLVerify");
+    }
+
+    // create array of inputs that should be checked for
+    let input_fields = [
+      "chefEnvName",
+      "chefCookbookName",
+      "chefCookbookVersion",
+      "chefCookbookMetadata",
+      "addEnvironmentAttributes",
+      "chefSSLVerify",
+      "chefEnvironmentNamespace"
+    ];
+
+    input_fields.forEach(function (input_field) {
+      if (tl.getInput(input_field) != null) {
+        inputs[input_field] = tl.getInput(input_field);
       }
+    });
 
-    }
-
-    // get the chef environment name
-    if (tl.getInput("chefEnvName") != null) {
-      inputs["chefEnvName"] = tl.getInput("chefEnvName");
-    }
-
-    if (tl.getInput("chefCookbookName") != null) {
-      inputs["chefCookbookName"] = tl.getInput("chefCookbookName");
-    }
-
-    if (tl.getInput("chefCookbookVersion") != null) {
-      inputs["chefCookbookVersion"] = tl.getInput("chefCookbookVersion");
-    }
-
-    if (tl.getInput("chefCookbookMetadata") != null) {
-      inputs["chefCookbookMetadata"] = tl.getInput("chefCookbookMetadata");
-    }
   }
 
   return inputs;
