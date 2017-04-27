@@ -1,15 +1,15 @@
 {
   "id": "955ea316-b3e4-4abf-9cb6-b26ebbfb4c6a",
   "name": "vsts-chef-task-env",
-  "friendlyName": "VSTS Chef Environment",
+  "friendlyName": "Release cookbook version to environment (Chef)",
   "description": "Set the cookbook version constraint on the specified environment",
   "helpMarkDown": "",
   "category": "Deploy",
-  "author": "Russell Seymour",
+  "author": "Chef",
   "version": {
     "Major": 0,
     "Minor": 0,
-    "Patch": 2
+    "Patch": 3
   },
   "instanceNameFormat": "$(chefServerUrl)",
   "groups": [

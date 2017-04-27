@@ -1,15 +1,15 @@
 {
   "id": "968b50f6-1dcc-11e7-93ae-92361f002671",
   "name": "vsts-chef-task-cookbook-upload",
-  "friendlyName": "VSTS Chef Cookbook Upload",
+  "friendlyName": "Upload cookbook to Chef Server (Chef)",
   "description": "Install the dependencies for and upload a cookbook",
   "helpMarkDown": "",
   "category": "Build",
-  "author": "Russell Seymour",
+  "author": "Chef",
   "version": {
     "Major": 0,
     "Minor": 0,
-    "Patch": 2
+    "Patch": 3
   },
   "instanceNameFormat": "$(chefServerUrl)",
   "groups": [

@@ -1,15 +1,15 @@
 {
     "id": "99b27ffc-7e88-4937-ac86-f1170b41695c",
     "name": "vsts-chef-task-cookbook-version",
-    "friendlyName": "VSTS Chef Cookbook Version",
+    "friendlyName": "Update cookbook version number (Chef)",
     "description": "Set the version of the cookbook based on the build number",
     "helpMarkDown": "",
     "category": "Build",
-    "author": "Russell Seymour",
+    "author": "Chef",
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 2
+        "Patch": 3
     },
     "instanceNameFormat": "$(chefServerUrl)",
     "groups": [],
@@ -26,7 +26,7 @@
             "name": "chefCookbookMetadata",
             "type": "filePath",
             "label": "Metadata file",
-            "defaultValue": "$(Build.SourcesDirectory)/metdata.rb",
+            "defaultValue": "$(Build.SourcesDirectory)/metadata.rb",
             "required": true,
             "helpMarkDown": "Path to the metadata.rb file to update"
         }

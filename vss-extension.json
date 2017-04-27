@@ -13,6 +13,9 @@
     "categories": [
         "Build and release"
     ],
+    "galleryFlags": [
+        "Preview"
+    ],
     "icons": {
         "default": "images/cheflogo.png"
     },
