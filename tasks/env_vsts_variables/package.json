@@ -1,5 +1,5 @@
 {
-    "name": "task-env_version_constraint",
+    "name": "task-env_vsts_variables",
     "version": "1.0.0",
     "dependencies": {
         "http": "0.0.0",

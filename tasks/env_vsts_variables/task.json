@@ -1,8 +1,8 @@
 {
   "id": "955ea316-b3e4-4abf-9cb6-b26ebbfb4c6a",
   "name": "vsts-chef-task-env",
-  "friendlyName": "Release cookbook version to environment (Chef)",
-  "description": "Set the cookbook version constraint on the specified environment",
+  "friendlyName": "Add VSTS Variables to Chef Environment (Chef)",
+  "description": "Add the VSTS variables for the environment to the Chef environment",
   "helpMarkDown": "",
   "category": "Deploy",
   "author": "Chef",
@@ -32,25 +32,17 @@
       "helpMarkDown": "Name of the environment to modify"
     },
     {
-      "name": "chefCookbookName",
+      "name": "chefEnvironmentNamespace",
       "type": "string",
-      "label": "Cookbook Name",
-      "defaultValue": "",
+      "label": "Chef Environment Namespace",
+      "defaultValue": "vsts_environment_variables",
       "required": true,
-      "helpMarkDown": "Name of cookbook that will be version pinned in the environment"
-    },
-    {
-      "name": "chefCookbookVersion",
-      "type": "string",
-      "label": "Cookbook Version",
-      "defaultValue": "$(Build.BuildNumber)",
-      "required": true,
-      "helpMarkDown": "Version of the cookbook to pin."
+      "helpMarkDown": "Top level namespace for the attributes on the Chef Environment, e.g. where release vars will be placed under"
     }
   ],
   "execution": {
     "Node": {
-      "target": "env_version_constraint.js"
+      "target": "env_vsts_variables.js"
     }
   }
 }

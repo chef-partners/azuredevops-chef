@@ -98,6 +98,16 @@
             }
         },
         {
+            "id": "vsts-chef-tasks-environment-vsts-variables",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/env_version_constraint"
+            }
+        },
+        {
             "id": "vsts-chef-tasks-cookbook-upload",
             "type": "ms.vss-distributed-task.task",
             "targets": [
