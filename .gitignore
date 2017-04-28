@@ -4,3 +4,4 @@ dist
 build
 *.js
 tasks/**/common
+.vscode/settings.json
