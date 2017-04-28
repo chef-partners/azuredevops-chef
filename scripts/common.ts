@@ -5,15 +5,14 @@ Common functions an libraries that any of the scripts can use
 
 */
 
-
 import * as path from "path";
 import * as fs from "fs-extra";
 import * as Q from "q";
 
 // Iterate around the tasks
 export function get_tasks() {
-  let task_dir = path.join(__dirname, "../tasks");
-  return fs.readdirSync(path.join(__dirname, "../tasks")).filter(function (file) {
+  let task_dir = path.join(__dirname, "..", "tasks");
+  return fs.readdirSync(path.join(__dirname, "..", "tasks")).filter(function (file) {
     return ["common", "typings"].indexOf(file.toLowerCase()) < 0
       && fs.statSync(path.join(task_dir, file)).isDirectory();
   })
