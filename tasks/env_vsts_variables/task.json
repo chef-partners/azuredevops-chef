@@ -1,5 +1,5 @@
 {
-  "id": "955ea316-b3e4-4abf-9cb6-b26ebbfb4c6a",
+  "id": "7c41c0ec-2c34-11e7-93ae-92361f002671",
   "name": "vsts-chef-task-env",
   "friendlyName": "Add VSTS Variables to Chef Environment (Chef)",
   "description": "Add the VSTS variables for the environment to the Chef environment",
