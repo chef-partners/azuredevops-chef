@@ -28,7 +28,8 @@ export function call(tl, config, path: string, method: string, body: string) {
     host: chef_server_url.host,
     path: api_path,
     headers: getHeaders(api_path, method, body, config["chefUsername"], config["chefUserKey"]),
-    method: method.toUpperCase()
+    method: method.toUpperCase(),
+    rejectUnauthorized: config["chefSSLVerify"]
   };
 
   // output debug information
