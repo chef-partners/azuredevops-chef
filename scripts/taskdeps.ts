@@ -11,16 +11,8 @@ import * as fs from "fs-extra";
 import * as Q from "q";
 import * as child from "child_process";
 import * as process from "process";
+import * as common from './common';
 import {sprintf} from "sprintf-js";
-
-// Iterate around the tasks
-function get_tasks() {
-  let task_dir = path.join(__dirname, "../tasks");
-  return fs.readdirSync(path.join(__dirname, '../tasks')).filter(function (file) {
-    return ['common', 'typings'].indexOf(file.toLowerCase()) < 0
-      && fs.statSync(path.join(task_dir, file)).isDirectory();
-  })
-}
 
 function status(error, stdout, stderr) {
   console.log(stdout);
@@ -29,7 +21,7 @@ function status(error, stdout, stderr) {
 
 function installDeps() {
 
-  let tasks = get_tasks();
+  let tasks = common.get_tasks();
 
   // determine the base path to work from
   let base_path = process.cwd();
