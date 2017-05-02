@@ -88,6 +88,14 @@ async function run() {
   // configure chef
   configureChef(params["chefServerUrl"], params["chefUsername"], params["chefUserKey"], params["chefSSLVerify"]);
 
+  // change to the correct directory to upload the cookbook
+  console.log("CD to cookbook directory: %s", params["chefCookbookPath"]);
+  try {
+    process.chdir(params["chefCookbookPath"]);
+  } catch (err) {
+    tl.setResult(tl.TaskResult.Failed, err.message);
+  }
+
   // install the necessary cookbook dependencies
   try {
     let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").line("install").exec();
