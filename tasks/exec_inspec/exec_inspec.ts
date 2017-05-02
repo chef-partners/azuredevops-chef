@@ -31,6 +31,8 @@ function installInspec() {
                 } catch (err) {
                     tl.setResult(tl.TaskResult.Failed, err.message);
                 }
+            } else {
+                console.log("Inspec is installed")
             }
 
             break;
@@ -48,6 +50,8 @@ function installInspec() {
                 } catch(err) {
                     tl.setResult(tl.TaskResult.Failed, err.message);
                 }
+            } else {
+                console.log("Inspec is installed")
             }
 
             break;
@@ -83,13 +87,23 @@ async function run() {
             break;
     }
 
-    // run inspec using the paths worked out
-    try {
+    // check that the profile path exists
+    if (fs.exsistSync(params["inspecProfilePath"])) {
 
-        // execute the tests in the specified path
-        // Inspec is run with the `cwd` of the inspec profile path
-        let exit_code: number = await tl.tool(inspec_path).arg('exec').arg('.').arg('--format junit').arg('> inspec.out').exec(<any>{cwd: path.normalize(params['inspecProfilePath'])});
-    } catch (err) {
-        tl.setResult(tl.TaskResult.Failed, err.message);
+        // run inspec using the paths worked out
+        try {
+
+            console.log("Running Inspec profiles: %s", params["inspecProfilePath"])
+
+            // execute the tests in the specified path
+            // Inspec is run with the `cwd` of the inspec profile path
+            let exit_code: number = await tl.tool(inspec_path).arg('exec').arg('.').arg('--format junit').arg('> inspec.out').exec(<any>{cwd: path.normalize(params['inspecProfilePath'])});
+        } catch (err) {
+            tl.setResult(tl.TaskResult.Failed, err.message);
+        }
+
+    } else {
+
+        tl.setResult(tl.TaskResult.Failed, sprintf("Cannot find Inspec profile path: %s", params["inspecProfilePath"]));
     }
 }
