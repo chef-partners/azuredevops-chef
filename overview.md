@@ -13,6 +13,8 @@ This extension contains tasks that can modify items on a Chef server using the A
 
 * **Release cookbook version to environment**: Set the cookbook constraint on the specified Chef environment
 * **Add VSTS Variables to Chef Environment**: Adds VSTS release environment variables as attributes on the Chef Environment
+* **Execute Inspec**: Execute Inspec and run tests on machines in a Deployment Group
+* **Execute Chef Client**: Execute Chef Client on machines in a Deployment Group
 
 
 ## Required information
@@ -62,6 +64,17 @@ The following information is optional
 
 * Chef SSL Verification Mode - if using self-signed certificates on the Chef server then uncheck this option
 
+## Execute Inspec
+
+This task requires the following information
+
+* Inspec Profile Path - path to the folder containing the profiles that need to be executed
+
+If Inspec is not available on the machine, this task will attempt to install it.
+
+## Execute Chef Client
+
+It is assumed that `chef-client` is already available on the machine.  If it does not exist this task will fail the task.
 
 
 ## Contributors
