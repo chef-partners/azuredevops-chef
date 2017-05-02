@@ -85,7 +85,10 @@ async function run() {
 
     // run inspec using the paths worked out
     try {
-        let exit_code: number = await tl.tool(inspec_path).arg('exec').exec(<any>{cwd: path.normalize(params['inspecProfilePath'])});
+
+        // execute the tests in the specified path
+        // Inspec is run with the `cwd` of the inspec profile path
+        let exit_code: number = await tl.tool(inspec_path).arg('exec').arg('.').arg('--format junit').arg('> inspec.out').exec(<any>{cwd: path.normalize(params['inspecProfilePath'])});
     } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
     }
