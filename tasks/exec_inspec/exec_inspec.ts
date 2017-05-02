@@ -107,3 +107,5 @@ async function run() {
         tl.setResult(tl.TaskResult.Failed, sprintf("Cannot find Inspec profile path: %s", params["inspecProfilePath"]));
     }
 }
+
+run()

@@ -43,3 +43,5 @@ async function run() {
         tl.setResult(tl.TaskResult.Failed, sprintf("Chef Client is not available: %s", chef_client_path))
     }
 }
+
+run();
