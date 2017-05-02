@@ -88,7 +88,7 @@ async function run() {
     }
 
     // check that the profile path exists
-    if (fs.exsistSync(params["inspecProfilePath"])) {
+    if (fs.existsSync(params["inspecProfilePath"])) {
 
         // run inspec using the paths worked out
         try {
