@@ -18,7 +18,7 @@
             "name": "inspecProfilePath",
             "type": "string",
             "label": "Profile Path",
-            "defaultValue": "",
+            "defaultValue": "$(System.ArtifactsDirectory)/tests/smoke",
             "required": true,
             "helpMarkDown": "Path to the Inspec profiles that need to be executed"
         }
