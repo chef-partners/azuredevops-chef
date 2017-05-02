@@ -126,6 +126,26 @@
             "properties": {
                 "name": "tasks/cookbook_version"
             }
+        },
+        {
+            "id": "vsts-chef-tasks-exec-inspec",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/exec_inspec"
+            }
+        },
+        {
+            "id": "vsts-chef-tasks-exec-chef-client",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/exec_chef_client"
+            }
         }
     ]
 }

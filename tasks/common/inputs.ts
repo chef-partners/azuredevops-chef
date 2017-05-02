@@ -50,7 +50,8 @@ export function parse(process, tl) {
       "chefCookbookMetadata",
       "chefSSLVerify",
       "chefEnvironmentNamespace",
-      "chefCookbookPath"
+      "chefCookbookPath",
+      "inspecProfilePath"
     ];
 
     input_fields.forEach(function (input_field) {
