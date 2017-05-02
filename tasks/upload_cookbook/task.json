@@ -30,6 +30,14 @@
       "defaultValue": true,
       "required": "false",
       "helpMarkDown": "State of Berkshelf should verify the Chef certificate.  Uncheck if using self-signed certificates."
+    },
+    {
+      "name": "chefCookbookPath",
+      "type": "string",
+      "label": "Cookbook Path",
+      "defaultValue": "$(Build.SourcesDirectory)/cookbooks",
+      "required": true,
+      "helpMarkDown": "Path to the cookbook to upload.  By default the cookbook is expected to be in the `cookbooks` directory of the source."
     }
   ],
   "execution": {

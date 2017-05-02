@@ -54,6 +54,9 @@ This task requires the following information
 This task requires the following information
 
 * Chef Server Endpoint - the configured endpoint to use for contacting the Chef Server
+* Chef Cookbook Path - the path to the cookbook to upload within the sources that have been checked out
+    - It is assumed that the cookbook will be in `$(Build.SourcesDirectory)\cookbooks` and this is added as a helper, however the name of the cookbook _must_ be set, unless it is the only thing in the specified directory.
+    - Do not use `/` as a path to the cookbook.  If it is in the root of the sources then leave as `$(Build.SourcesDirectory)`
 
 The following information is optional
 
