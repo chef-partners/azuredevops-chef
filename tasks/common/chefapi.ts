@@ -11,19 +11,6 @@ let node_rsa = require("node-rsa");
 /** Exported function to call the Chef API and return the result */
 export function call(tl, config, path: string, method: string, body: string) {
 
-  // ensure that parameters that are not defined are defaulted
-  /*
-  method = typeof method !== "undefined" ? method : "get";
-  body = typeof body !== "undefined" ? JSON.stringify(body) : "";
-  
-  if (body == null) {
-    body = "";
-  }
-  else {
-    body = JSON.stringify(body);
-  }
-  */
-
   // if the body has been set then ensure it is a string
   if (body !== "")
   {
@@ -41,7 +28,8 @@ export function call(tl, config, path: string, method: string, body: string) {
     host: chef_server_url.host,
     path: api_path,
     headers: getHeaders(api_path, method, body, config["chefUsername"], config["chefUserKey"]),
-    method: method.toUpperCase()
+    method: method.toUpperCase(),
+    rejectUnauthorized: config["chefSSLVerify"]
   };
 
   // output debug information

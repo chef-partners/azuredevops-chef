@@ -11,17 +11,7 @@ import * as chefapi from "./common/chefapi";
 
 import {sprintf} from "sprintf-js";
 
-function update_environment(params, environment) {
-
-  // ensure that the cookbook versions is set on the object
-  if (!("cookbook_versions" in environment)) {
-    environment["cookbook_versions"] = {};
-  }
-
-  environment["cookbook_versions"][params["chefCookbookName"]] = params["chefCookbookVersion"];
-
-  // determine if adding environment attributes
-  if (params["addEnvironmentAttributes"]) {
+function add_vsts_variables_to_env(params, environment) {
 
     // create an array of variable names that should be not included
     let not_include = ["agent", "release", "system", "build", "task", "MSDEPLOY_HTTP_USER_AGENT", "AZURE_HTTP_USER_AGENT", "requestedForId"];
@@ -63,11 +53,6 @@ function update_environment(params, environment) {
     });
   }
 
-  // return the envrionment so that it can be sent
-  return environment;
-
-}
-
 /** Asynchronous function to update environment */
 async function run() {
 
@@ -78,13 +63,10 @@ async function run() {
   let path = sprintf("environments/%s", params["chefEnvName"]);
 
   chefapi.call(tl, params, path, "get", "")
-    .then(update_environment.bind(null, params))
+    .then(add_vsts_variables_to_env.bind(null, params))
     .then(chefapi.call.bind(null, tl, params, path, "put"))
     .then(function (response) {
-      console.log("Environment Constraints Updated");
-      console.log("  Name: %s", response.name);
-      console.log("  Cookbook: %s", params["chefCookbookName"]);
-      console.log("  Version: %s", response.cookbook_versions[params["chefCookbookName"]]);
+      console.log("Environment variables added");
     })
     .catch(function(error) {
       console.log(error);

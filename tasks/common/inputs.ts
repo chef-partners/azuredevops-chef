@@ -48,7 +48,6 @@ export function parse(process, tl) {
       "chefCookbookName",
       "chefCookbookVersion",
       "chefCookbookMetadata",
-      "addEnvironmentAttributes",
       "chefSSLVerify",
       "chefEnvironmentNamespace"
     ];

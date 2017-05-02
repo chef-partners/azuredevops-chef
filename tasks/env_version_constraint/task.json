@@ -24,6 +24,14 @@
       "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
     {
+      "name": "chefSSLVerify",
+      "type": "boolean",
+      "label": "SSL Verification",
+      "defaultValue": true,
+      "required": "false",
+      "helpMarkDown": "If the target Chef Server is using Self Signed Certificates uncheck this option"
+    },        
+    {
       "name": "chefEnvName",
       "type": "string",
       "label": "Chef Environment",
@@ -46,27 +54,11 @@
       "defaultValue": "$(Build.BuildNumber)",
       "required": true,
       "helpMarkDown": "Version of the cookbook to pin."
-    },
-    {
-      "name": "addEnvironmentAttributes",
-      "type": "boolean",
-      "label": "Add Environment attributes",
-      "defaultValue": true,
-      "required": false,
-      "helpMarkDown": "Add Release environment variables to the Chef environment."
-    },
-    {
-      "name": "chefEnvironmentNamespace",
-      "type": "string",
-      "label": "Chef Environment Namespace",
-      "defaultValue": "vsts_environment_variables",
-      "required": true,
-      "helpMarkDown": "Top level namespace for the attributes on the Chef Environment, e.g. where release vars will be placed under"
     }
   ],
   "execution": {
     "Node": {
-      "target": "update_environment.js"
+      "target": "env_version_constraint.js"
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "task-update_environment",
+    "name": "task-env_vsts_variables",
     "version": "1.0.0",
     "dependencies": {
         "http": "0.0.0",
