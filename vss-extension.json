@@ -104,7 +104,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "tasks/env_version_constraint"
+                "name": "tasks/env_vsts_variables"
             }
         },
         {
