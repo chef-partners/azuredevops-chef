@@ -15,7 +15,7 @@
     "groups": [],
     "inputs": [
         {
-            "name": "inpsecProfilePath",
+            "name": "inspecProfilePath",
             "type": "string",
             "label": "Profile Path",
             "defaultValue": "",
