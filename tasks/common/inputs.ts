@@ -46,11 +46,7 @@ export function parse(process, tl) {
       inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
       // get the value for SSL Verification
-      try {
-        inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify", true);
-      } catch (err) {
-        tl.setResult(tl.TaskResult.Failed, err.message);
-      }
+      inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify;
       
       tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]))
     }
