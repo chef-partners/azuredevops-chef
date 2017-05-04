@@ -24,14 +24,6 @@
       "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
     {
-      "name": "chefSSLVerify",
-      "type": "boolean",
-      "label": "SSL Verification",
-      "defaultValue": true,
-      "required": "false",
-      "helpMarkDown": "If the target Chef Server is using Self Signed Certificates uncheck this option"
-    },        
-    {
       "name": "chefEnvName",
       "type": "string",
       "label": "Chef Environment",

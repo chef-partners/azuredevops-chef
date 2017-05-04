@@ -24,14 +24,6 @@
       "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
     {
-      "name": "chefSSLVerify",
-      "type": "boolean",
-      "label": "SSL Verification",
-      "defaultValue": true,
-      "required": "false",
-      "helpMarkDown": "State of Berkshelf should verify the Chef certificate.  Uncheck if using self-signed certificates."
-    },
-    {
       "name": "chefCookbookPath",
       "type": "string",
       "label": "Cookbook Path",
