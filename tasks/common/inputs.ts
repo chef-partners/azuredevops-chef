@@ -28,14 +28,17 @@ export function parse(process, tl) {
 
   } else {
 
+    // get the connected service to work with
+    let connected_service = tl.getInput("chefServerEndpoint", true)
+
     // only attempt to get the endpoint details if the chefServerEndpoint has been set
-    if (tl.getInput("chefServerEndpoint") != null) {
+    if (connected_service != null) {
 
       // get the necessary inputs from the specified endpoint
-      let auth = tl.getEndpointAuthorization(tl.getInput("chefServerEndpoint", true));
+      let auth = tl.getEndpointAuthorization(connected_service);
 
       // get the URL from the endpoint
-      inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
+      inputs["chefServerUrl"] = tl.getEndpointUrl(connected_service);
       inputs["chefUsername"] = auth.parameters.username;
       inputs["chefUserKey"] = auth.parameters.password;
 
@@ -43,7 +46,7 @@ export function parse(process, tl) {
       inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
       // get the value for SSL Verification
-      inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(tl.getInput("chefServerEndpoint"), "sslVerify");
+      inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify");
       tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]))
     }
 
