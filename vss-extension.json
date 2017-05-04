@@ -55,6 +55,9 @@
                     "displayName": "Chef Server URL",
                     "helpText": "URL to the Chef Server including the Organization"
                 },
+                "inputDesciptors": [
+
+                ],
                 "authenticationSchemes": [
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",

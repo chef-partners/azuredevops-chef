@@ -47,7 +47,7 @@ export function parse(process, tl) {
 
       // get the value for SSL Verification
       try {
-        inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify");
+        inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify", true);
       } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
       }
