@@ -1,4 +1,6 @@
 
+import {sprintf} from "sprintf-js";
+
 /** Return a hashtable of the inputs */
 export function parse(process, tl) {
 
@@ -40,6 +42,10 @@ export function parse(process, tl) {
       // decode the base64 encoding of the userkey
       inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
+      // get the value for SSL Verification
+      inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify
+
+      tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]))
     }
 
     // create array of inputs that should be checked for
@@ -48,7 +54,6 @@ export function parse(process, tl) {
       "chefCookbookName",
       "chefCookbookVersion",
       "chefCookbookMetadata",
-      "chefSSLVerify",
       "chefEnvironmentNamespace",
       "chefCookbookPath",
       "inspecProfilePath"
