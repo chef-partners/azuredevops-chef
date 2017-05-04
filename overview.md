@@ -1,8 +1,8 @@
-# Build and Release Tasks for Chef
+The Chef Integration for Visual Studio Team Services and Team Foundation Server provides a set of tasks to automate commonly performed activities against the **Chef Automate** platform.
 
-This extension contains tasks that can modify items on a Chef server using the API.
+[Chef Automate](https://www.chef.io/automate/) provides a full suite of enterprise capabilities for workflow, visibility and compliance. Chef Automate integrates with the open-source products Chef, InSpec and Habitat.
 
-## Tasks included
+Create your own **Chef Automate** server by launching one from the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/chef-software.chef-automate?tab=Overview)
 
 ### Build Tasks
 
@@ -12,10 +12,9 @@ This extension contains tasks that can modify items on a Chef server using the A
 ### Release Tasks
 
 * **Release cookbook version to environment**: Set the cookbook constraint on the specified Chef environment
-* **Add VSTS Variables to Chef Environment**: Adds VSTS release environment variables as attributes on the Chef Environment
+* **Add variables to Chef Environment**: Adds VSTS release environment variables as attributes on the Chef Environment
 * **Execute Inspec**: Execute Inspec and run tests on machines in a Deployment Group
 * **Execute Chef Client**: Execute Chef Client on machines in a Deployment Group
-
 
 ## Required information
 
@@ -24,9 +23,9 @@ An endpoint called 'Chef Server' is bundled with this extension.  This allows mu
 The endpoint securely contains the following information:
 
 * Chef Server URL - URL to the chef server including the organization
-* User ID - Named user on the Chef server that has admin permissions
-* User Key - Private key for the specified user
-* SSL Verify - Verify the Chef certificate.  Set to `false` is using self signed certificates
+* User ID - A Named user on the Chef server that has admin permissions
+* User Key - Private key (in .pem format) for the specified user
+* SSL Verify - Verify the SSL certificate for the Chef Server.  Set to `false` if you are using self signed certificates.
 
 ## Upload cookbook to Chef Server
 

@@ -9,7 +9,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Tasks for performing common operations against Chef Server.",
+    "description": "Tasks for performing common Chef operations against the Chef Automate platform.",
     "categories": [
         "Build and release"
     ],
@@ -62,8 +62,8 @@
                         "inputDescriptors": [
                             {
                                 "id": "username",
-                                "name": "Username (Node Name)",
-                                "description": "Chef Server Username",
+                                "name": "Username (Node name)",
+                                "description": "Chef Server username.",
                                 "inputMode": "textbox",
                                 "isConfidential": false,
                                 "validation": {
@@ -74,7 +74,7 @@
                             {
                                 "id": "password",
                                 "name": "Client Key",
-                                "description": "Private key associated with the specified user",
+                                "description": "Private (.pem) key associated with the specified user.",
                                 "inputMode": "textarea",
                                 "isConfidential": true,
                                 "validation": {
@@ -85,7 +85,7 @@
                             {
                                 "id": "sslVerify",
                                 "name": "SSL Verification",
-                                "description": "Enable SSL Verification for Chef Server.",
+                                "description": "Enable SSL Certificate verification for Chef Server.",
                                 "inputMode": "combo",
                                 "isConfidential": false,
                                 "validation": {
@@ -110,7 +110,7 @@
                         ]
                     }
                 ],
-                "helpMarkDown": "Please provide the requested information so that VSTS can access your Chef server instance"
+                "helpMarkDown": "Please provide the requested information so that VSTS/TFS can access your Chef Server instance"
             }
         },
         {

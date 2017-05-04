@@ -2,7 +2,7 @@
     "id": "99b27ffc-7e88-4937-ac86-f1170b41695c",
     "name": "vsts-chef-task-cookbook-version",
     "friendlyName": "Update cookbook version number (Chef)",
-    "description": "Set the version of the cookbook based on the build number",
+    "description": "Updates the version of the cookbook based on the current build number",
     "helpMarkDown": "",
     "category": "Build",
     "author": "Chef",
@@ -20,7 +20,7 @@
             "label": "Cookbook Version",
             "defaultValue": "$(Build.BuildNumber)",
             "required": true,
-            "helpMarkDown": "Version number to assign to the cookbook.  By default this uses the BuildNumber, which should be set to be a semantic version number"
+            "helpMarkDown": "Version number to assign to the cookbook.  By default this uses the BuildNumber, which should be set to be a semantic version number."
         },
         {
             "name": "chefCookbookMetadata",

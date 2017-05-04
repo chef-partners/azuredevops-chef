@@ -2,7 +2,7 @@
   "id": "955ea316-b3e4-4abf-9cb6-b26ebbfb4c6a",
   "name": "vsts-chef-task-env-version-constraint",
   "friendlyName": "Release cookbook version to environment (Chef)",
-  "description": "Set the cookbook version constraint on the specified environment",
+  "description": "Set the cookbook version constraint on the specified Chef environment",
   "helpMarkDown": "",
   "category": "Deploy",
   "author": "Chef",
@@ -18,10 +18,10 @@
     {
       "name": "chefServerEndpoint",
       "type": "connectedService:Chefserverendpoint",
-      "label": "Chef Server Endpoint",
+      "label": "Chef Server endpoint",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Select the Chef Server Endpoint to use."
+      "helpMarkDown": "Select the Chef Server endpoint to use."
     },
     {
       "name": "chefEnvName",
@@ -29,7 +29,7 @@
       "label": "Chef Environment",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Name of the environment to modify"
+      "helpMarkDown": "Name of the Chef environment to modify."
     },
     {
       "name": "chefCookbookName",
@@ -37,7 +37,7 @@
       "label": "Cookbook Name",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Name of cookbook that will be version pinned in the environment"
+      "helpMarkDown": "Name of the target cookbook."
     },
     {
       "name": "chefCookbookVersion",
