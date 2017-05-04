@@ -1,6 +1,6 @@
 {
   "id": "955ea316-b3e4-4abf-9cb6-b26ebbfb4c6a",
-  "name": "vsts-chef-task-env",
+  "name": "vsts-chef-task-env-version-constraint",
   "friendlyName": "Release cookbook version to environment (Chef)",
   "description": "Set the cookbook version constraint on the specified environment",
   "helpMarkDown": "",
@@ -23,14 +23,6 @@
       "required": true,
       "helpMarkDown": "Select the Chef Server Endpoint to use."
     },
-    {
-      "name": "chefSSLVerify",
-      "type": "boolean",
-      "label": "SSL Verification",
-      "defaultValue": true,
-      "required": "false",
-      "helpMarkDown": "If the target Chef Server is using Self Signed Certificates uncheck this option"
-    },        
     {
       "name": "chefEnvName",
       "type": "string",

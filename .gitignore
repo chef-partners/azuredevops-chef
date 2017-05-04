@@ -3,5 +3,6 @@ typings
 dist
 build
 *.js
+*.map
 tasks/**/common
 .vscode/settings.json

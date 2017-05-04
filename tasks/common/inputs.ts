@@ -1,4 +1,6 @@
 
+import {sprintf} from "sprintf-js";
+
 /** Return a hashtable of the inputs */
 export function parse(process, tl) {
 
@@ -26,20 +28,27 @@ export function parse(process, tl) {
 
   } else {
 
+    // get the connected service to work with
+    let connected_service = tl.getInput("chefServerEndpoint", true)
+
     // only attempt to get the endpoint details if the chefServerEndpoint has been set
-    if (tl.getInput("chefServerEndpoint") != null) {
+    if (connected_service != null) {
 
       // get the necessary inputs from the specified endpoint
-      let auth = tl.getEndpointAuthorization(tl.getInput("chefServerEndpoint", true));
+      let auth = tl.getEndpointAuthorization(connected_service);
 
       // get the URL from the endpoint
-      inputs["chefServerUrl"] = tl.getEndpointUrl(tl.getInput("chefServerEndpoint"), true);
+      inputs["chefServerUrl"] = tl.getEndpointUrl(connected_service);
       inputs["chefUsername"] = auth.parameters.username;
       inputs["chefUserKey"] = auth.parameters.password;
 
       // decode the base64 encoding of the userkey
       inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
+      // get the value for SSL Verification
+      inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify;
+      
+      tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]))
     }
 
     // create array of inputs that should be checked for
@@ -48,7 +57,6 @@ export function parse(process, tl) {
       "chefCookbookName",
       "chefCookbookVersion",
       "chefCookbookMetadata",
-      "chefSSLVerify",
       "chefEnvironmentNamespace",
       "chefCookbookPath",
       "inspecProfilePath"
