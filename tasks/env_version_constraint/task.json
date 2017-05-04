@@ -1,6 +1,6 @@
 {
   "id": "955ea316-b3e4-4abf-9cb6-b26ebbfb4c6a",
-  "name": "vsts-chef-task-env",
+  "name": "vsts-chef-task-env-version-constraint",
   "friendlyName": "Release cookbook version to environment (Chef)",
   "description": "Set the cookbook version constraint on the specified environment",
   "helpMarkDown": "",
