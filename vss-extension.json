@@ -55,8 +55,32 @@
                     "displayName": "Chef Server URL",
                     "helpText": "URL to the Chef Server including the Organization"
                 },
-                "inputDesciptors": [
-
+                "inputDescriptors": [
+                    {
+                        "id": "sslVerify",
+                        "name": "SSL Verification",
+                        "description": "Enable SSL Verification for Chef Server.",
+                        "inputMode": "combo",
+                        "isConfidential": false,
+                        "validation": {
+                            "isRequired": false,
+                            "dataType": "string"
+                        },
+                        "values": {
+                            "inputId": "sslVerifyValues",
+                            "defaultValue": "1",
+                            "possibleValues": [
+                                {
+                                    "value": "1",
+                                    "displayValue": "True"
+                                },
+                                {
+                                    "value": "0",
+                                    "displayValue": "False"
+                                }
+                            ]
+                        }
+                    }
                 ],
                 "authenticationSchemes": [
                     {
@@ -83,32 +107,7 @@
                                     "isRequired": true,
                                     "dataType": "string"
                                 }
-                            },
-                            {
-                        "id": "sslVerify",
-                        "name": "SSL Verification",
-                        "description": "Enable SSL Verification for Chef Server.",
-                        "inputMode": "combo",
-                        "isConfidential": false,
-                        "validation": {
-                            "isRequired": false,
-                            "dataType": "string"
-                        },
-                        "values": {
-                            "inputId": "sslVerifyValues",
-                            "defaultValue": "1",
-                            "possibleValues": [
-                                {
-                                    "value": "1",
-                                    "displayValue": "True"
-                                },
-                                {
-                                    "value": "0",
-                                    "displayValue": "False"
-                                }
-                            ]
-                        }
-                    }
+                            }
                         ]
                     }
                 ],
