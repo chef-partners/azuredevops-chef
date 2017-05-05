@@ -4,8 +4,6 @@ This [Chef](http://chef.io) integration for Visual Studio Team Services provides
 
 These tasks are compatible with Chef Server 12.1 and higher.
 
----
-
 ## Build Tasks
 
 These tasks are typically used in your Build process:

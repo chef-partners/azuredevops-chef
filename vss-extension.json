@@ -14,7 +14,6 @@
         "Build and release"
     ],
     "galleryFlags": [
-        "Preview"
     ],
     "icons": {
         "default": "images/cheflogo.png"
@@ -33,6 +32,9 @@
         },
         {
             "path": "screenshot_env_parameters.png"
+        },
+        {
+            "path": "screenshot_chef_server_endpoint.png"
         }
     ],
     "files": [
@@ -40,10 +42,21 @@
             "path": "tasks"
         }
     ],
+    "links": {
+        "home": {
+            "uri": "https://github.com/chef-partners/vsts-tasks/wiki"
+        },
+        "getstarted": {
+            "uri": "https://github.com/chef-partners/vsts-chef/wiki/Getting-Started"
+        },
+        "issues": {
+            "uri": "https://github.com/chef-partners/vsts-chef/issues"
+        }
+    },
     "contributions": [
         {
             "id": "chef-server-endpoint",
-            "description": "Service Endpoint for Chef Servers",
+            "description": "Service Endpoint for Chef Server",
             "type": "ms.vss-endpoint.service-endpoint-type",
             "targets": [
                 "ms.vss-endpoint.endpoint-types"

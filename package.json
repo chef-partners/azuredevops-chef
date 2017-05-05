@@ -1,7 +1,7 @@
 {
   "name": "chef-vsts-tasks",
-  "description": "Chef Tasks for VSTS",
-  "author": "Chef",
+  "description": "Chef Integration for Visual Studio Team System (VSTS)",
+  "author": "Chef Software, Inc.",
   "scripts": {
     "initdev:npm": "npm install && cd tasks/update_environment && npm install && cd ../..",
     "initdev:typings": "pushd tasks && typings install && popd",
