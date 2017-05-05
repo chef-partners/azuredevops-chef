@@ -14,7 +14,6 @@
         "Build and release"
     ],
     "galleryFlags": [
-        "Preview"
     ],
     "icons": {
         "default": "images/cheflogo.png"
@@ -33,6 +32,9 @@
         },
         {
             "path": "screenshot_env_parameters.png"
+        },
+        {
+            "path": "screenshot_chef_server_endpoint.png"
         }
     ],
     "files": [
@@ -40,10 +42,21 @@
             "path": "tasks"
         }
     ],
+    "links": {
+        "home": {
+            "uri": "https://github.com/chef-partners/vsts-tasks/wiki"
+        },
+        "getstarted": {
+            "uri": "https://github.com/chef-partners/vsts-chef/wiki/Getting-Started"
+        },
+        "issues": {
+            "uri": "https://github.com/chef-partners/vsts-chef/issues"
+        }
+    },
     "contributions": [
         {
             "id": "chef-server-endpoint",
-            "description": "Service Endpoint for Chef Servers",
+            "description": "Service Endpoint for Chef Server",
             "type": "ms.vss-endpoint.service-endpoint-type",
             "targets": [
                 "ms.vss-endpoint.endpoint-types"
@@ -53,7 +66,7 @@
                 "displayName": "Chef Server",
                 "url": {
                     "displayName": "Chef Server URL",
-                    "helpText": "URL to the Chef Server including the Organization"
+                    "helpText": "URL to the Chef Server including the organization, e.g. `https://mychefserver.westus.cloudapp.azure.com/organizations/myorg`"
                 },
                 "inputDescriptors": [],
                 "authenticationSchemes": [
@@ -63,7 +76,7 @@
                             {
                                 "id": "username",
                                 "name": "Username (Node name)",
-                                "description": "Chef Server username.",
+                                "description": "A username on the Chef server that has admin permissions",
                                 "inputMode": "textbox",
                                 "isConfidential": false,
                                 "validation": {
@@ -74,7 +87,7 @@
                             {
                                 "id": "password",
                                 "name": "Client Key",
-                                "description": "Private (.pem) key associated with the specified user.",
+                                "description": "The private key (in pem format) for the specified user",
                                 "inputMode": "textarea",
                                 "isConfidential": true,
                                 "validation": {
@@ -85,7 +98,7 @@
                             {
                                 "id": "sslVerify",
                                 "name": "SSL Verification",
-                                "description": "Enable SSL Certificate verification for Chef Server.",
+                                "description": "Enables/disables the SSL certificate verification for the Chef Server.  Set to `false` if you are using self-signed certificates.  Default: `true` (Chef Server certificate must be signed by a valid Certificate Authority)",
                                 "inputMode": "combo",
                                 "isConfidential": false,
                                 "validation": {

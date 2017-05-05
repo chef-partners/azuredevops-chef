@@ -1,9 +1,9 @@
 {
     "id": "7f781340-2f1a-11e7-93ae-92361f002671",
     "name": "vsts-chef-task-exec-inspec",
-    "friendlyName": "Execute Inspec (Chef)",
-    "description": "Execute Inspec on the agent machine (or all machines in a deployment group)",
-    "helpMarkDown": "",
+    "friendlyName": "Execute InSpec (Chef)",
+    "description": "Execute InSpec on machines in a Deployment Group",
+    "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/Task:-Execute-InSpec)",
     "category": "Deploy",
     "author": "Chef",
     "version": {
@@ -20,7 +20,7 @@
             "label": "Profile Path",
             "defaultValue": "$(System.ArtifactsDirectory)/cookbooks",
             "required": true,
-            "helpMarkDown": "Path to the Inspec profiles that need to be executed"
+            "helpMarkDown": "Path to the InSpec profiles that need to be executed"
         }
     ],
     "execution": {

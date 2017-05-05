@@ -1,78 +1,52 @@
-The Chef Integration for Visual Studio Team Services and Team Foundation Server provides a set of tasks to automate commonly performed activities against the **Chef Automate** platform.
+This [Chef](http://chef.io) integration for Visual Studio Team Services provides a set of tasks to automate commonly performed build and release activities when using the **[Chef Automate](https://www.chef.io/automate/)** platform.  Use these tasks to configure your servers ready for application deployment.
 
-[Chef Automate](https://www.chef.io/automate/) provides a full suite of enterprise capabilities for workflow, visibility and compliance. Chef Automate integrates with the open-source products Chef, InSpec and Habitat.
+[Chef Automate](https://www.chef.io/automate/) provides a full suite of enterprise capabilities for workflow, visibility and compliance. Chef Automate integrates with the open-source products Chef, InSpec and Habitat.  You can create your own **Chef Automate** server by launching one from the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/chef-software.chef-automate?tab=Overview).
 
-Create your own **Chef Automate** server by launching one from the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/chef-software.chef-automate?tab=Overview)
+These tasks are compatible with Chef Server 12.1 and higher.
 
-### Build Tasks
+## Build Tasks
 
-* **Upload cookbook to Chef Server**: Upload the cookbook to the specified Chef server
-* **Update cookbook version number**: Set the cookbook version to the build number
+These tasks are typically used in your Build process:
 
-### Release Tasks
+* **Update cookbook version number**: Update a cookbook version to the current build number
+* **Upload cookbook to Chef Server**: Upload a cookbook to Chef Server including dependencies
 
-* **Release cookbook version to environment**: Set the cookbook constraint on the specified Chef environment
-* **Add variables to Chef Environment**: Adds VSTS release environment variables as attributes on the Chef Environment
-* **Execute Inspec**: Execute Inspec and run tests on machines in a Deployment Group
+## Release Tasks
+
+These tasks are typically used as part of your Release process:
+
+* **Add variables to Chef Environment**: Add the VSTS/TFS variables for this environment to the Chef environment
+* **Release cookbook version to environment**: Releases a cookbook by releasing the cookbook constraint on the specified Chef environment
+* **Execute InSpec**: Execute InSpec on machines in a Deployment Group
 * **Execute Chef Client**: Execute Chef Client on machines in a Deployment Group
 
-## Required information
+## Getting Started
 
-An endpoint called 'Chef Server' is bundled with this extension.  This allows multiple Chef servers to be configured and reused when required.
+See our guide to [Getting Started](https://github.com/chef-partners/vsts-chef/wiki/Getting-Started)
 
-The endpoint securely contains the following information:
+## Project Configuration/Endpoint
 
-* Chef Server URL - URL to the chef server including the organization
-* User ID - A Named user on the Chef server that has admin permissions
-* User Key - Private key (in .pem format) for the specified user
-* SSL Verify - Verify the SSL certificate for the Chef Server.  Set to `false` if you are using self signed certificates.
+Before you add any Build or Release tasks to your process, you will need to configure your Chef Server "endpoint".
 
-## Upload cookbook to Chef Server
+Endpoints are a per-project configuration and can be accessed via **Project Settings** (cog) > **Services**
 
-This task requires the following information
+The Chef Server endpoint let's you securely store the following information:
 
-* Chef Server Endpoint - the configured endpoint to use for contacting the Chef Server
-* SSL Verification - by default this is enabled, but can be disabled if your Chef Server is using self signed certificates.
+* Chef Server URL - URL to the Chef Server including the organization, e.g. `https://mychefserver.westus.cloudapp.azure.com/organizations/myorg`
+* Username (Node name) - A username on the Chef server that has admin permissions
+* Client key - The private key (in pem format) for the specified user
+* SSL Verification - Enables/disables the SSL certificate verification for the Chef Server.  Set to `false` if you are using self-signed certificates.  Default: `true` (Chef Server certificate must be signed by a valid Certificate Authority)
 
-## Update cookbook version number
+## Documentation and help
 
-There are no inputs associated with this task as it will take the Build Number as the version for the cookbook.
+For details on installation, please read the [installation guide](https://github.com/chef-partners/vsts-chef/wiki).
 
-However the BuildNumber **must** be set as a semantic version in the configuration of VSTS.
+For detailed task documentation, please read the [task documentation](https://github.com/chef-partners/vsts-chef/wiki).
 
-This is set in the "Options" of the build.  An example format would be `1.0.$(BuildID)` which would ensure that it is a semantic version and it increments each time.  The major and minor versions would then be updated as required for the build.
-
-### Release cookbook version to environment
-
-This task requires the following information
-
-* Chef Server Endpoint - the configured endpoint to use for contacting the Chef Server
-* Environment Name - Name of the environment that will have the cookbook constraint added
-* Chef Cookbook Name - Name of the cookbook that will have be constrained
-* Chef Cookbook Version - Version of the cookbook to be set
-
-## Release cookbook version to environment
-
-This task requires the following information
-
-* Chef Server Endpoint - the configured endpoint to use for contacting the Chef Server
-* Chef Cookbook Path - the path to the cookbook to upload within the sources that have been checked out
-    - It is assumed that the cookbook will be in `$(Build.SourcesDirectory)\cookbooks` and this is added as a helper, however the name of the cookbook _must_ be set, unless it is the only thing in the specified directory.
-    - Do not use `/` as a path to the cookbook.  If it is in the root of the sources then leave as `$(Build.SourcesDirectory)`
-
-## Execute Inspec
-
-This task requires the following information
-
-* Inspec Profile Path - path to the folder containing the profiles that need to be executed
-
-If Inspec is not available on the machine, this task will attempt to install it.
-
-## Execute Chef Client
-
-It is assumed that `chef-client` is already available on the machine.  If it does not exist this task will fail the task.
-
+To report an issue, please check our [issues list](https://github.com/chef-partners/vsts-chef/issues).
 
 ## Contributors
 
-This extension was created by Chef
+This extension was created by Chef Software, Inc.
+
+To get in contact, please email [partnereng@chef.io](partnereng@chef.io)
