@@ -37,6 +37,7 @@ let items = [
   path.join(__dirname, "..", "license.txt"),
   path.join(__dirname, "..", "screenshot_env_task.png"),
   path.join(__dirname, "..", "screenshot_env_parameters.png"),
+  path.join(__dirname, "..", "screenshot_chef_server_endpoint.png"),
   path.join(__dirname, "..", "images")
 ]
 
