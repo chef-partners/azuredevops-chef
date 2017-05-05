@@ -17,16 +17,16 @@
         {
             "name": "chefCookbookVersion",
             "type": "string",
-            "label": "Cookbook Version",
+            "label": "Cookbook version",
             "defaultValue": "$(Build.BuildNumber)",
             "required": true,
-            "helpMarkDown": "Version number to assign to the cookbook.  By default this uses the BuildNumber, which should be set to be a semantic version number."
+            "helpMarkDown": "Version number to assign to the cookbook.  By default this uses the BuildNumber, which should be set to be a semantic version number (e.g. 1.0.3)"
         },
         {
             "name": "chefCookbookMetadata",
             "type": "filePath",
             "label": "Metadata file",
-            "defaultValue": "$(Build.SourcesDirectory)/metadata.rb",
+            "defaultValue": "$(Build.SourcesDirectory)/cookbooks/mycookbook/metadata.rb",
             "required": true,
             "helpMarkDown": "Path to the metadata.rb file to update"
         }

@@ -2,7 +2,7 @@
     "id": "bf3f6f8a-9388-4282-a3af-2c472f057ae5",
     "name": "vsts-chef-task-exec-chef-client",
     "friendlyName": "Execute Chef Client (Chef)",
-    "description": "Execute Chef Client on the agent machine (or all machines in a deployment group)",
+    "description": "Execute Chef Client on machines in a Deployment Group",
     "helpMarkDown": "",
     "category": "Deploy",
     "author": "Chef",

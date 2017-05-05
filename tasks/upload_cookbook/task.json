@@ -2,7 +2,7 @@
   "id": "968b50f6-1dcc-11e7-93ae-92361f002671",
   "name": "vsts-chef-task-cookbook-upload",
   "friendlyName": "Upload cookbook to Chef Server (Chef)",
-  "description": "Install the dependencies for and upload a cookbook",
+  "description": "Upload a cookbook to Chef Server including dependencies",
   "helpMarkDown": "",
   "category": "Build",
   "author": "Chef",
@@ -18,18 +18,18 @@
     {
       "name": "chefServerEndpoint",
       "type": "connectedService:Chefserverendpoint",
-      "label": "Chef Server Endpoint",
+      "label": "Chef Server endpoint",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Select the Chef Server Endpoint to use."
+      "helpMarkDown": "Select the Chef Server endpoint to use"
     },
     {
       "name": "chefCookbookPath",
       "type": "string",
-      "label": "Cookbook Path",
+      "label": "Cookbook path",
       "defaultValue": "$(Build.SourcesDirectory)/cookbooks",
       "required": true,
-      "helpMarkDown": "Path to the cookbook to upload.  By default the cookbook is expected to be in the `cookbooks` directory of the source."
+      "helpMarkDown": "Path to the cookbook to upload.  By default the cookbook is expected to be in the `cookbooks` directory of the source"
     }
   ],
   "execution": {
