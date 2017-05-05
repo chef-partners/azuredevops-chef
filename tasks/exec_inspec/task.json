@@ -3,7 +3,7 @@
     "name": "vsts-chef-task-exec-inspec",
     "friendlyName": "Execute InSpec (Chef)",
     "description": "Execute InSpec on machines in a Deployment Group",
-    "helpMarkDown": "",
+    "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/Task:-Execute-InSpec)",
     "category": "Deploy",
     "author": "Chef",
     "version": {

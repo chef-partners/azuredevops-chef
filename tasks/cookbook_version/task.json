@@ -3,7 +3,7 @@
     "name": "vsts-chef-task-cookbook-version",
     "friendlyName": "Update cookbook version number (Chef)",
     "description": "Updates the version of the cookbook based on the current build number",
-    "helpMarkDown": "",
+    "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/Task:-Update-cookbook-version-number)",
     "category": "Build",
     "author": "Chef",
     "version": {
