@@ -11,7 +11,7 @@
     "Minor": 0,
     "Patch": 3
   },
-  "instanceNameFormat": "$(chefServerUrl)",
+  "instanceNameFormat": "Release cookbook version to environment",
   "groups": [
   ],
   "inputs": [
