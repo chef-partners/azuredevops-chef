@@ -67,7 +67,7 @@ export function call(tl, config, path: string, method: string, body: string) {
 
     // output any errors to the console
     request.on("error", function(e) {
-      tl.setResult(tl.TaskResult.Failed, e.message);
+      tl.setResult(tl.TaskResult.Failed, e.stack);
     });
 
     // if the method is POST or PUT then write the body

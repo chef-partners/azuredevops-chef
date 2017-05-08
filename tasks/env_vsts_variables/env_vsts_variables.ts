@@ -69,9 +69,6 @@ async function run() {
       .then(chefapi.call.bind(null, tl, params, path, "put"))
       .then(function (response) {
         console.log("Environment variables added");
-      })
-      .catch(function (err) {
-        tl.setResult(tl.TaskResult.Failed, String(err));
       });
   }
   catch (err) {
