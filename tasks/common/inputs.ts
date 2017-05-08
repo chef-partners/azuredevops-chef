@@ -31,27 +31,27 @@ export function parse(process, tl) {
     // get the connected service to work with
     try {
       let connected_service = tl.getInput("chefServerEndpoint", true);
+      tl.debug(sprintf("Endpoint: %s", JSON.stringify(connected_service)));
 
+      // only attempt to get the endpoint details if the chefServerEndpoint has been set
+      if (connected_service != null) {
 
-    // only attempt to get the endpoint details if the chefServerEndpoint has been set
-    if (connected_service != null) {
+        // get the necessary inputs from the specified endpoint
+        let auth = tl.getEndpointAuthorization(connected_service);
 
-      // get the necessary inputs from the specified endpoint
-      let auth = tl.getEndpointAuthorization(connected_service);
+        // get the URL from the endpoint
+        inputs["chefServerUrl"] = tl.getEndpointUrl(connected_service);
+        inputs["chefUsername"] = auth.parameters.username;
+        inputs["chefUserKey"] = auth.parameters.password;
 
-      // get the URL from the endpoint
-      inputs["chefServerUrl"] = tl.getEndpointUrl(connected_service);
-      inputs["chefUsername"] = auth.parameters.username;
-      inputs["chefUserKey"] = auth.parameters.password;
+        // decode the base64 encoding of the userkey
+        // inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
-      // decode the base64 encoding of the userkey
-      // inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
+        // get the value for SSL Verification
+        inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify;
 
-      // get the value for SSL Verification
-      inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify;
-
-      tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]))
-    }
+        tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]));
+      }
 
     }
     catch (err) {

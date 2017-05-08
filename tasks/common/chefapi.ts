@@ -12,8 +12,7 @@ let node_rsa = require("node-rsa");
 export function call(tl, config, path: string, method: string, body: string) {
 
   // if the body has been set then ensure it is a string
-  if (body !== "")
-  {
+  if (body !== "") {
     body = JSON.stringify(body);
   }
 
@@ -33,7 +32,7 @@ export function call(tl, config, path: string, method: string, body: string) {
   };
 
   // output debug information
-  tl.debug(sprintf("%s: %s%s", options["method"], options["host"], options["path"]));
+  tl.debug(sprintf("Options: %s", JSON.stringify(options)));
 
   // Return a promise for the API Call
   return Q.Promise(function(resolve, notify, reject) {
@@ -68,7 +67,7 @@ export function call(tl, config, path: string, method: string, body: string) {
 
     // output any errors to the console
     request.on("error", function(e) {
-      tl.setResult(tl.TaskResult.Failed, e.message);
+      tl.setResult(tl.TaskResult.Failed, e.stack);
     });
 
     // if the method is POST or PUT then write the body

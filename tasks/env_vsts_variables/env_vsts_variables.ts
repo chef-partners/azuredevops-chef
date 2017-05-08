@@ -48,8 +48,7 @@ function add_vsts_variables_to_env(params, environment) {
         environment["override_attributes"][params["chefEnvironmentNamespace"]][release_env_var.name] = release_env_var.value;
 
         console.log("Added variable to Chef environment: %s", release_env_var.name);
-      };
-
+      }
     });
   }
 
