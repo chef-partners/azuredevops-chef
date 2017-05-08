@@ -49,8 +49,8 @@ function add_vsts_variables_to_env(params, environment) {
 
         console.log("Added variable to Chef environment: %s", release_env_var.name);
       }
-      tl.debug(sprintf("Environment after collecting variables: %s", environment));
     });
+    tl.debug(sprintf("Environment after collecting variables: %s", JSON.stringify(environment)));
   }
 
 /** Asynchronous function to update environment */
@@ -61,6 +61,7 @@ async function run() {
 
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);
+  tl.debug(sprintf("Environment path: $s", path));
   try {
     chefapi.call(tl, params, path, "get", "")
       .then(add_vsts_variables_to_env.bind(null, params))
