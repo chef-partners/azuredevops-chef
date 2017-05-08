@@ -50,7 +50,6 @@ function add_vsts_variables_to_env(params, environment) {
         console.log("Added variable to Chef environment: %s", release_env_var.name);
       }
     });
-    return environment;
   }
 
 /** Asynchronous function to update environment */
@@ -62,29 +61,15 @@ async function run() {
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);
 
-  let current_environment = JSON.stringify(chefapi.call(tl, params, path, "get", ""));
-  tl.debug(sprintf("Current environment: %s", current_environment));
-
-  let updated_environment = JSON.stringify(add_vsts_variables_to_env(params, current_environment));
-  tl.debug(sprintf("Updated environment: %s", updated_environment));
-
-  try {
-    chefapi.call(tl, params, path, "put", updated_environment);
-    console.log("Environment variables added");
-  }
-  catch (err) {
-    tl.setResult(tl.TaskResult.Failed, String(err));
-  }
-
-  // chefapi.call(tl, params, path, "get", "")
-  //   .then(add_vsts_variables_to_env.bind(null, params))
-  //   .then(chefapi.call.bind(null, tl, params, path, "put"))
-  //   .then(function (response) {
-  //     console.log("Environment variables added");
-  //   })
-  //   .catch(function(error) {
-  //     console.log(error);
-  //   });
+  chefapi.call(tl, params, path, "get", "")
+    .then(add_vsts_variables_to_env.bind(null, params))
+    .then(chefapi.call.bind(null, tl, params, path, "put"))
+    .then(function (response) {
+      console.log("Environment variables added");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 }
 
 run();
