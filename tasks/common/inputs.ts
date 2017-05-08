@@ -1,5 +1,5 @@
 
-import {sprintf} from "sprintf-js";
+import { sprintf } from "sprintf-js";
 
 /** Return a hashtable of the inputs */
 export function parse(process, tl) {
@@ -29,7 +29,9 @@ export function parse(process, tl) {
   } else {
 
     // get the connected service to work with
-    let connected_service = tl.getInput("chefServerEndpoint", true)
+    try {
+      let connected_service = tl.getInput("chefServerEndpoint", true);
+
 
     // only attempt to get the endpoint details if the chefServerEndpoint has been set
     if (connected_service != null) {
@@ -43,12 +45,17 @@ export function parse(process, tl) {
       inputs["chefUserKey"] = auth.parameters.password;
 
       // decode the base64 encoding of the userkey
-      inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
+      // inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
 
       // get the value for SSL Verification
       inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify;
-      
+
       tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]))
+    }
+
+    }
+    catch (err) {
+      console.warn(err);
     }
 
     // create array of inputs that should be checked for
