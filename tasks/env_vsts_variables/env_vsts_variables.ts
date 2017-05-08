@@ -58,11 +58,11 @@ async function run() {
 
   // Get the parameters that have been set on the task
   let params = inputs.parse(process, tl);
-  tl.debug(sprintf("Params: $s", JSON.stringify(params)));
+  tl.debug(sprintf("Params: %s", JSON.stringify(params)));
 
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);
-  tl.debug(sprintf("Environment path: $s", path));
+  tl.debug(sprintf("Environment path: %s", path));
   try {
     chefapi.call(tl, params, path, "get", "")
       .then(add_vsts_variables_to_env.bind(null, params))
@@ -71,11 +71,11 @@ async function run() {
         console.log("Environment variables added");
       })
       .catch(function (err) {
-        tl.setResult(tl.TaskResult.Failed, err);
+        tl.setResult(tl.TaskResult.Failed, String(err));
       });
   }
   catch (err) {
-    tl.setResult(tl.TaskResult.Failed, err);
+    tl.setResult(tl.TaskResult.Failed, String(err));
   }
 }
 
