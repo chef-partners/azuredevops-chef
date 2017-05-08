@@ -58,6 +58,7 @@ async function run() {
 
   // Get the parameters that have been set on the task
   let params = inputs.parse(process, tl);
+  tl.debug(sprintf("Params: $s", JSON.stringify(params)));
 
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);

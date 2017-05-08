@@ -50,7 +50,7 @@ export function parse(process, tl) {
       // get the value for SSL Verification
       inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify;
 
-      tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]))
+      tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]));
     }
 
     }
