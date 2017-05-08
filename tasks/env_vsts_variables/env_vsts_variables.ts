@@ -48,8 +48,8 @@ function add_vsts_variables_to_env(params, environment) {
         environment["override_attributes"][params["chefEnvironmentNamespace"]][release_env_var.name] = release_env_var.value;
 
         console.log("Added variable to Chef environment: %s", release_env_var.name);
-      };
-
+      }
+      tl.debug(sprintf("Environment after collecting variables: %s", environment));
     });
   }
 
@@ -67,10 +67,13 @@ async function run() {
       .then(chefapi.call.bind(null, tl, params, path, "put"))
       .then(function (response) {
         console.log("Environment variables added");
+      })
+      .catch(function (err) {
+        tl.setResult(tl.TaskResult.Failed, err);
       });
   }
   catch (err) {
-    tl.setResult(tl.TaskResult.Failed, err.message);
+    tl.setResult(tl.TaskResult.Failed, err);
   }
 }
 
