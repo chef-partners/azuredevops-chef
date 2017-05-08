@@ -50,6 +50,8 @@ function add_vsts_variables_to_env(params, environment) {
         console.log("Added variable to Chef environment: %s", release_env_var.name);
       }
     });
+
+    return environment;
   }
 
 /** Asynchronous function to update environment */
