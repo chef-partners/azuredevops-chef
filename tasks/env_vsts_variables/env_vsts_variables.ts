@@ -61,16 +61,17 @@ async function run() {
 
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);
-
-  chefapi.call(tl, params, path, "get", "")
-    .then(add_vsts_variables_to_env.bind(null, params))
-    .then(chefapi.call.bind(null, tl, params, path, "put"))
-    .then(function (response) {
-      console.log("Environment variables added");
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  try {
+    chefapi.call(tl, params, path, "get", "")
+      .then(add_vsts_variables_to_env.bind(null, params))
+      .then(chefapi.call.bind(null, tl, params, path, "put"))
+      .then(function (response) {
+        console.log("Environment variables added");
+      });
+  }
+  catch (err) {
+    tl.setResult(tl.TaskResult.Failed, err.message);
+  }
 }
 
 run();
