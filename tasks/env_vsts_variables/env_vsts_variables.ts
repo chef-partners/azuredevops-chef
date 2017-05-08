@@ -62,10 +62,10 @@ async function run() {
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);
 
-  let current_environment = chefapi.call(tl, params, path, "get", "");
+  let current_environment = JSON.stringify(chefapi.call(tl, params, path, "get", ""));
   tl.debug(sprintf("Current environment: %s", current_environment));
 
-  let updated_environment = add_vsts_variables_to_env(params, current_environment);
+  let updated_environment = JSON.stringify(add_vsts_variables_to_env(params, current_environment));
   tl.debug(sprintf("Updated environment: %s", updated_environment));
 
   try {
