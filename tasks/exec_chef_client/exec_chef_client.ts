@@ -8,9 +8,6 @@ import * as path from 'path';
 
 import {sprintf} from "sprintf-js";
 
-// Import common tasks
-import * as inputs from "./common/inputs";
-
 import * as os from "os";
 
 async function run() {

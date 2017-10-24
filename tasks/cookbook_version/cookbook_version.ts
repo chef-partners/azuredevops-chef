@@ -8,7 +8,7 @@ import * as inputs from "./common/inputs";
 async function run() {
   try {
     // Get the parameters that have been set on the task
-    let params = inputs.parse(process, tl);
+    let params = inputs.parse("", process, tl);
     console.info("Attempting to set cookbook version: %s", params["chefCookbookVersion"]);
 
     // replace the version number in the metadata file

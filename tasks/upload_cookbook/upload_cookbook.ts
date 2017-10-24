@@ -8,27 +8,7 @@ import {sprintf} from "sprintf-js";
 
 // Import common tasks
 import * as inputs from "./common/inputs";
-
-// Function to check if ChefDK is installed and if not install it
-function installChefDK() {
-
-  // determine if installed
-  if (!fs.existsSync("/opt/chefdk")) {
-
-    console.log("Installing ChefDK");
-
-    // download and install ChefDK on the agent
-    try {
-      let curl_exit_code = tl.tool("curl").line("https://omnitruck.chef.io/install.sh --output /tmp/chefdk_install.sh").execSync();
-      let install_exit_code = tl.tool("bash").line("/tmp/chefdk_install.sh -c current -P chefdk").execSync();
-    } catch (err) {
-      tl.setResult(tl.TaskResult.Failed, err.message);
-    }
-  } else {
-    console.log("ChefDK is installed");
-  }
-
-}
+import * as utils from "./common/utils";
 
 // Function to ensure that the configuration files are in place for communicating with the Chef Server
 function configureChef(chef_server_url, nodename, key, sslVerify) {
@@ -66,13 +46,13 @@ function configureChef(chef_server_url, nodename, key, sslVerify) {
 async function run() {
 
   // ensure chefdk is installed
-  installChefDK();
+  utils.installChefDK(tl, fs);
 
   // Get the parameters that have been set on the task
-  let params = inputs.parse(process, tl);
+  let params = inputs.parse("chefServerEndpoint", process, tl);
 
   // configure chef
-  configureChef(params["chefServerUrl"], params["chefUsername"], params["chefUserKey"], params["chefSSLVerify"]);
+  configureChef(params["chefServiceUrl"], params["chefUsername"], params["chefUserKey"], params["chefSSLVerify"]);
 
   // change to the correct directory to upload the cookbook
   console.log("CD to cookbook directory: %s", params["chefCookbookPath"]);
