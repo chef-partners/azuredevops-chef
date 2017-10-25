@@ -15,7 +15,7 @@
     "copyfiles": "node scripts/copy_files.js",
     "version": "node scripts/version.js",
     "taskdeps": "node scripts/taskdeps.js",
-    "package:tasks": "tfx extension create --root build --output-path build --manifest-globs $1"
+    "package:tasks": "tfx extension create --root build --output-path build --manifest-globs"
   },
   "devDependencies": {
     "fs-extra": "^2.0.0",
