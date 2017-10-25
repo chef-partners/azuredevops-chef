@@ -32,6 +32,7 @@ let task_files = tasks.map(function (task_name) {
 
 // determine the files that need to be copied
 let items = [
+  path.join(__dirname, "..", "vss-extension.json"),
   path.join(__dirname, "..", "overview.md"),
   path.join(__dirname, "..", "license.txt"),
   path.join(__dirname, "..", "screenshot_env_task.png"),
@@ -56,23 +57,8 @@ let extension_files = items.map(function (item) {
   }
 })
 
-// Copy the manifest file twice so that it can be modified for preview
-let duplicates = [
-  path.join(__dirname, "..", "vss-extension.json")
-]
-
-let manifest_files = duplicates.map(function (duplicate) {
-
-  // copy as is to the build directory
-  common.copyFileSync(duplicate, output);
-
-  // copy as a preview to the build directory
-  common.copyFileSync(duplicate, path.join(output, "vss-extension-preview.json"))
-})
-
-
-Q.all([task_files, extension_files, manifest_files])
+Q.all([task_files, extension_files])
   .fail(function (err) {
     console.error(err)
     process.exit(1)
-  })
+})
