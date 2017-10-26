@@ -97,7 +97,7 @@
                 ],
                 "authenticationSchemes": [
                     {
-                        "type": "ms.vss-endpoint.service-endpoint-auth-scheme-none",
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-none",
                         "inputDescriptors": [
                             {
                                 "id": "username",
