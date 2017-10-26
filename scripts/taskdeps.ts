@@ -39,7 +39,7 @@ function installDeps() {
     child.exec(npm_compile_install_cmd, status);
 
     // create command for the dependencies at run time
-    let npm_runtime_install_cmd = sprintf("npm install --prefix %s/build/tasks/%s .", base_path, task_name);
+    let npm_runtime_install_cmd = sprintf("npm install --prefix %s/build/production/tasks/%s .", base_path, task_name);
 
     // run the command to install the depdencies
     child.exec(npm_runtime_install_cmd, status);

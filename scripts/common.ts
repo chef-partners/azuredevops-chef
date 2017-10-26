@@ -10,9 +10,11 @@ import * as fs from "fs-extra";
 import * as Q from "q";
 
 // Iterate around the tasks
-export function get_tasks() {
-  let task_dir = path.join(__dirname, "..", "tasks");
-  return fs.readdirSync(path.join(__dirname, "..", "tasks")).filter(function (file) {
+export function get_tasks(task_dir = null) {
+  if (task_dir == null) {
+    task_dir = path.join(__dirname, "..", "tasks");
+  }
+  return fs.readdirSync(task_dir).filter(function (file) {
     return ["common", "typings"].indexOf(file.toLowerCase()) < 0
       && fs.statSync(path.join(task_dir, file)).isDirectory();
   })

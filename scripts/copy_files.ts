@@ -5,7 +5,7 @@ import * as Q from "q";
 import * as common from "./common";
 
 // determine the output dir
-let output = path.join(__dirname, "..", "build");
+let output = path.join(__dirname, "..", "build", "production");
 console.log("Output Dir: " + output);
 
 // retrieve all the task directories
