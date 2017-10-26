@@ -23,9 +23,9 @@ async function run() {
     let params = inputs.parse("chefSupermarketEndpoint", process, tl);
 
     // the private key needs to be written out to a file
-    let key_filename: string = sprintf("/tmp/supermarket_%s.pem", params['chefUsername']);
+    let key_filename: string = "/tmp/supermarket.pem";
     try {
-        fs.writeFileSync(key_filename, params['chefKeyFile']);
+        fs.writeFileSync(key_filename, params['chefUserKey']);
     } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
     }
