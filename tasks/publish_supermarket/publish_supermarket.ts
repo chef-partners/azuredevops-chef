@@ -24,6 +24,7 @@ async function run() {
 
     // the private key needs to be written out to a file
     let key_filename: string = "/tmp/supermarket.pem";
+    console.log("Writing key file: %s", key_filename)
     try {
         fs.writeFileSync(key_filename, params['chefUserKey']);
     } catch (err) {
