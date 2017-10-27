@@ -141,10 +141,36 @@
                     "displayName": "Chef Server URL",
                     "helpText": "URL to the Chef Server including the organization, e.g. `https://mychefserver.westus.cloudapp.azure.com/organizations/myorg`"
                 },
-                "inputDescriptors": [],
+                "inputDescriptors": [
+                    {
+                        "id": "sslVerify",
+                        "name": "SSL Verification",
+                        "description": "Enables/disables the SSL certificate verification for the Chef Server.  Set to `false` if you are using self-signed certificates.  Default: `true` (Chef Server certificate must be signed by a valid Certificate Authority)",
+                        "inputMode": "combo",
+                        "isConfidential": false,
+                        "validation": {
+                            "isRequired": false,
+                            "dataType": "string"
+                        },
+                        "values": {
+                            "inputId": "sslVerifyValues",
+                            "defaultValue": "1",
+                            "possibleValues": [
+                                {
+                                    "value": "1",
+                                    "displayValue": "True"
+                                },
+                                {
+                                    "value": "0",
+                                    "displayValue": "False"
+                                }
+                            ]
+                        }
+                    } 
+                ],
                 "authenticationSchemes": [
                     {
-                        "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-none",
                         "inputDescriptors": [
                             {
                                 "id": "username",
@@ -166,31 +192,6 @@
                                 "validation": {
                                     "isRequired": true,
                                     "dataType": "string"
-                                }
-                            },
-                            {
-                                "id": "sslVerify",
-                                "name": "SSL Verification",
-                                "description": "Enables/disables the SSL certificate verification for the Chef Server.  Set to `false` if you are using self-signed certificates.  Default: `true` (Chef Server certificate must be signed by a valid Certificate Authority)",
-                                "inputMode": "combo",
-                                "isConfidential": false,
-                                "validation": {
-                                    "isRequired": false,
-                                    "dataType": "string"
-                                },
-                                "values": {
-                                    "inputId": "sslVerifyValues",
-                                    "defaultValue": "1",
-                                    "possibleValues": [
-                                        {
-                                            "value": "1",
-                                            "displayValue": "True"
-                                        },
-                                        {
-                                            "value": "0",
-                                            "displayValue": "False"
-                                        }
-                                    ]
                                 }
                             }
                         ]
