@@ -46,7 +46,7 @@ export function parse(serviceEndpointName, process, tl) {
           inputs["chefUserKey"] = auth.parameters.password;
 
           // get the value for SSL Verification
-          inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(serviceEndpointName, "sslVerify", true);
+          inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify", true);
 
           tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]));
         }
