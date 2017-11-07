@@ -20,7 +20,7 @@ async function run() {
     utils.installChefDK(tl, fs);
 
     // Get the parameters that have been set on the task
-    let params = inputs.parse("chefSupermarketEndpoint", process, tl);
+    let params = inputs.parse("chefsupermarketendpoint", process, tl);
 
     // the private key needs to be written out to a file
     let key_filename: string = "/tmp/supermarket.pem";
