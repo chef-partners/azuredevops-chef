@@ -30,6 +30,7 @@ export function parse(serviceEndpointName, process, tl) {
 
     // get teh service endpoint, but only if it has been specified
     if (serviceEndpointName.length > 0) {
+
       try {
         let connected_service = tl.getInput(serviceEndpointName, true);
         tl.debug(sprintf("Endpoint: %s", JSON.stringify(connected_service)));

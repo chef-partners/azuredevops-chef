@@ -17,7 +17,7 @@
   "inputs": [
     {
       "name": "chefSupermarketEndpoint",
-      "type": "connectedService:chefsupermarketendpoint",
+      "type": "connectedService:chefsupermarketendpointv1",
       "label": "Chef Supermarket",
       "defaultValue": "",
       "required": true,
@@ -33,7 +33,7 @@
     },
     {
       "name": "chefCookbookPath",
-      "type": "string",
+      "type": "filePath",
       "label": "Cookbook path",
       "defaultValue": "$(Build.SourcesDirectory)/cookbooks",
       "required": true,

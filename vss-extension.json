@@ -62,7 +62,7 @@
                 "ms.vss-endpoint.endpoint-types"
             ],
             "properties": {
-                "name": "chefsupermarketendpoint",
+                "name": "chefsupermarketendpointv1",
                 "displayName": "Chef Supermarket",
                 "url": {
                     "displayName": "Chef Supermarket URL",
@@ -135,7 +135,7 @@
                 "ms.vss-endpoint.endpoint-types"
             ],
             "properties": {
-                "name": "chefserverendpoint",
+                "name": "chefserverendpointv1",
                 "displayName": "Chef Server",
                 "url": {
                     "displayName": "Chef Server URL",
