@@ -63,7 +63,7 @@ function installInspec() {
 async function run() {
 
     // get the parameters that have been passed to the task
-    let params = inputs.parse(process, tl);
+    let params = inputs.parse("", process, tl);
 
     // call the installation with the version to install
     installInspec();

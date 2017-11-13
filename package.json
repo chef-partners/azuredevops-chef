@@ -8,14 +8,18 @@
     "initdev": "npm run initdev:npm && npm run initdev:typings",
     "clean": "rimraf build",
     "build:tasks": "npm run clean && npm run build:tasks:noclean",
-    "build:tasks:noclean": "npm run compile:scripts && npm run taskdeps && npm run copylibs && npm run compile:tasks && npm run copyfiles",
+    "build:tasks:noclean": "npm run compile:scripts && npm run taskdeps && npm run copylibs && npm run compile:tasks && npm run copyfiles && npm run preview && npm run manifests",
     "compile:scripts": "tsc --project scripts/tsconfig.json",
     "compile:tasks": "tsc --project tasks/tsconfig.build.json",
     "copylibs": "node scripts/copy_libs.js",
     "copyfiles": "node scripts/copy_files.js",
     "version": "node scripts/version.js",
     "taskdeps": "node scripts/taskdeps.js",
-    "package:tasks": "tfx extension create --root build --output-path build --manifest-globs vss-extension.json"
+    "manifests": "node scripts/manifests.js",
+    "preview": "node scripts/preview.js",
+    "package": "npm run package:production && npm run package:preview",
+    "package:production": "tfx extension create --root build/production --output-path build --manifests vss-extension.json",
+    "package:preview": "tfx extension create --root build/preview --output-path build --manifests vss-extension.json"
   },
   "devDependencies": {
     "fs-extra": "^2.0.0",
@@ -23,12 +27,13 @@
     "q": "^1.4.1",
     "rimraf": "^2.6.1",
     "semver": "^5.3.0",
+    "sprintf-js": "^1.0.3",
     "tfx-cli": "^0.3.49",
     "tsconfig-glob": "^0.4.3",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1",
     "typings": "^2.1.0",
-    "sprintf-js": "^1.0.3"
+    "uuidv5": "^1.0.0"
   },
   "dependencies": {
     "q": "^1.4.1",

@@ -2,14 +2,14 @@
 import { sprintf } from "sprintf-js";
 
 /** Return a hashtable of the inputs */
-export function parse(process, tl) {
+export function parse(serviceEndpointName, process, tl) {
 
   // configure the hash table to return
   let inputs = {};
 
   // if the node environment has been set, read the arguments from ENV
   if (process.env.NODE_ENV === "dev") {
-    inputs["chefServerUrl"] = process.env.chefServerUrl;
+    inputs["chefServiceUrl"] = process.env.chefServerUrl;
     inputs["chefUsername"] = process.env.chefUsername;
     inputs["chefUserKey"] = process.env.chefUserKey;
 
@@ -28,34 +28,33 @@ export function parse(process, tl) {
 
   } else {
 
-    // get the connected service to work with
-    try {
-      let connected_service = tl.getInput("chefServerEndpoint", true);
-      tl.debug(sprintf("Endpoint: %s", JSON.stringify(connected_service)));
+    // get teh service endpoint, but only if it has been specified
+    if (serviceEndpointName.length > 0) {
+      try {
+        let connected_service = tl.getInput(serviceEndpointName, true);
+        tl.debug(sprintf("Endpoint: %s", JSON.stringify(connected_service)));
 
-      // only attempt to get the endpoint details if the chefServerEndpoint has been set
-      if (connected_service != null) {
+        // only attempt to get the endpoint details if the chefServerEndpoint has been set
+        if (connected_service != null) {
 
-        // get the necessary inputs from the specified endpoint
-        let auth = tl.getEndpointAuthorization(connected_service);
+          // get the necessary inputs from the specified endpoint
+          let auth = tl.getEndpointAuthorization(connected_service);
 
-        // get the URL from the endpoint
-        inputs["chefServerUrl"] = tl.getEndpointUrl(connected_service);
-        inputs["chefUsername"] = auth.parameters.username;
-        inputs["chefUserKey"] = auth.parameters.password;
+          // get the URL from the endpoint
+          inputs["chefServiceUrl"] = tl.getEndpointUrl(connected_service);
+          inputs["chefUsername"] = auth.parameters.username;
+          inputs["chefUserKey"] = auth.parameters.password;
 
-        // decode the base64 encoding of the userkey
-        // inputs["chefUserKey"] = Buffer.from(inputs["chefUserKey"], "base64").toString("utf8");
+          // get the value for SSL Verification
+          inputs["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify", true);
 
-        // get the value for SSL Verification
-        inputs["chefSSLVerify"] = !!+auth.parameters.sslVerify;
+          tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]));
+        }
 
-        tl.debug(sprintf("SSL Verify: %s", inputs["chefSSLVerify"]));
       }
-
-    }
-    catch (err) {
-      console.warn(err);
+      catch (err) {
+        console.warn(err);
+      }
     }
 
     // create array of inputs that should be checked for

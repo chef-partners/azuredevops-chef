@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "outDir": "../build",
+    "outDir": "../build/production",
     "rootDir": "../",
     "sourceMap": true
   },

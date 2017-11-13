@@ -17,7 +17,7 @@ export function call(tl, config, path: string, method: string, body: string) {
   }
 
   // parse the URL of the server so it can be used to configure the request
-  let chef_server_url = url.parse(config["chefServerUrl"]);
+  let chef_server_url = url.parse(config["chefServiceUrl"]);
 
   // configure the path that is to be called
   let api_path = sprintf("%s/%s", chef_server_url.path, path);

@@ -4,5 +4,5 @@ dist
 build
 *.js
 *.map
-tasks/**/common
+tasks/*/common
 .vscode/settings.json

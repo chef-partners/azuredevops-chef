@@ -19,6 +19,7 @@ These tasks are typically used as part of your Release process:
 * **Release cookbook version to environment**: Releases a cookbook by releasing the cookbook constraint on the specified Chef environment
 * **Execute InSpec**: Execute InSpec on machines in a Deployment Group
 * **Execute Chef Client**: Execute Chef Client on machines in a Deployment Group
+* **Publish Cookbook to Supermarket**: Publish the specified cookbook to the Public or a private Chef Supermarket.
 
 ## Getting Started
 
@@ -26,7 +27,9 @@ See our guide to [Getting Started](https://github.com/chef-partners/vsts-chef/wi
 
 ## Project Configuration/Endpoint
 
-Before you add any Build or Release tasks to your process, you will need to configure your Chef Server "endpoint".
+Before you add any Build or Release tasks to your process, you will need to configure your Chef Server "endpoint". There are 2 endpoints, one for uploading to a Chef server and the other for publishing to a Chef Supermarket.
+
+Both of them have the same options, but allow different credentials to be used for each action.
 
 Endpoints are a per-project configuration and can be accessed via **Project Settings** (cog) > **Services**
 

@@ -5,7 +5,7 @@ import * as Q from "q";
 import * as common from "./common";
 
 // determine the output dir
-let output = path.join(__dirname, "..", "build");
+let output = path.join(__dirname, "..", "build", "production");
 console.log("Output Dir: " + output);
 
 // retrieve all the task directories
@@ -57,9 +57,8 @@ let extension_files = items.map(function (item) {
   }
 })
 
-
 Q.all([task_files, extension_files])
   .fail(function (err) {
     console.error(err)
     process.exit(1)
-  })
+})
