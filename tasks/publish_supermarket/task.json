@@ -17,7 +17,7 @@
   "inputs": [
     {
       "name": "chefSupermarketEndpoint",
-      "type": "connectedService:chefsupermarketendpoint",
+      "type": "connectedService:chefsupermarketendpointv1",
       "label": "Chef Supermarket",
       "defaultValue": "",
       "required": true,
