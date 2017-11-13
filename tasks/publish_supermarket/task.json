@@ -33,7 +33,7 @@
     },
     {
       "name": "chefCookbookPath",
-      "type": "string",
+      "type": "filePath",
       "label": "Cookbook path",
       "defaultValue": "$(Build.SourcesDirectory)/cookbooks",
       "required": true,
