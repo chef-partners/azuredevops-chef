@@ -30,8 +30,16 @@ export function parse(serviceEndpointName, process, tl) {
 
     // get teh service endpoint, but only if it has been specified
     if (serviceEndpointName.length > 0) {
+
+      // Define hashtable that holds the version of the endpoint to use
+      // based on the name that has been supplied
+      let endpointVersions = {
+        'chefserverendpoint': 'chefserverendpointv1',
+        'chefsupermarketendpoint': 'chefsupermarketendpointv1'
+      }
+
       try {
-        let connected_service = tl.getInput(serviceEndpointName, true);
+        let connected_service = tl.getInput(endpointVersions[serviceEndpointName], true);
         tl.debug(sprintf("Endpoint: %s", JSON.stringify(connected_service)));
 
         // only attempt to get the endpoint details if the chefServerEndpoint has been set
