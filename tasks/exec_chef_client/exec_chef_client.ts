@@ -25,7 +25,7 @@ async function run() {
 
         case "win32":
 
-            chef_client_path = "c:\\opscode\\bin\\chef-client.bat"
+            chef_client_path = "c:\\opscode\\chef\\bin\\chef-client.bat"
 
             break;
     }
