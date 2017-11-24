@@ -3,15 +3,14 @@ import * as fs from "fs-extra"
 import * as common from "./common"
 import {sprintf} from "sprintf-js";
 
-// determine the build directory
-let build_dir = path.join(__dirname, "..", "build")
-
 // create preview manifest file and set the appropriate flags in each
-function setManifests() {
+export function configure(build_config) {
+
+    console.log('Setting gallery flags')
 
     // set the file names
-    let production_manifest_file = path.join(build_dir, "production", "vss-extension.json")
-    let preview_manifest_file = path.join(build_dir,"preview", "vss-extension.json")
+    let production_manifest_file = path.join(build_config.dirs.output, "production", "vss-extension.json")
+    let preview_manifest_file = path.join(build_config.dirs.output, "preview", "vss-extension.json")
 
     // PREVIEW patching
     console.log("Patching: PREVIEW")
@@ -46,4 +45,3 @@ function setManifests() {
     fs.writeFileSync(production_manifest_file, JSON.stringify(production_manifest, null, 4))
 }
 
-setManifests();

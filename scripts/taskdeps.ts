@@ -19,33 +19,40 @@ function status(error, stdout, stderr) {
   console.log(stderr);
 }
 
-function installDeps() {
+export function install(options, build_config) {
+
+  console.log('Install task dependencies')
+
+  let build_path = path.join(build_config.dirs.output, "production")
+  let build_task_node_modules_path = ""
 
   let tasks = common.get_tasks();
-
-  // determine the base path to work from
-  let base_path = process.cwd();
 
   // iterate around the tasks and run the depdencies
   let task_files = tasks.map(function (task_name) {
 
+    console.log('   %s', task_name)
+
     // change to the task directory
-    let taskdir = sprintf("%s/tasks/%s", base_path, task_name);
+    let taskdir = path.join(options.parent.tasksdir, task_name)
     console.log(taskdir);
     process.chdir(taskdir);
 
-    // create command so that the modules are in place during compilation
+    // install the necessary dependencies for the task
     let npm_compile_install_cmd = "npm install";
-    child.exec(npm_compile_install_cmd, status);
+    child.execSync(npm_compile_install_cmd);
 
-    // create command for the dependencies at run time
-    let npm_runtime_install_cmd = sprintf("npm install --prefix %s/build/production/tasks/%s .", base_path, task_name);
+    // determine the build path for the task
+    build_task_node_modules_path = path.join(build_path, "tasks", task_name, "node_modules")
+    
+    // ensure that the build task path exists
+    if (!fs.existsSync(build_task_node_modules_path)) {
+      fs.mkdirsSync(build_task_node_modules_path)
+    }
 
-    // run the command to install the depdencies
-    child.exec(npm_runtime_install_cmd, status);
+    // copy the node_modules to the task in the build folder
+    fs.copySync(path.join(taskdir, "node_modules"), build_task_node_modules_path)
 
   });
 
 }
-
-installDeps();
