@@ -4,7 +4,7 @@ import * as tl from "vsts-task-lib/task";
 // Import tasks for the filesystem
 import * as fs from "fs-extra";
 
-import * as path from 'path';
+import * as path from "path";
 
 import {sprintf} from "sprintf-js";
 
@@ -23,7 +23,7 @@ function installInspec() {
             // determine if it is installed or not
             if (!fs.existsSync("/usr/bin/inspec")) {
 
-                console.log("Installing Inspec for Linux")
+                console.log("Installing Inspec for Linux");
 
                 try {
                     let curl_exit_code = tl.tool("curl").line("https://omnitruck.chef.io/install.sh --output /tmp/inspec_install.sh").execSync();
@@ -32,7 +32,7 @@ function installInspec() {
                     tl.setResult(tl.TaskResult.Failed, err.message);
                 }
             } else {
-                console.log("Inspec is installed")
+                console.log("Inspec is installed");
             }
 
             break;
@@ -41,22 +41,22 @@ function installInspec() {
             // determine if it is installed or not
             if (!fs.exsistsSync("C:\\opscode\\inspec\\bin\\inspec.bat")) {
 
-                console.log("Installing Inspec for Windows")
+                console.log("Installing Inspec for Windows");
 
                 try {
 
-                    let install_exit_code = tl.tool('powershell.exe').arg("-Command").arg('. { iwr -useb https://omnitruck.chef.io/install.ps1 } | iex; install -project inspec').exec();
+                    let install_exit_code = tl.tool("powershell.exe").arg("-Command").arg(". { iwr -useb https://omnitruck.chef.io/install.ps1 } | iex; install -project inspec").exec();
 
-                } catch(err) {
+                } catch (err) {
                     tl.setResult(tl.TaskResult.Failed, err.message);
                 }
             } else {
-                console.log("Inspec is installed")
+                console.log("Inspec is installed");
             }
 
             break;
         default:
-            console.log("Operating system not supported: %s", os.platform())
+            console.log("Operating system not supported: %s", os.platform());
     }
 }
 
@@ -93,11 +93,11 @@ async function run() {
         // run inspec using the paths worked out
         try {
 
-            console.log("Running Inspec profiles: %s", params["inspecProfilePath"])
+            console.log("Running Inspec profiles: %s", params["inspecProfilePath"]);
 
             // execute the tests in the specified path
             // Inspec is run with the `cwd` of the inspec profile path
-            let exit_code: number = await tl.tool(inspec_path).arg('exec').arg('.').arg('--format junit').arg('> inspec.out').exec(<any>{cwd: path.normalize(params['inspecProfilePath'])});
+            let exit_code: number = await tl.tool(inspec_path).arg("exec").arg(".").arg("--format junit").arg("> inspec.out").exec(<any>{cwd: path.normalize(params["inspecProfilePath"])});
         } catch (err) {
             tl.setResult(tl.TaskResult.Failed, err.message);
         }
@@ -108,4 +108,4 @@ async function run() {
     }
 }
 
-run()
+run();

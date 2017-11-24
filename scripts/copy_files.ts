@@ -6,7 +6,7 @@ import * as common from "./common";
 
 export function copy(options, build_config) {
 
-  console.log('Copying static files')
+  console.log("Copying static files");
 
   // determine the output dir
   let output = path.join(build_config.dirs.output, "production");
@@ -33,23 +33,23 @@ export function copy(options, build_config) {
 
   let extension_files = build_config.files.extension.map(function (item) {
 
-    console.log("Copying: " + item)
+    console.log("Copying: " + item);
 
     // check the type of item and use the appropriate function
     // file
     if (fs.statSync(item).isFile()) {
-      common.copyFileSync(item, output)
+      common.copyFileSync(item, output);
     }
 
     // directory
     if (fs.statSync(item).isDirectory()) {
-      common.copyFolderRecursiveSync(item, output)
+      common.copyFolderRecursiveSync(item, output);
     }
-  })
+  });
 
   Q.all([task_files, extension_files])
     .fail(function (err) {
-      console.error(err)
-      process.exit(1)
-  })
+      console.error(err);
+      process.exit(1);
+  });
 }

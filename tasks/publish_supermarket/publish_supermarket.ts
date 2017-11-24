@@ -24,20 +24,20 @@ async function run() {
 
     // the private key needs to be written out to a file
     let key_filename: string = "/tmp/supermarket.pem";
-    console.log("Writing key file: %s", key_filename)
+    console.log("Writing key file: %s", key_filename);
     try {
-        fs.writeFileSync(key_filename, params['chefUserKey']);
+        fs.writeFileSync(key_filename, params["chefUserKey"]);
     } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
     }
 
-    // if the task is not to perform an SSL checks then the certs need to be 
+    // if the task is not to perform an SSL checks then the certs need to be
     // downloaded from the chef server
-    if (!params['chefSSLVerify']) {
-        console.log("Fetching SSL certificates: %s", params['chefServiceUrl']);
+    if (!params["chefSSLVerify"]) {
+        console.log("Fetching SSL certificates: %s", params["chefServiceUrl"]);
 
         // set the agruments to download the SSL certificates
-        let args = sprintf("ssl fetch %s -u %s -k %s", params["chefServiceUrl"], params["chefUsername"], key_filename)
+        let args = sprintf("ssl fetch %s -u %s -k %s", params["chefServiceUrl"], params["chefUsername"], key_filename);
 
         try {
             let exit_code: number = await tl.tool(cmd).line(args).exec();

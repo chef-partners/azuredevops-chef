@@ -9,12 +9,12 @@
         "request": "launch",
         "name": "Launch Program",
         "program": "${workspaceFolder}/scripts\\build.ts",
-        "cwd": "${workspaceFolder}/scripts",
+        "cwd": "${workspaceFolder}/bin",
         "args": [
-          "taskdeps"
+          "lint"
         ],
         "outFiles": [
-          "${workspaceFolder}/scripts/*.js"
+          "${workspaceFolder}/bin/*.js"
         ]
       }
     ]

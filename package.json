@@ -8,7 +8,7 @@
     "initdev": "npm run initdev:npm && npm run initdev:typings",
     "clean": "rimraf build",
     "build:tasks": "npm run clean && npm run build:tasks:noclean",
-    "build:tasks:noclean": "npm run compile:scripts && node scripts/build.js run",
+    "build:tasks:noclean": "npm run compile:scripts && node bin/build.js run",
     "compile:scripts": "tsc --project scripts/tsconfig.json"
   },
   "devDependencies": {

@@ -6,7 +6,7 @@ import * as fs from "fs-extra";
 
 export function copy(options, build_config) {
 
-  console.log('Copying common libraries')
+  console.log("Copying common libraries");
 
   // retrieve all the task directories
   let tasks = common.get_tasks();
@@ -23,26 +23,26 @@ export function copy(options, build_config) {
 
         // if the task is in the array of tasks for this file then copy the file
         if (build_config.task_libs[libfile].indexOf(task_name) > -1) {
-          
+
           // determine the src and target path
           let source = path.join(common_dir, libfile);
           let target = path.join(options.parent.tasksdir, task_name, "common");
-    
+
           // ensure that the target directory exists
           if (!fs.existsSync(target)) {
-            fs.mkdirSync(target)
+            fs.mkdirSync(target);
           }
 
           common.copyFileSync(source, target);
-    
-          console.log("Copying '%s' to task: %s", libfile, task_name)
+
+          console.log("Copying '%s' to task: %s", libfile, task_name);
         }
     });
   });
 
   Q.all([libraries])
     .fail(function (err) {
-      console.error(err)
-      process.exit(1)
-    })
+      console.error(err);
+      process.exit(1);
+    });
 }

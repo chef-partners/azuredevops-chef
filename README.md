@@ -55,6 +55,7 @@ The following table shows a list of all the NPM tasks that have been created.
 | initdev | Wrapper for above two tasks |
 | clean | Remove the `build` directory |
 | compile:scripts | Compile the `scripts` that are required during the build.  Compile the tasks as defined by the `tasks/tsconfig.build.json` |
+| lint | Lint TypeScript files in the `scripts` and `tasks` folders, but not in nested node_modules |
 | build:tasks:noclean | Execute the `scripts/build.js run` command to perform all build and package tasks |
 
 # Build Process
@@ -74,11 +75,13 @@ The entire build process is governed by the `build.js` script (so it needs to be
     -t, --tasksdir [directory]  Path to the tasks folder 
     --tfxpath [path]            Path to the TFX executable 
     --tscpath [path]            Path to the TSC executable 
+    --tslintpath [path]         Path to the TSLint executable
     -h, --help                  output usage information
 
 
   Commands:
 
+    lint [options]           Lint the Typescript files
     copylibs                 Copy libraries to extension tasks
     taskdeps                 Iterate around the tasks and install dependencies
     compiletasks [options]   Compile the typescript tasks into JavaScript

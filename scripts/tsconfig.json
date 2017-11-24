@@ -2,8 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "outDir": "../",
-    "rootDir": "../",
+    "outDir": "../bin",
     "sourceMap": true
   },
   "exclude": [

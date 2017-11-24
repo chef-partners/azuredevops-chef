@@ -17,7 +17,7 @@ export function get_tasks(task_dir = null) {
   return fs.readdirSync(task_dir).filter(function (file) {
     return ["common", "typings"].indexOf(file.toLowerCase()) < 0
       && fs.statSync(path.join(task_dir, file)).isDirectory();
-  })
+  });
 }
 
 export function copyFileSync( source, target ) {
@@ -37,13 +37,13 @@ export function copyFileSync( source, target ) {
 export function copyFolderRecursiveSync( source, target ) {
     let files = [];
 
-    //check if folder needs to be created or integrated
+    // check if folder needs to be created or integrated
     let targetFolder = path.join( target, path.basename( source ) );
     if ( !fs.existsSync( targetFolder ) ) {
         fs.mkdirSync( targetFolder );
     }
 
-    //copy
+    // copy
     if ( fs.lstatSync( source ).isDirectory() ) {
         files = fs.readdirSync( source );
         files.forEach( function ( file ) {
