@@ -14,6 +14,7 @@
         "request": "^2.80.0",
         "request-promise": "^4.1.1",
         "sprintf-js": "^1.0.3",
-        "vsts-task-lib": "^1.1.0"
+        "vsts-task-lib": "^1.1.0",
+        "dot-object": "^1.7.0"
     }
 }
