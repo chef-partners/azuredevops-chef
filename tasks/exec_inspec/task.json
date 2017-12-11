@@ -12,7 +12,13 @@
         "Patch": 3
     },
     "instanceNameFormat": "Execute InSpec",
-    "groups": [],
+    "groups": [
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }           
+    ],
     "inputs": [
         {
             "name": "inspecProfilePath",
@@ -21,6 +27,15 @@
             "defaultValue": "$(System.ArtifactsDirectory)/cookbooks",
             "required": true,
             "helpMarkDown": "Path to the InSpec profiles that need to be executed"
+        },
+        {
+            "name": "inspecResultsFile",
+            "type": "string",
+            "label": "InSpec Results File",
+            "defaultValue": "inspec.out",
+            "required": false,
+            "helpMarkDown": "Path to file that results should be written to. If not an absolute path this will be relative to the specified Profile Path",
+            "groupName": "advanced"
         }
     ],
     "execution": {

@@ -27,6 +27,10 @@
     "uuidv5": "^1.0.0"
   },
   "dependencies": {
+    "dot-object": "^1.7.0",
+    "is-admin": "^2.1.1",
+    "is-elevated": "^2.0.1",
+    "is-root": "^1.0.0",
     "q": "^1.4.1",
     "vsts-task-lib": "^1.1.0"
   }

@@ -1,7 +1,7 @@
 {
-    "name": "task-upload_cookbook",
+    "name": "task-install_inspec",
     "version": "1.0.0",
-    "description": "Upload a cookbook to the specified Chef Server",
+    "description": "Install InSPec on the target machine",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
@@ -12,6 +12,8 @@
         "fs-extra": "^2.0.0",
         "moment": "^2.17.1",
         "sprintf-js": "^1.0.3",
+        "is-elevated": "^2.0.1",
+        "q": "^1.4.1",
         "dot-object": "^1.7.0"
     }
 }

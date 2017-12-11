@@ -1,6 +1,12 @@
 {
     "name": "task-env_version_constraint",
     "version": "1.0.0",
+    "description": "Set a cookbook constraint on the Chef environment",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://chef-software.visualstudio.com/_git/vsts-chef"
+    },
     "dependencies": {
         "http": "0.0.0",
         "moment": "^2.17.1",

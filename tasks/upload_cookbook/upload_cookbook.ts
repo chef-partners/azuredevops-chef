@@ -9,12 +9,13 @@ import {sprintf} from "sprintf-js";
 // Import common tasks
 import * as inputs from "./common/inputs";
 import * as utils from "./common/utils";
+import * as builtin from "./common/builtin";
 
 // Function to ensure that the configuration files are in place for communicating with the Chef Server
-function configureChef(chef_server_url, nodename, key, sslVerify) {
+function configureChef(chef_server_url, nodename, key, sslVerify, settings) {
 
   // determine the filename of the key
-  let key_filename: string = sprintf("/tmp/%s.pem", nodename);
+  let key_filename: string = settings["paths"]["private_key"];
 
   // write out the user key to the file
   try {
@@ -37,7 +38,7 @@ function configureChef(chef_server_url, nodename, key, sslVerify) {
 
   // write out the configuration file
   try {
-    fs.writeFileSync("/tmp/berks.config.json", JSON.stringify(berks_config));
+    fs.writeFileSync(settings["paths"]["berks_config"], JSON.stringify(berks_config));
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
@@ -45,14 +46,14 @@ function configureChef(chef_server_url, nodename, key, sslVerify) {
 
 async function run() {
 
-  // ensure chefdk is installed
-  utils.installChefDK(tl, fs);
-
   // Get the parameters that have been set on the task
   let params = inputs.parse("chefServerEndpoint", process, tl);
 
+  // get the builtin settings
+  let builtin_settings = builtin.settings();
+
   // configure chef
-  configureChef(params["chefServiceUrl"], params["chefUsername"], params["chefUserKey"], params["chefSSLVerify"]);
+  configureChef(params["chefServiceUrl"], params["chefUsername"], params["chefUserKey"], params["chefSSLVerify"], builtin_settings);
 
   // change to the correct directory to upload the cookbook
   console.log("CD to cookbook directory: %s", params["chefCookbookPath"]);
@@ -62,19 +63,41 @@ async function run() {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
 
+  // set the command that is going to run
+  let command = builtin_settings["paths"]["berks"];
+  let command_args = "";
+
   // install the necessary cookbook dependencies
   try {
-    let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").line("install").exec();
+    command_args = "install";
+    tl.debug(sprintf("Berks command: %s %s", command, command_args));
+    let exit_code: number = await tl.tool(command)
+                                    .line(command_args)
+                                    .exec();
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
 
   // upload the cookbook to the chef server
   try {
-    let exit_code: number = await tl.tool("/opt/chefdk/bin/berks").line("upload -c /tmp/berks.config.json").exec();
+    command_args = sprintf("upload -c %s", builtin_settings["paths"]["berks_config"]);
+    tl.debug(sprintf("Berks command: %s %s", command, command_args));
+    let exit_code: number = await tl.tool(command)
+                                    .line(command_args)
+                                    .exec();
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
+
+  // check the option for deleting the private key
+  let delete_private_key_option = (params["deletePrivateKey"] === "true");
+  if (delete_private_key_option) {
+      console.log("Removing Private key: %s", builtin_settings["paths"]["private_key"]);
+      tl.rmRF(builtin_settings["paths"]["private_key"]);
+  } else {
+      console.warn("Option to delete private key has not been enabled. Please consider using this option so that your Chef private key is not left on the agent");
+  }
+
 }
 
 run();

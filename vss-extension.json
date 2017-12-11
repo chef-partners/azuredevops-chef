@@ -269,6 +269,26 @@
             "properties": {
                 "name": "tasks/publish_supermarket"
             }
+        },
+        {
+            "id": "vsts-chef-task-install-chefdk",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/install_chefdk"
+            }
+        },
+        {
+            "id": "vsts-chef-task-install-inspec",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/install_inspec"
+            }
         }
     ]
 }

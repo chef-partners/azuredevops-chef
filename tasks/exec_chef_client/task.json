@@ -12,8 +12,29 @@
         "Patch": 3
     },
     "instanceNameFormat": "Execute Chef Client",
-    "groups": [],
+    "groups": [
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }        
+    ],
     "inputs": [
+        {
+            "name": "chefClientLogLevel",
+            "type": "picklist",
+            "label": "Log Level",
+            "defaultValue": "info",
+            "helpMarkdown": "Log level for running Chef Client",
+            "options": {
+                "debug": "Debug",
+                "info": "Info",
+                "warn": "Warn",
+                "error": "Error",
+                "fatal": "Fatal"
+            },
+            "groupName": "advanced"
+        }    
     ],
     "execution": {
         "Node": {

@@ -1,6 +1,12 @@
 {
     "name": "task-exec_chef_client",
     "version": "1.0.0",
+    "description": "Execute chef-client on the target machine",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://chef-software.visualstudio.com/_git/vsts-chef"
+    },
     "dependencies": {
         "vsts-task-lib": "^1.1.0",
         "fs-extra": "^2.0.0",

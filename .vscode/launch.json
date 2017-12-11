@@ -16,6 +16,26 @@
         "outFiles": [
           "${workspaceFolder}/bin/*.js"
         ]
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Install ChefDK task",
+        "program": "${workspaceFolder}/tasks/install_chefdk/install_chefdk.ts",
+        "cwd": "${workspaceFolder}/build/production/tasks/install_chefdk",
+        "stopOnEntry": false,
+        "args": [],
+        "env": {
+          "NODE_ENV": "dev",
+          "INPUT_chefDKChannel": "current",
+          "INPUT_chefDKForceInstall": "false",
+          "INPUT_useSudo": "1"
+        },
+        "sourceMaps": true,
+        "useWSL": true,
+        "outFiles": [
+          "${workspaceFolder}/build/production/tasks/install_chefdk/*.js"
+        ]
       }
     ]
   }

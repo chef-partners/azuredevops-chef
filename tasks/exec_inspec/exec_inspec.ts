@@ -6,105 +6,69 @@ import * as fs from "fs-extra";
 
 import * as path from "path";
 
+import * as Q from "q";
+
 import {sprintf} from "sprintf-js";
 
 // Import common tasks
 import * as inputs from "./common/inputs";
+import * as utils from "./common/utils";
+import * as builtin from "./common/builtin";
 
 import * as os from "os";
-
-// Install Inspec
-function installInspec() {
-
-    // detect the operating system so that the correct installation procedure is used
-    switch (os.platform()) {
-        case "linux":
-
-            // determine if it is installed or not
-            if (!fs.existsSync("/usr/bin/inspec")) {
-
-                console.log("Installing Inspec for Linux");
-
-                try {
-                    let curl_exit_code = tl.tool("curl").line("https://omnitruck.chef.io/install.sh --output /tmp/inspec_install.sh").execSync();
-                    let install_exit_code = tl.tool("bash").line("/tmp/inspec_install.sh -c current -P inspec").execSync();
-                } catch (err) {
-                    tl.setResult(tl.TaskResult.Failed, err.message);
-                }
-            } else {
-                console.log("Inspec is installed");
-            }
-
-            break;
-        case "win32":
-
-            // determine if it is installed or not
-            if (!fs.exsistsSync("C:\\opscode\\inspec\\bin\\inspec.bat")) {
-
-                console.log("Installing Inspec for Windows");
-
-                try {
-
-                    let install_exit_code = tl.tool("powershell.exe").arg("-Command").arg(". { iwr -useb https://omnitruck.chef.io/install.ps1 } | iex; install -project inspec").exec();
-
-                } catch (err) {
-                    tl.setResult(tl.TaskResult.Failed, err.message);
-                }
-            } else {
-                console.log("Inspec is installed");
-            }
-
-            break;
-        default:
-            console.log("Operating system not supported: %s", os.platform());
-    }
-}
 
 async function run() {
 
     // get the parameters that have been passed to the task
     let params = inputs.parse("", process, tl);
 
-    // call the installation with the version to install
-    installInspec();
+    // normalise the path to the inspec profile so that is correct for the platform
+    let inspec_profile_path = path.normalize(params["inspec"]["profilePath"]);
+    let inspec_results_path = path.normalize(params["inspec"]["resultsFile"]);
 
-    let inspec_path = "";
+    // get the builtin settings so that the task can find where inspec should be run from
+    let builtin_settings = builtin.settings();
 
-    // run inspec
-    switch (os.platform()) {
-        case "linux":
+    // ensure that inspec is installed
+    let inspec_installed = utils.isInstalled("inspec", fs);
+    tl.debug(sprintf("inspec_installed: [%s] %s", typeof inspec_installed, String(inspec_installed)));
+    if (inspec_installed) {
+        // check that the profile path exists
+        if (fs.existsSync(params["inspec"]["profilePath"])) {
 
-            // set the path to the executable to run
-            inspec_path = "/usr/bin/inspec";
+            // run inspec using the paths worked out
+            try {
 
-            break;
+                console.log("Running Inspec profiles: %s", inspec_profile_path);
 
-        case "win32":
+                // set the command and the arguments to run
+                let command = builtin_settings["paths"]["inspec"];
+                let command_args = sprintf("exec . --format junit > %s", inspec_results_path);
 
-            // set the path to the executable to run
-            inspec_path = "C:\\opscode\\inspec\\bin\\inspec.bat";
+                tl.debug(sprintf("InSpec Command [%s]: %s %s", inspec_profile_path, command, command_args));
 
-            break;
-    }
+                // execute the tests in the specified path
+                // Inspec is run with the `cwd` of the inspec profile path
+                let command_result = tl.tool(command)
+                                    .line(command_args)
+                                    .execSync(<any>{cwd: path.normalize(inspec_profile_path)});
 
-    // check that the profile path exists
-    if (fs.existsSync(params["inspecProfilePath"])) {
+                // check the exit code for errors
+                if (command_result.code !== 0) {
+                    let fail_message = "InSpec tests failed. Please review errors and try again.";
+                    tl.setResult(tl.TaskResult.Failed, fail_message);
+                }
 
-        // run inspec using the paths worked out
-        try {
+            } catch (err) {
+                tl.setResult(tl.TaskResult.Failed, err.message);
+            }
 
-            console.log("Running Inspec profiles: %s", params["inspecProfilePath"]);
+        } else {
 
-            // execute the tests in the specified path
-            // Inspec is run with the `cwd` of the inspec profile path
-            let exit_code: number = await tl.tool(inspec_path).arg("exec").arg(".").arg("--format junit").arg("> inspec.out").exec(<any>{cwd: path.normalize(params["inspecProfilePath"])});
-        } catch (err) {
-            tl.setResult(tl.TaskResult.Failed, err.message);
+            tl.setResult(tl.TaskResult.Failed, sprintf("Cannot find Inspec profile path: %s", inspec_profile_path));
         }
-
     } else {
-
-        tl.setResult(tl.TaskResult.Failed, sprintf("Cannot find Inspec profile path: %s", params["inspecProfilePath"]));
+        tl.setResult(tl.TaskResult.Failed, "InSpec is not installed. Please use the 'Install InSpec' task");
     }
 }
 

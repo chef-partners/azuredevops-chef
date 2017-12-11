@@ -11,11 +11,28 @@
         "cookbook_version",
         "env_version_constraint",
         "env_vsts_variables",
+        "exec_chef_client",
         "exec_inspec",
         "publish_supermarket",
-        "upload_cookbook"
+        "upload_cookbook",
+        "install_chefdk",
+        "install_inspec"
       ],
       "utils.ts": [
+        "publish_supermarket",
+        "upload_cookbook",
+        "install_chefdk",
+        "install_inspec",
+        "exec_inspec"
+      ],
+      "builtin.ts": [
+        "cookbook_version",
+        "env_version_constraint",
+        "env_vsts_variables",
+        "exec_chef_client",
+        "exec_inspec",
+        "install_chefdk",
+        "install_inspec",
         "publish_supermarket",
         "upload_cookbook"
       ]

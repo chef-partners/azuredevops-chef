@@ -1,6 +1,12 @@
 {
     "name": "task-env_vsts_variables",
     "version": "1.0.0",
+    "description": "Copy variables set on the Release environment into the named Chef Environment",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://chef-software.visualstudio.com/_git/vsts-chef"
+    },
     "dependencies": {
         "http": "0.0.0",
         "moment": "^2.17.1",

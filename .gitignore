@@ -7,3 +7,4 @@ bin
 *.map
 tasks/*/common
 .vscode/settings.json
+local
