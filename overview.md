@@ -10,6 +10,7 @@ These tasks are typically used in your Build process:
 
 * **Update cookbook version number**: Update a cookbook version to the current build number
 * **Upload cookbook to Chef Server**: Upload a cookbook to Chef Server including dependencies
+* **Install ChefDK**: Install ChefDK on the build agent
 
 ## Release Tasks
 
@@ -17,9 +18,28 @@ These tasks are typically used as part of your Release process:
 
 * **Add variables to Chef Environment**: Add the VSTS/TFS variables for this environment to the Chef environment
 * **Release cookbook version to environment**: Releases a cookbook by releasing the cookbook constraint on the specified Chef environment
+* **Install InSpec**: Install InSpec on machines in a Deployment Group
 * **Execute InSpec**: Execute InSpec on machines in a Deployment Group
 * **Execute Chef Client**: Execute Chef Client on machines in a Deployment Group
 * **Publish Cookbook to Supermarket**: Publish the specified cookbook to the Public or a private Chef Supermarket.
+
+## Agent Compatiblity
+
+The following table shows the tasks and what type of agents they are compatibile with. Most of the tasks now work on Windows based agents.
+
+| Task | Private Windows Agent | Private Linux Agent | Hosted Windows Agent | Hosted Linux Agent |
+|------|-----------------------|---------------------|----------------------|--------------------|
+| Update Cookbook Version Number | Yes | Yes | Yes | Yes |
+| Upload Cookbook to Chef Server | Yes | Yes | Yes | Yes |
+| Install ChefDK | Yes | Yes | No | Yes |
+| Add Variables to Chef Environment | Yes | Yes | Yes | Yes |
+| Release cookbook version to environment | Yes | Yes | Yes | Yes |
+| Install InSpec | Yes | Yes | No | Yes |
+| Excute InSpec | Yes | Yes | Yes | Yes |
+| Execute Chef Client | Yes | Yes | Yes | Yes |
+| Publish Cookbook to Supermarket | Yes | Yes | Yes | Yes |
+
+**Note: ** To install ChefDK or InSpec on a Private Linux Agent then task process must be running as root or under an account that has passwordless sudo access. For a Private Windows Agent the process must be running with elevated privileges.
 
 ## Getting Started
 
