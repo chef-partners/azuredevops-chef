@@ -3,7 +3,7 @@
   "name": "vsts-chef-task-cookbook-upload",
   "friendlyName": "Upload cookbook to Chef Server (Chef)",
   "description": "Upload a cookbook to Chef Server including dependencies",
-  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/Task:-Upload-cookbook-to-Chef-Server)",
+  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/upload-cookbook-to-chef-server)",
   "category": "Build",
   "author": "Chef",
   "version": {

@@ -12,6 +12,11 @@ These tasks are typically used in your Build process:
 * **Upload cookbook to Chef Server**: Upload a cookbook to Chef Server including dependencies
 * **Install ChefDK**: Install ChefDK on the build agent
 
+## Utility Tasks
+
+* **Install Gem**: Install a Gem into the ChefDK context. Usually used to install `knife` plugins.
+* **Execute Knife**: Execute Knife command with specified arguments.
+
 ## Release Tasks
 
 These tasks are typically used as part of your Release process:
@@ -32,6 +37,8 @@ The following table shows the tasks and what type of agents they are compatibile
 | Update Cookbook Version Number | Yes | Yes | Yes | Yes |
 | Upload Cookbook to Chef Server | Yes | Yes | Yes | Yes |
 | Install ChefDK | Yes | Yes | No | Yes |
+| Install Gem | Yes | Yes | Yes | Yes |
+| Execute Knife | Yes | Yes | Yes | Yes |
 | Add Variables to Chef Environment | Yes | Yes | Yes | Yes |
 | Release cookbook version to environment | Yes | Yes | Yes | Yes |
 | Install InSpec | Yes | Yes | No | Yes |

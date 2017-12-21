@@ -3,7 +3,7 @@
   "name": "vsts-chef-task-env-version-constraint",
   "friendlyName": "Release cookbook version to environment (Chef)",
   "description": "Releases a cookbook by releasing the cookbook constraint on the specified Chef environment",
-  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/Task:-Release-cookbook-version-to-environment)",
+  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/release-cookbook-version-to-environment)",
   "category": "Deploy",
   "author": "Chef",
   "version": {

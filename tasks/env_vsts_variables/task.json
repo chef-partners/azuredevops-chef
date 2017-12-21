@@ -3,7 +3,7 @@
   "name": "vsts-chef-task-env-vsts-variables",
   "friendlyName": "Add variables to Chef environment (Chef)",
   "description": "Add the VSTS/TFS variables for this environment to the Chef environment",
-  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/Task:-Add-variables-to-Chef-Environment)",
+  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/add-variables-to-chef-environment)",
   "category": "Deploy",
   "author": "Chef",
   "version": {

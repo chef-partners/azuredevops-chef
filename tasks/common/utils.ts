@@ -5,7 +5,7 @@ import { sprintf } from "sprintf-js";
 import * as elevated from "is-elevated";
 import * as Q from "q";
 
-import * as builtin from "./builtin"
+import * as settings from "./settings"
 
 function windowsInstall(name, tl, builtin_settings, inputs) {
 
@@ -111,7 +111,7 @@ function linuxInstall(name, tl, builtin_settings, inputs, use_sudo) {
 
 export function install(name, tl, fs, inputs) {
 
-  let builtin_settings = builtin.settings();
+  let builtin_settings = settings.parse("", process, tl);
   
   tl.debug(JSON.stringify(builtin_settings));
 
@@ -186,10 +186,10 @@ export function install(name, tl, fs, inputs) {
 
 }
 
-export function isInstalled(name, fs) {
+export function isInstalled(name, fs, tl) {
 
     // get the built in settings
-    let builtin_settings = builtin.settings();
+    let builtin_settings = settings.parse("", process, tl);
 
     // determine if the named software is installed or not
     return fs.existsSync(builtin_settings["paths"][name]);

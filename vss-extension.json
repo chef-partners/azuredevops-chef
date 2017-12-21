@@ -179,18 +179,18 @@
                                 "inputMode": "textbox",
                                 "isConfidential": false,
                                 "validation": {
-                                    "isRequired": true,
+                                    "isRequired": false,
                                     "dataType": "string"
                                 }
                             },
                             {
                                 "id": "password",
-                                "name": "Client Key",
-                                "description": "The private key (in pem format) for the specified user",
+                                "name": "Password or Client Key",
+                                "description": "Password or the private key (in pem format) for the specified user",
                                 "inputMode": "textarea",
                                 "isConfidential": true,
                                 "validation": {
-                                    "isRequired": true,
+                                    "isRequired": false,
                                     "dataType": "string"
                                 }
                             }
@@ -288,6 +288,26 @@
             ],
             "properties": {
                 "name": "tasks/install_inspec"
+            }
+        },
+        {
+            "id": "vsts-chef-task-gem-install",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/gem_install"
+            }
+        },
+        {
+            "id": "vsts-chef-task-exec-knife",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/exec_knife"
             }
         }
     ]

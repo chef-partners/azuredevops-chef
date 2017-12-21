@@ -11,26 +11,25 @@ import * as Q from "q";
 import {sprintf} from "sprintf-js";
 
 // Import common tasks
-import * as inputs from "./common/inputs";
 import * as utils from "./common/utils";
-import * as builtin from "./common/builtin";
+import * as settings from "./common/settings";
 
 import * as os from "os";
 
 async function run() {
 
+    // get the builtin settings so that the task can find where inspec should be run from
+    let builtin_settings = settings.parse("", process, tl);
+
     // get the parameters that have been passed to the task
-    let params = inputs.parse("", process, tl);
+    let params = builtin_settings["inputs"];
 
     // normalise the path to the inspec profile so that is correct for the platform
     let inspec_profile_path = path.normalize(params["inspec"]["profilePath"]);
     let inspec_results_path = path.normalize(params["inspec"]["resultsFile"]);
 
-    // get the builtin settings so that the task can find where inspec should be run from
-    let builtin_settings = builtin.settings();
-
     // ensure that inspec is installed
-    let inspec_installed = utils.isInstalled("inspec", fs);
+    let inspec_installed = utils.isInstalled("inspec", fs, tl);
     tl.debug(sprintf("inspec_installed: [%s] %s", typeof inspec_installed, String(inspec_installed)));
     if (inspec_installed) {
         // check that the profile path exists

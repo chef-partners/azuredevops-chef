@@ -7,9 +7,7 @@ import * as fs from "fs-extra";
 import {sprintf} from "sprintf-js";
 
 // Import common tasks
-import * as inputs from "./common/inputs";
-import * as utils from "./common/utils";
-import * as builtin from "./common/builtin";
+import * as settings from "./common/settings";
 
 // Function to ensure that the configuration files are in place for communicating with the Chef Server
 function configureChef(chef_server_url, nodename, key, sslVerify, settings) {
@@ -46,11 +44,11 @@ function configureChef(chef_server_url, nodename, key, sslVerify, settings) {
 
 async function run() {
 
-  // Get the parameters that have been set on the task
-  let params = inputs.parse("chefServerEndpoint", process, tl);
-
   // get the builtin settings
-  let builtin_settings = builtin.settings();
+  let builtin_settings = settings.parse("chefServerEndpoint", process, tl);
+
+  // Get the parameters that have been set on the task
+  let params = builtin_settings["inputs"];
 
   // configure chef
   configureChef(params["chefServiceUrl"], params["chefUsername"], params["chefUserKey"], params["chefSSLVerify"], builtin_settings);

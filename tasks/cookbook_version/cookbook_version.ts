@@ -3,12 +3,15 @@ import * as tl from "vsts-task-lib/task";
 import * as Q from "q";
 import * as replace from "replace";
 import {sprintf} from "sprintf-js";
-import * as inputs from "./common/inputs";
+import * as settings from "./common/settings";
 
 async function run() {
   try {
     // Get the parameters that have been set on the task
-    let params = inputs.parse("", process, tl);
+    let all_settings = settings.parse("", process, tl);
+
+    // Get the inputs that have been retrieved
+    let params = all_settings["inputs"];
     console.info("Attempting to set cookbook version: %s", params["chefCookbookVersion"]);
 
     // replace the version number in the metadata file

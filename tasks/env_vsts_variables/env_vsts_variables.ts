@@ -6,7 +6,7 @@ import * as Q from "q";
 import * as tl from "vsts-task-lib/task";
 
 // Import common tasks
-import * as inputs from "./common/inputs";
+import * as settings from "./common/settings";
 import * as chefapi from "./common/chefapi";
 
 import {sprintf} from "sprintf-js";
@@ -58,7 +58,8 @@ function add_vsts_variables_to_env(params, environment) {
 async function run() {
 
   // Get the parameters that have been set on the task
-  let params = inputs.parse("chefServerEndpoint", process, tl);
+  let all_settings = settings.parse("chefServerEndpoint", process, tl);
+  let params = all_settings["inputs"];
 
   // set the path that is to be called
   let path = sprintf("environments/%s", params["chefEnvName"]);

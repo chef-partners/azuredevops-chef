@@ -8,17 +8,15 @@ import * as fs from "fs-extra";
 import {sprintf} from "sprintf-js";
 
 // Import common tasks
-import * as inputs from "./common/inputs";
-import * as utils from "./common/utils";
-import * as builtin from "./common/builtin";
+import * as settings from "./common/settings";
 
 async function run() {
 
     // get the built in settings
-    let builtin_settings = builtin.settings();
+    let builtin_settings = settings.parse("chefsupermarketendpoint", process, tl);
 
     // Get the parameters that have been set on the task
-    let params = inputs.parse("chefsupermarketendpoint", process, tl);
+    let params = builtin_settings["inputs"];
 
     // set the command that is to be run
     let command = builtin_settings["paths"]["knife"];

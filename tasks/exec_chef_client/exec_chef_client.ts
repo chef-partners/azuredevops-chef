@@ -8,16 +8,15 @@ import {sprintf} from "sprintf-js";
 import * as os from "os";
 
 // Import necessary libs from the common libs
-import * as builtin from "./common/builtin";
-import * as inputs from "./common/inputs";
+import * as settings from "./common/settings";
 
 async function run() {
 
     // get the builtin settings to find the path to chef-client on Windows and Linux
-    let builtin_settings = builtin.settings();
+    let builtin_settings = settings.parse("", process, tl);
 
     // get the inputs to the task so that the options can be set
-    let params = inputs.parse("", process, tl);
+    let params = builtin_settings["inputs"];
 
     // only attempt to run chef-client of the path exsist
     if (!builtin_settings["paths"]["chefclient"]) {

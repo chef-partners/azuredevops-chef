@@ -3,7 +3,7 @@
   "name": "vsts-chef-task-cookbook-publish-supermaket",
   "friendlyName": "Publish cookbook to Supermarket (Chef)",
   "description": "Publish a cookbook to public or private Supermaket",
-  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/Task:-Publish-cookbook-to-Supermarket)",
+  "helpMarkDown": "[More information](https://github.com/chef-partners/vsts-chef/wiki/publish-cookbook-to-supermarket)",
   "category": "Deploy",
   "author": "Chef",
   "version": {
