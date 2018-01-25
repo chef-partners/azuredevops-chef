@@ -11,9 +11,12 @@ These tasks are typically used in your Build process:
 * **Update cookbook version number**: Update a cookbook version to the current build number
 * **Upload cookbook to Chef Server**: Upload a cookbook to Chef Server including dependencies
 * **Install ChefDK**: Install ChefDK on the build agent
+* **Linting**: Perform linting tasks on the cookbook
+* **Test Kitchen**: Perform TK tests on the cookbook. This is designed for the [Test Kitchen AzureRM](https://github.com/test-kitchen/kitchen-azurerm) driver which needs to be installed using the 'Install Gem' task.
 
 ## Utility Tasks
 
+* **Install Cookbook Gems**: Install Gems for a cookbook as specified in the `Gemfile`.
 * **Install Gem**: Install a Gem into the ChefDK context. Usually used to install `knife` plugins.
 * **Execute Knife**: Execute Knife command with specified arguments.
 
@@ -45,6 +48,7 @@ The following table shows the tasks and what type of agents they are compatibile
 | Excute InSpec | Yes | Yes | Yes | Yes |
 | Execute Chef Client | Yes | Yes | Yes | Yes |
 | Publish Cookbook to Supermarket | Yes | Yes | Yes | Yes |
+| Linting | Yes | Yes | Yes | Yes |
 
 **Note: ** To install ChefDK or InSpec on a Private Linux Agent then task process must be running as root or under an account that has passwordless sudo access. For a Private Windows Agent the process must be running with elevated privileges.
 

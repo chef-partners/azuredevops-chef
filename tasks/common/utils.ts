@@ -109,7 +109,7 @@ function linuxInstall(name, tl, builtin_settings, inputs, use_sudo) {
   }  
 }
 
-export function install(name, tl, fs, inputs) {
+export function install(name, tl, inputs) {
 
   let builtin_settings = settings.parse("", process, tl);
   
@@ -124,7 +124,7 @@ export function install(name, tl, fs, inputs) {
   let install_promise = elevated().then(function (isElevated) {
 
     let force_install = (inputs[name]["forceInstall"] == 'true');
-    let software_installed = fs.existsSync(builtin_settings["paths"][name]);
+    let software_installed = tl.exist(builtin_settings["paths"][name]);
     tl.debug(sprintf("Force Install '%s': [%s] %s", name, typeof force_install, String(force_install)));
     tl.debug(sprintf("'%s' Path: %s [Installed? %s]", name, builtin_settings["paths"][name], String(software_installed)));
     if (!software_installed || force_install) {
@@ -186,11 +186,11 @@ export function install(name, tl, fs, inputs) {
 
 }
 
-export function isInstalled(name, fs, tl) {
+export function isInstalled(name, tl) {
 
     // get the built in settings
     let builtin_settings = settings.parse("", process, tl);
 
     // determine if the named software is installed or not
-    return fs.existsSync(builtin_settings["paths"][name]);
+    return tl.exist(builtin_settings["paths"][name]);
 }

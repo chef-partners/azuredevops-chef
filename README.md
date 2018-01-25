@@ -9,8 +9,13 @@ The following tasks are available:
 * **VSTS Environment Variables**: Set the variables on a Release environment as attributes on the Chef environment
 * **Execute Chef Client**: Execute Chef-Client
 * **Execute Inspec**: Execute Inspec
+* **Execute Knife**: Exeucte Knife command in the context of the specified Chef Server endpoint
+* **Gem Install**: InstallGem into the ChefDK context
+* **Install ChefDK**: Install ChefDk onto the VSTS Agent. (See restrictions below)
+* **Install Inspec**: Install Inspec on a Deployment Group machine 
 * **Publish to Supermarket**: Publish the cookbook to a supermarket
 * **Upload Cookbook**: Upload the cookbook (and dependencies) to a Chef Server
+* **Test Kitchen**: Perform TK tests in Azure
 
 ## Building
 

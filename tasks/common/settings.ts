@@ -2,7 +2,7 @@ import { sprintf } from "sprintf-js";
 import * as path from "path";
 import * as os from "os";
 import * as dot from "dot-object";
-import * as fs from "fs-extra";
+import * as tl from "vsts-task-lib/task";
 
 function standard() {
     // intialise variables
@@ -18,6 +18,13 @@ function standard() {
             "download": "",
             "chefdk": "",
             "chefclient": ""
+        },
+        "linting": {
+            "actions": {
+                "chefspec": "spec",
+                "chefstyle": "style:chefstyle",
+                "foodcritic": "style:foodcritic"
+            }
         },
         "inputs": {}
     };
@@ -35,6 +42,7 @@ function standard() {
             settings["paths"]["inspec"] = path.join("c:", "opscode", "inspec", "bin", "inspec.bat");
             settings["paths"]["knife"] = path.join(settings["paths"]["chefdk"], "bin", "knife.bat");
             settings["paths"]["berks"] = path.join(settings["paths"]["chefdk"], "bin", "berks.bat");
+            settings["paths"]["chef"] = path.join(settings["paths"]["chefdk"], "bin", "chef.bat");
 
             // define where the private key should be written out when using knife
             settings["paths"]["private_key"] = path.join("c:", "windows", "temp", "vsts-task.pem");
@@ -62,6 +70,7 @@ function standard() {
             settings["paths"]["inspec"] = path.join("/", "usr", "bin", "inspec");
             settings["paths"]["knife"] = path.join(settings["paths"]["chefdk"], "bin", "knife");
             settings["paths"]["berks"] = path.join(settings["paths"]["chefdk"], "bin", "berks");
+            settings["paths"]["chef"] = path.join(settings["paths"]["chefdk"], "bin", "chef");
 
             // define where the private key should be written out when using knife
             settings["paths"]["private_key"] = path.join("/", "tmp", "vsts-task.pem");
@@ -83,7 +92,7 @@ function standard() {
 
     // iterate around the chefclient_paths and set the one that exists
     for (let chefclient_path of chefclient_paths) {
-        if (fs.existsSync(chefclient_path)) {
+        if (tl.exist(chefclient_path)) {
             settings["paths"]["chefclient"] = chefclient_path;
             break;
         }
@@ -134,18 +143,31 @@ export function parse(serviceEndpointName, process, tl) {
             // only attempt to get the endpoint details if the chefServerEndpoint has been set
             if (connected_service != null) {
     
-              // get the necessary inputs from the specified endpoint
-              let auth = tl.getEndpointAuthorization(connected_service);
-    
-              // get the URL from the endpoint
-              settings["inputs"]["chefServiceUrl"] = tl.getEndpointUrl(connected_service);
-              settings["inputs"]["chefUsername"] = auth.parameters.username;
-              settings["inputs"]["chefUserKey"] = auth.parameters.password;
-    
-              // get the value for SSL Verification
-              settings["inputs"]["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify", true);
-    
-              tl.debug(sprintf("SSL Verify: %s", settings["inputs"]["chefSSLVerify"]));
+                if (serviceEndpointName == "tkAzureEndpoint") {
+
+                    // get the SPN information
+                    settings["inputs"]["azure_creds"] = {
+                        "subscription_id": tl.getEndpointDataParameter(connected_service, "SubscriptionId", true),
+                        "tenant_id": tl.getEndpointAuthorizationParameter(connected_service, "tenantid", true),
+                        "client_id": tl.getEndpointAuthorizationParameter(connected_service, "serviceprincipalid", true),
+                        "client_secret": tl.getEndpointAuthorizationParameter(connected_service, "serviceprincipalkey", true)
+                    }
+
+                } else {
+
+                    // get the necessary inputs from the specified endpoint
+                    let auth = tl.getEndpointAuthorization(connected_service);
+
+                    // get necessary information from the endpoint
+                    settings["inputs"]["chefServiceUrl"] = tl.getEndpointUrl(connected_service);
+                    settings["inputs"]["chefUsername"] = auth.parameters.username;
+                    settings["inputs"]["chefUserKey"] = auth.parameters.password;
+
+                    // get the value for SSL Verification
+                    settings["inputs"]["chefSSLVerify"] = !!+tl.getEndpointDataParameter(connected_service, "sslVerify", true);
+
+                    tl.debug(sprintf("SSL Verify: %s", settings["inputs"]["chefSSLVerify"]));
+                }
             }
     
           }
@@ -184,7 +206,13 @@ export function parse(serviceEndpointName, process, tl) {
           "gemForceInstall": "gem.forceInstall",
           "gemName": "gem.name",
           "knifeArguments": "knife.arguments",
-          "knifePrivateKey": "knife.privateKey"
+          "knifePrivateKey": "knife.privateKey",
+          "lintAction": "lint.action",
+          "lintActionCommand": "lint.actionCommand",
+          "lintActionFolder": "lint.folder",
+          "tkKitchenFile": "tk.file",
+          "tkKitchenFolder": "tk.folder",
+          "gemfileFolder": "gemfile.folder"
         };
     
         let value = "";
@@ -242,7 +270,14 @@ export function parse(serviceEndpointName, process, tl) {
         if (!("downloadsFolder" in settings["inputs"])) {
             settings["inputs"]["downloadsFolder"] = settings["paths"]["download"];
         }
-    
+
+        // set the lint action command if it has not been specified
+        if ("lint" in settings["inputs"]) {
+            if (!("actionCommand" in settings["inputs"]["lint"])) {
+                let action = settings["inputs"]["lint"]["action"];
+                settings["inputs"]["lint"]["actionCommand"] = settings["linting"]["actions"][action];
+            }
+        }
       }
     
       // If running in debug mode output the inputs

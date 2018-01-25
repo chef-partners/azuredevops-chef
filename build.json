@@ -18,14 +18,20 @@
         "publish_supermarket",
         "upload_cookbook",
         "gem_install",
-        "exec_knife"
+        "exec_knife",
+        "linting",
+        "test_kitchen",
+        "cookbook_gems"
       ],
       "utils.ts": [
         "publish_supermarket",
         "upload_cookbook",
         "install_chefdk",
         "install_inspec",
-        "exec_inspec"
+        "exec_inspec",
+        "linting",
+        "test_kitchen",
+        "cookbook_gems"
       ]
     },
     "files": {

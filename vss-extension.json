@@ -309,6 +309,36 @@
             "properties": {
                 "name": "tasks/exec_knife"
             }
+        },
+        {
+            "id": "vsts-chef-task-linting",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/linting"
+            }
+        },
+        {
+            "id": "vsts-chef-task-test-kitchen",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/test_kitchen"
+            }
+        },
+        {
+            "id": "vsts-chef-task-cookbook-gems",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/cookbook_gems"
+            }
         }
     ]
 }

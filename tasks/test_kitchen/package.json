@@ -1,7 +1,7 @@
 {
-    "name": "task-install_chefdk",
+    "name": "task-upload_cookbook",
     "version": "1.0.0",
-    "description": "Install ChefDK on the build agent",
+    "description": "Upload a cookbook to the specified Chef Server",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
@@ -12,7 +12,7 @@
         "moment": "^2.17.1",
         "sprintf-js": "^1.0.3",
         "is-elevated": "^2.0.1",
-        "q": "^1.4.1",
-        "dot-object": "^1.7.0"
+        "dot-object": "^1.7.0",
+        "q": "^1.4.1"
     }
 }

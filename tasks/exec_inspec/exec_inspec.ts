@@ -1,9 +1,6 @@
 // Import tasks from vsts
 import * as tl from "vsts-task-lib/task";
 
-// Import tasks for the filesystem
-import * as fs from "fs-extra";
-
 import * as path from "path";
 
 import * as Q from "q";
@@ -29,11 +26,11 @@ async function run() {
     let inspec_results_path = path.normalize(params["inspec"]["resultsFile"]);
 
     // ensure that inspec is installed
-    let inspec_installed = utils.isInstalled("inspec", fs, tl);
+    let inspec_installed = utils.isInstalled("inspec", tl);
     tl.debug(sprintf("inspec_installed: [%s] %s", typeof inspec_installed, String(inspec_installed)));
     if (inspec_installed) {
         // check that the profile path exists
-        if (fs.existsSync(params["inspec"]["profilePath"])) {
+        if (tl.exist(params["inspec"]["profilePath"])) {
 
             // run inspec using the paths worked out
             try {

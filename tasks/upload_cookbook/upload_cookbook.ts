@@ -1,9 +1,6 @@
 // Import tasks from vsts
 import * as tl from "vsts-task-lib/task";
 
-// Import tasks for the filesystem
-import * as fs from "fs-extra";
-
 import {sprintf} from "sprintf-js";
 
 // Import common tasks
@@ -17,7 +14,7 @@ function configureChef(chef_server_url, nodename, key, sslVerify, settings) {
 
   // write out the user key to the file
   try {
-    fs.writeFileSync(key_filename, key);
+    tl.writeFile(key_filename, key);
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }
@@ -36,7 +33,7 @@ function configureChef(chef_server_url, nodename, key, sslVerify, settings) {
 
   // write out the configuration file
   try {
-    fs.writeFileSync(settings["paths"]["berks_config"], JSON.stringify(berks_config));
+    tl.writeFile(settings["paths"]["berks_config"], JSON.stringify(berks_config));
   } catch (err) {
     tl.setResult(tl.TaskResult.Failed, err.message);
   }

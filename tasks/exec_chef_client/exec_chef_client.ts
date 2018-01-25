@@ -2,7 +2,6 @@
 import * as tl from "vsts-task-lib/task";
 
 // Import tasks for the filesystem
-import * as fs from "fs-extra";
 import * as path from "path";
 import {sprintf} from "sprintf-js";
 import * as os from "os";

@@ -1,9 +1,6 @@
 // Import tasks from vsts
 import * as tl from "vsts-task-lib/task";
 
-// Import tasks for the filesystem
-import * as fs from "fs-extra";
-
 // Import string formatter
 import {sprintf} from "sprintf-js";
 
@@ -25,7 +22,7 @@ async function run() {
     let key_filename: string = builtin_settings["paths"]["private_key"];
     console.log("Writing key file: %s", key_filename);
     try {
-        fs.writeFileSync(key_filename, params["chefUserKey"]);
+        tl.writeFile(key_filename, params["chefUserKey"]);
     } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
     }
