@@ -23,7 +23,7 @@ async function run() {
 
         // write out the configuration file
         try {
-            tl.writeFile(settings["paths"]["knife_config"], knife_config);
+            tl.writeFile(all_settings["paths"]["knife_config"], knife_config);
         } catch (err) {
             tl.setResult(tl.TaskResult.Failed, err.message);
         }
@@ -41,17 +41,17 @@ async function run() {
 
     // if config is enabled add the configuration option to the end of the command
     if (config) {
-        knife_arguments = sprintf(" --config %s", settings["paths"]["knife_config"]);
+        knife_arguments += sprintf(" --config %s", all_settings["paths"]["knife_config"]);
     }
 
     // if the private key is to be used then write it out and set it on the arguments
     let use_private_key = (all_settings["inputs"]["knife"]["privateKey"] === "true");
     if (use_private_key) {
 
-        console.log("Writing private key: %s", settings["paths"]["private_key"]);
+        console.log("Writing private key: %s", all_settings["paths"]["private_key"]);
 
         // determine the filename of the key
-        let key_filename: string = settings["paths"]["private_key"];
+        let key_filename: string = all_settings["paths"]["private_key"];
 
         // write out the user key to the file
         try {
@@ -61,7 +61,7 @@ async function run() {
         }
 
         // append the key path to the arguments
-        knife_arguments = sprintf(" --key %s", key_filename);
+        knife_arguments += sprintf(" --key %s", key_filename);
     }
 
     // build up the command to run
