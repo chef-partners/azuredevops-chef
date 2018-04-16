@@ -12,6 +12,7 @@
     "compile:scripts": "tsc --project scripts/tsconfig.json"
   },
   "devDependencies": {
+    "@types/node": "^9.6.5",
     "commander": "^2.12.1",
     "fs-extra": "^2.0.0",
     "mkdirp": "^0.5.1",
