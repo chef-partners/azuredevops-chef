@@ -40,15 +40,15 @@ async function run() {
 
                 // Determine the version of InSpec that is being used so that the test results
                 // are specified correctly
-                let inspec_version = tl.tool('inspec -v')
+                let inspec_version = tl.tool("inspec -v")
                                      .execSync();
-                console.log("InSpec Version: %s", inspec_version);                                     
-                let major = parseInt(inspec_version.stdout.split('.')[0]);
+                console.log("InSpec Version: %s", inspec_version);
+                let major = parseInt(inspec_version.stdout.split(".")[0]);
                 let test_output_args = "";
-                if (major == 1) {
-                    test_output_args = sprintf('--format junit > %s', inspec_results_path);
+                if (major === 1) {
+                    test_output_args = sprintf("--format junit > %s", inspec_results_path);
                 } else if (major > 1) {
-                    test_output_args = sprintf('--reporter junit:%s', inspec_results_path);
+                    test_output_args = sprintf("--reporter junit:%s", inspec_results_path);
                 }
 
                 // set the command and the arguments to run
