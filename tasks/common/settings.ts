@@ -199,6 +199,7 @@ export function parse(serviceEndpointName, process, tl) {
           "inspecVersion": "inspec.version",
           "inspecForceInstall": "inspec.forceInstall",
           "inspecResultsFile": "inspec.resultsFile",
+          "inspecArguments": "inspec.arguments",
           "useSudo": "",
           "chefClientLogLevel": "",
           "deletePrivateKey": "",

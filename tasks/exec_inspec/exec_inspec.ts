@@ -24,6 +24,7 @@ async function run() {
     // normalise the path to the inspec profile so that is correct for the platform
     let inspec_profile_path = path.normalize(params["inspec"]["profilePath"]);
     let inspec_results_path = path.normalize(params["inspec"]["resultsFile"]);
+    let inspec_arguments = path.normalize(params["inspec"]["arguments"]);
 
     // ensure that inspec is installed
     let inspec_installed = utils.isInstalled("inspec", tl);
@@ -37,9 +38,22 @@ async function run() {
 
                 console.log("Running Inspec profiles: %s", inspec_profile_path);
 
+                // Determine the version of InSpec that is being used so that the test results
+                // are specified correctly
+                let inspec_version = tl.tool('inspec -v')
+                                     .execSync();
+                console.log("InSpec Version: %s", inspec_version);                                     
+                let major = parseInt(inspec_version.stdout.split('.')[0]);
+                let test_output_args = "";
+                if (major == 1) {
+                    test_output_args = sprintf('--format junit > %s', inspec_results_path);
+                } else if (major > 1) {
+                    test_output_args = sprintf('--reporter junit:%s', inspec_results_path);
+                }
+
                 // set the command and the arguments to run
                 let command = builtin_settings["paths"]["inspec"];
-                let command_args = sprintf("exec . --format junit > %s", inspec_results_path);
+                let command_args = sprintf("exec . %s %s", inspec_arguments, test_output_args);
 
                 tl.debug(sprintf("InSpec Command [%s]: %s %s", inspec_profile_path, command, command_args));
 
