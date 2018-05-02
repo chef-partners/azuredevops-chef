@@ -74,8 +74,13 @@ async function run() {
                                     .line(command_args)
                                     .execSync(<any>{cwd: path.normalize(inspec_profile_path)});
 
+                // output any information on stdout
+                console.log(command_result.stdout);
+
                 // check the exit code for errors
                 if (command_result.code !== 0) {
+                    console.log(command_result.stderr);
+                    console.log(command_result.error);
                     let fail_message = "InSpec tests failed. Please review errors and try again.";
                     tl.setResult(tl.TaskResult.Failed, fail_message);
                 }
