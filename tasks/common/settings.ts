@@ -115,8 +115,14 @@ export function parse(serviceEndpointName, process, tl) {
     
         settings["inputs"]["chefDKChannel"] = process.env.INPUT_chefDKChannel;
         settings["inputs"]["chefDKForceInstall"] = process.env.INPUT_chefDKForceInstall;
-        settings["inputs"]["useSudo"] = process.env.INOPUT_useSudo;
+        settings["inputs"]["useSudo"] = process.env.INPUT_useSudo;
     
+        // create settings for inspec
+        settings["inputs"]["inspec"] = standard();
+
+        settings["inputs"]["inspec"]["profilePath"] = process.env.INSPEC_PROFILE_PATH;
+        settings["inputs"]["inspec"]["resultsFile"] = process.env.INSPEC_RESULTS_FILE;
+        settings["inputs"]["inspec"]["arguments"] = process.env.INSPEC_ARGUMENTS;
     
         // get the chef environment name
         if (process.env.chefEnvName != null) {
