@@ -77,12 +77,55 @@ async function run() {
                 // output any information on stdout
                 console.log(command_result.stdout);
 
-                // check the exit code for errors
-                if (command_result.code !== 0) {
-                    console.log(command_result.stderr);
-                    console.log(command_result.error);
-                    let fail_message = "InSpec tests failed. Please review errors and try again.";
-                    tl.setResult(tl.TaskResult.Failed, fail_message);
+                // check the exit code for errors, these are different for versions of InSpec
+                if (major === 1) {
+                    if (command_result.code !== 0) {
+                        console.log(command_result.stderr);
+                        console.log(command_result.error);
+                        let fail_message = "InSpec tests failed. Please review errors and try again.";
+                        tl.setResult(tl.TaskResult.Failed, fail_message);
+                    }
+                } else if (major > 1) {
+                    // there are different exit codes based on the success or not of the run
+                    // 0: successful run
+                    // 100: successful run with failures
+                    // 101: successful run with skipped
+                    // fail the build if the values do not match the above
+                    // or produce warnings if 100 or 101
+                    if (command_result.code !== 0 &&
+                        command_result.code !== 100 &&
+                        command_result.code !== 101) {
+
+                        console.log(command_result.stderr);
+                        console.log(command_result.error);
+                        let fail_message = "InSpec tests failed. Please review errors and try again.";
+                        tl.setResult(tl.TaskResult.Failed, fail_message);
+
+                    } else if (command_result.code === 100 || command_result.code === 101) {
+
+                        // create message
+                        let warn_message = "";
+                        switch (command_result.code) {
+                            case 100:
+                                warn_message = "Execution was successful but some tests have failed";
+                                break;
+                            case 101:
+                                warn_message = "Execution was successful but some tests were skipped";
+                                break;
+                        }
+
+                        console.log("##vso[task.logissue type=warning]%s", warn_message);
+
+                    } else if (command_result.code === 0) {
+                        tl.setResult(tl.TaskResult.Succeeded, "InSpec tests were successful");
+                    } else {
+                        // everything else is an error
+                        console.log(command_result.stderr);
+                        console.log(command_result.error);
+                        let fail_message = "InSpec tests failed. Please review errors and try again.";
+                        tl.setResult(tl.TaskResult.Failed, fail_message);
+                    }
+
                 }
 
             } catch (err) {
