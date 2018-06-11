@@ -29,6 +29,14 @@
             "helpMarkDown": "Path to the InSpec profiles that need to be executed"
         },
         {
+            "name": "inspecArguments",
+            "type": "string",
+            "label": "InSpec Arguments",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Additional arguments that should be passed to InSpec, e.g. a target"
+        },
+        {
             "name": "inspecResultsFile",
             "type": "string",
             "label": "InSpec Results File",

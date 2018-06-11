@@ -95,7 +95,7 @@ function linuxInstall(name, tl, builtin_settings, inputs, use_sudo) {
 
     // determine if a version has been set an append to the command if it has
     if (inputs[name]["version"] != null) {
-      command_args = sprintf("%s --v %s", command_args, inputs[name]["version"]);
+      command_args = sprintf("%s -v %s", command_args, inputs[name]["version"]);
     }
 
     tl.debug(sprintf("Install Script Command: %s %s", command, command_args));
