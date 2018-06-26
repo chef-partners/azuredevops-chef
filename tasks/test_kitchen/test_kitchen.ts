@@ -29,7 +29,7 @@ async function run() {
 
         // build up the command that is to be run
         let command = all_settings["paths"]["chef"];
-        let command_arguments = "exec kitchen test";
+        let command_arguments = "exec kitchen verify";
 
         try {
             tl.debug(sprintf("Kitchen command: %s %s", command, command_arguments));
