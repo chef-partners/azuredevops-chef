@@ -68,7 +68,7 @@ async function run() {
 
     // add additional arguments if they have been specified
     if (params["berks"] !== null) {
-      if (("installArgs" in params["berks"]) && params["berks"]["installArgs"] !== null) {
+      if (params["berks"]["installArgs"] !== null) {
         command_args = sprintf("%s %s", command_args, params["berks"]["installArgs"]);
       }
     }
@@ -87,7 +87,7 @@ async function run() {
 
     // add additional arguments if they have been specified
     if (params["berks"] !== null) {
-      if (("uploadArgs" in params["berks"]) && params["berks"]["uploadArgs"] !== null) {
+      if (params["berks"]["uploadArgs"] !== null) {
         command_args = sprintf("%s %s", command_args, params["berks"]["uploadArgs"]);
       }
     }
