@@ -8,11 +8,11 @@ import * as settings from "./common/settings";
 async function run() {
 
     // initialise variables for resource
-    let command = "knife";
     let config = false;
 
     // get the settings for this task
     let all_settings = settings.parse("knifeEndpoint", process, tl);
+    let command = all_settings["paths"]["knife"];
 
     // if the option to not use ssl verification is set, then this needs to be written
     // out to the knife configuration file
@@ -66,7 +66,7 @@ async function run() {
 
     // build up the command to run
     try {
-        tl.debug(sprintf("Knife command: %s %s", command, knife_arguments));
+        tl.debug(sprintf("Command: %s %s", command, knife_arguments));
         let command_result: number = await tl.tool(command)
                             .line(knife_arguments)
                             .exec();
