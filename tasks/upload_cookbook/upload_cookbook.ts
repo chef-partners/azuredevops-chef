@@ -67,7 +67,7 @@ async function run() {
     command_args = "install";
 
     // add additional arguments if they have been specified
-    if (!(typeof params["berks"]["installArgs"] === "undefined")) {
+    if (params["berks"] !== null && params["berks"]["installArgs"] !== null) {
       command_args = sprintf("%s %s", command_args, params["berks"]["installArgs"]);
     }
 
@@ -84,7 +84,7 @@ async function run() {
     command_args = sprintf("upload -c %s", builtin_settings["paths"]["berks_config"]);
 
     // add additional arguments if they have been specified
-    if (!(typeof params["berks"]["uploadArgs"] === "undefined")) {
+    if (params["berks"] !== null && params["berks"]["uploadArgs"] !== null) {
       command_args = sprintf("%s %s", command_args, params["berks"]["uploadArgs"]);
     }
 
