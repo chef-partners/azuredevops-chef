@@ -220,8 +220,8 @@ export function parse(serviceEndpointName, process, tl) {
           "tkKitchenFile": "tk.file",
           "tkKitchenFolder": "tk.folder",
           "gemfileFolder": "gemfile.folder",
-          "berksInstallArguments": "berks.installArgs",
-          "berksUploadArguments": "berks.uploadArgs"
+          "berksInstallArguments": "berksInstallArgs",
+          "berksUploadArguments": "berksUploadArgs"
         };
     
         let value = "";
