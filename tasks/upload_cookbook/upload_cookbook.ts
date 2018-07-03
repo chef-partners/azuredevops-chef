@@ -67,8 +67,8 @@ async function run() {
     command_args = "install";
 
     // add additional arguments if they have been specified
-    if (params["berksInstallArgs"] !== null) {
-      command_args = sprintf("%s %s", command_args, params["berksInstallArgs"]);
+    if (params["berks"]["installArgs"] !== null) {
+      command_args = sprintf("%s %s", command_args, params["berks"]["installArgs"]);
     }
 
     tl.debug(sprintf("Berks command: %s %s", command, command_args));
@@ -84,8 +84,8 @@ async function run() {
     command_args = sprintf("upload -c %s", builtin_settings["paths"]["berks_config"]);
 
     // add additional arguments if they have been specified
-    if (params["berksUploadArgs"] !== null) {
-      command_args = sprintf("%s %s", command_args, params["berksUploadArgs"]);
+    if (params["berks"]["uploadArgs"] !== null) {
+      command_args = sprintf("%s %s", command_args, params["berks"]["uploadArgs"]);
     }
 
     tl.debug(sprintf("Berks command: %s %s", command, command_args));

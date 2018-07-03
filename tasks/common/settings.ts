@@ -220,8 +220,8 @@ export function parse(serviceEndpointName, process, tl) {
           "tkKitchenFile": "tk.file",
           "tkKitchenFolder": "tk.folder",
           "gemfileFolder": "gemfile.folder",
-          "berksInstallArguments": "berksInstallArgs",
-          "berksUploadArguments": "berksUploadArgs"
+          "berksInstallArguments": "berks.installArgs",
+          "berksUploadArguments": "berks.uploadArgs"
         };
     
         let value = "";
@@ -287,6 +287,19 @@ export function parse(serviceEndpointName, process, tl) {
                 settings["inputs"]["lint"]["actionCommand"] = settings["linting"]["actions"][action];
             }
         }
+
+        // Set some defaults if they have not already been set
+        if (!("berks" in settings["inputs"])) {
+            settings["inputs"]["berks"] = {};
+        }
+
+        if (!("installArgs" in settings["inputs"]["berks"])) {
+            settings["inputs"]["berks"]["installArgs"] = null;
+        }
+
+        if (!("uploadArgs" in settings["inputs"]["berks"])) {
+            settings["inputs"]["berks"]["uploadArgs"] = null;
+        }        
       }
     
       // If running in debug mode output the inputs
