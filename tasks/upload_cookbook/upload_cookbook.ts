@@ -55,7 +55,7 @@ async function run() {
   try {
     process.chdir(params["chefCookbookPath"]);
   } catch (err) {
-    tl.setResult(tl.TaskResult.Failed, err.message);
+    tl.setResult(tl.TaskResult.Failed, sprintf("Directory does not exist: %s", params["chefCookbookPath"]));
   }
 
   // set the command that is going to run
