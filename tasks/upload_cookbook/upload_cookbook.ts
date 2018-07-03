@@ -65,6 +65,12 @@ async function run() {
   // install the necessary cookbook dependencies
   try {
     command_args = "install";
+
+    // add additional arguments if they have been specified
+    if (params["berks"]["installArgs"] !== "") {
+      command_args = sprintf("%s %s", command_args, params["berks"]["installArgs"]);
+    }
+
     tl.debug(sprintf("Berks command: %s %s", command, command_args));
     let exit_code: number = await tl.tool(command)
                                     .line(command_args)
@@ -76,6 +82,12 @@ async function run() {
   // upload the cookbook to the chef server
   try {
     command_args = sprintf("upload -c %s", builtin_settings["paths"]["berks_config"]);
+
+    // add additional arguments if they have been specified
+    if (params["berks"]["uploadArgs"] !== "") {
+      command_args = sprintf("%s %s", command_args, params["berks"]["uploadArgs"]);
+    }
+
     tl.debug(sprintf("Berks command: %s %s", command, command_args));
     let exit_code: number = await tl.tool(command)
                                     .line(command_args)

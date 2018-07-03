@@ -219,7 +219,9 @@ export function parse(serviceEndpointName, process, tl) {
           "lintActionFolder": "lint.folder",
           "tkKitchenFile": "tk.file",
           "tkKitchenFolder": "tk.folder",
-          "gemfileFolder": "gemfile.folder"
+          "gemfileFolder": "gemfile.folder",
+          "berksInstallArguments": "berks.installArgs",
+          "berksUploadArguments": "berks.uploadArgs"
         };
     
         let value = "";
