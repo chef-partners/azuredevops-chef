@@ -37,6 +37,24 @@
       "helpMarkDown": "Path to the cookbook to upload.  By default the cookbook is expected to be in the `cookbooks` directory of the source"
     },
     {
+      "name": "berksInstallArguments",
+      "type": "string",
+      "label": "Berkshelf Install Arguments",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Specify additional arguments to the `berks install` command",
+      "groupName": "advanced"
+    },
+    {
+      "name": "berksUploadArguments",
+      "type": "string",
+      "label": "Berkshelf Upload Arguments",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Specify additional arguments to the `berks upload` command",
+      "groupName": "advanced"
+    },
+    {
       "name": "deletePrivateKey",
       "type": "boolean",
       "label": "Delete Private Key",

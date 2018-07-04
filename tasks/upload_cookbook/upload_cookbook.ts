@@ -55,7 +55,7 @@ async function run() {
   try {
     process.chdir(params["chefCookbookPath"]);
   } catch (err) {
-    tl.setResult(tl.TaskResult.Failed, err.message);
+    tl.setResult(tl.TaskResult.Failed, sprintf("Directory does not exist: %s", params["chefCookbookPath"]));
   }
 
   // set the command that is going to run
@@ -65,6 +65,12 @@ async function run() {
   // install the necessary cookbook dependencies
   try {
     command_args = "install";
+
+    // add additional arguments if they have been specified
+    if (params["berks"]["installArgs"] !== null) {
+      command_args = sprintf("%s %s", command_args, params["berks"]["installArgs"]);
+    }
+
     tl.debug(sprintf("Berks command: %s %s", command, command_args));
     let exit_code: number = await tl.tool(command)
                                     .line(command_args)
@@ -76,6 +82,12 @@ async function run() {
   // upload the cookbook to the chef server
   try {
     command_args = sprintf("upload -c %s", builtin_settings["paths"]["berks_config"]);
+
+    // add additional arguments if they have been specified
+    if (params["berks"]["uploadArgs"] !== null) {
+      command_args = sprintf("%s %s", command_args, params["berks"]["uploadArgs"]);
+    }
+
     tl.debug(sprintf("Berks command: %s %s", command, command_args));
     let exit_code: number = await tl.tool(command)
                                     .line(command_args)
