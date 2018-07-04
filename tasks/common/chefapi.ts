@@ -55,11 +55,26 @@ export function call(tl, config, path: string, method: string, body: string) {
       // when the response has completed get the data
       res.on("end", function() {
         if (res.statusCode === 200) {
-          // callback(JSON.parse(data), config)
           resolve(JSON.parse(data));
         } else {
-          console.log(sprintf("%s: %s%s: %s", options.method, options.host, options.path, res.statusCode));
-          reject(new Error(sprintf("%s%s: %s", options.method, options.host, options.path, res.statusCode)));
+
+          // resolve the data returned
+          let response_data = JSON.parse(data);
+
+          // determine the message that should be displayed if the response is not 200
+          let debug_message = sprintf("%s: %s%s: %s", options.method, options.host, options.path, res.statusCode);
+          let message = "";
+          
+          if ("error" in response_data) {
+            message = response_data["error"];
+          } else {
+            message = data;
+          }
+
+          // log the message, reject and fail the task
+          tl.debug(debug_message);
+          tl.setResult(tl.TaskResult.Failed, message);
+          reject();
         }
 
       });
