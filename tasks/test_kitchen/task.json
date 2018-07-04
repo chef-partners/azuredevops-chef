@@ -11,7 +11,7 @@
     "Minor": 0,
     "Patch": 3
   },
-  "instanceNameFormat": "Execute Test Kitchen",
+  "instanceNameFormat": "Execute Test Kitchen: $(tkCommand)",
   "groups": [
     {
       "name": "advanced",
@@ -29,6 +29,20 @@
       "helpMarkDown": "Endpoint containing credentials to communicate with Azure to perform Test Kitchen tests"
     },
     {
+      "name": "tkCommand",
+      "type": "pickList",
+      "label": "Test Kitchen Command",
+      "defaultValue": "verify",
+      "required": true,
+      "options": {
+        "converge": "Converge",
+        "verify": "Verify",
+        "destroy": "Destroy",
+        "test": "Test"
+      },
+      "helpMarkDown": "Select the Test Kitchen command that should be executed"
+    },    
+    {
       "name": "tkKitchenFile",
       "type": "string",
       "label": "Kitchen YAML File",
@@ -44,6 +58,15 @@
       "defaultValue": "$(Build.SourcesDirectory)",
       "required": false,
       "helpMarkdown": "Folder in which the Test Kitchen command should be run. This where your kitchen configuration file is.",
+      "groupName": "advanced"
+    },
+    {
+      "name": "tkPattern",
+      "type": "string",
+      "label": "Test Kitchen Instance Name",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkdown": "Instance or Regex pattern that should be applied to the command",
       "groupName": "advanced"
     }
   ],

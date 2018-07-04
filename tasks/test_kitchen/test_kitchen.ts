@@ -29,7 +29,12 @@ async function run() {
 
         // build up the command that is to be run
         let command = all_settings["paths"]["chef"];
-        let command_arguments = "exec kitchen verify";
+        let command_arguments = sprintf("exec kitchen %s", params["tk"]["command"]);
+
+        // Determine if a pattern has been specified, if it has add it to the command_arguments
+        if (params["tk"]["pattern"] !== null) {
+            command_arguments = sprintf("%s %s", command_arguments, params["tk"]["pattern"]);
+        }
 
         try {
             tl.debug(sprintf("Kitchen command: %s %s", command, command_arguments));
