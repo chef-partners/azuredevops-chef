@@ -36,8 +36,9 @@
       "required": true,
       "options": {
         "converge": "Converge",
-        "verify": "Verify",
         "destroy": "Destroy",
+        "verify": "Verify",
+        "setup": "Setup",
         "test": "Test"
       },
       "helpMarkDown": "Select the Test Kitchen command that should be executed"
