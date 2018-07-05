@@ -219,6 +219,8 @@ export function parse(serviceEndpointName, process, tl) {
           "lintActionFolder": "lint.folder",
           "tkKitchenFile": "tk.file",
           "tkKitchenFolder": "tk.folder",
+          "tkCommand": "tk.command",
+          "tkPattern": "tk.pattern",
           "gemfileFolder": "gemfile.folder",
           "berksInstallArguments": "berks.installArgs",
           "berksUploadArguments": "berks.uploadArgs"
@@ -299,7 +301,11 @@ export function parse(serviceEndpointName, process, tl) {
 
         if (!("uploadArgs" in settings["inputs"]["berks"])) {
             settings["inputs"]["berks"]["uploadArgs"] = null;
-        }        
+        }
+        
+        if (!("pattern" in settings["inputs"]["tk"])) {
+            settings["inputs"]["tk"]["pattern"] = null;
+        }
       }
     
       // If running in debug mode output the inputs
