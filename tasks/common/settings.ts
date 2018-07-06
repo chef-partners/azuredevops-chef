@@ -302,6 +302,11 @@ export function parse(serviceEndpointName, process, tl) {
         if (!("uploadArgs" in settings["inputs"]["berks"])) {
             settings["inputs"]["berks"]["uploadArgs"] = null;
         }
+
+        // Set some defaults if they have not already been set
+        if (!("tk" in settings["inputs"])) {
+            settings["inputs"]["tk"] = {};
+        }
         
         if (!("pattern" in settings["inputs"]["tk"])) {
             settings["inputs"]["tk"]["pattern"] = null;
