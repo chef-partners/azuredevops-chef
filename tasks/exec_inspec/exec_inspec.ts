@@ -60,7 +60,7 @@ async function run() {
                 if (major === 1) {
                     test_output_args = sprintf("--format junit > %s", inspec_results_path);
                 } else if (major > 1) {
-                    test_output_args = sprintf("--reporter junit:%s", inspec_results_path);
+                    test_output_args = sprintf("--reporter cli junit:%s", inspec_results_path);
                 }
 
                 // set the command and the arguments to run
