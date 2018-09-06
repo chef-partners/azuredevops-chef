@@ -31,6 +31,26 @@ function standard() {
 
     let chefclient_paths = [];
 
+    // Determine the filename, not the fullpath, of the private key
+    // This will include the name Agent and if it is exists the release environment id
+    let private_key_parts = [];
+    private_key_parts.push("vsts");
+    
+    // add in the agent id, if it is available
+    if (process.env.AGENT_ID)
+    {
+        private_key_parts.push(process.env.AGENT_ID);
+    }
+
+    // add in the release environment if it is available
+    if (process.env.RELEASE_ENVIRONMENTID)
+    {
+        private_key_parts.push(process.env.RELEASE_ENVIRONMENTID);
+    }
+
+    // join the parts together to get the filename of the private key
+    let private_key_filename = sprintf("%s.pem", private_key_parts.join("-"));
+
     // Based on the operating system work out the defaults for the different
     // folders and downloads
     switch (os.platform()) {
@@ -45,7 +65,7 @@ function standard() {
             settings["paths"]["chef"] = path.join(settings["paths"]["chefdk"], "bin", "chef.bat");
 
             // define where the private key should be written out when using knife
-            settings["paths"]["private_key"] = path.join("c:", "windows", "temp", "vsts-task.pem");
+            settings["paths"]["private_key"] = path.join("c:", "windows", "temp", private_key_filename);
 
             // set where the configuration file for berks should be written to 
             settings["paths"]["berks_config"] = path.join("c:", "windows", "temp", "berks.config.json");
@@ -73,7 +93,7 @@ function standard() {
             settings["paths"]["chef"] = path.join(settings["paths"]["chefdk"], "bin", "chef");
 
             // define where the private key should be written out when using knife
-            settings["paths"]["private_key"] = path.join("/", "tmp", "vsts-task.pem");
+            settings["paths"]["private_key"] = path.join("/", "tmp", "private_key_filename");
 
             // set where the configuration file for berks should be written to 
             settings["paths"]["berks_config"] = path.join("/", "tmp", "berks.config.json");
