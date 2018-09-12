@@ -1,3 +1,5 @@
+[![Build Status](https://chef-software.visualstudio.com/vsts-chef/_apis/build/status/vsts-chef-CI)](https://chef-software.visualstudio.com/vsts-chef/_build/latest?definitionId=4)
+
 # Chef Tasks for VSTS
 
 This repo contains tasks for VSTS that allow VSTS to communicated and affect changes using the Chef API.
