@@ -93,7 +93,7 @@ function standard() {
             settings["paths"]["chef"] = path.join(settings["paths"]["chefdk"], "bin", "chef");
 
             // define where the private key should be written out when using knife
-            settings["paths"]["private_key"] = path.join("/", "tmp", "private_key_filename");
+            settings["paths"]["private_key"] = path.join("/", "tmp", private_key_filename);
 
             // set where the configuration file for berks should be written to 
             settings["paths"]["berks_config"] = path.join("/", "tmp", "berks.config.json");
