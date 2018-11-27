@@ -1,4 +1,6 @@
-This [Chef](http://chef.io) integration for Visual Studio Team Services provides a set of tasks to automate commonly performed build and release activities when using the **[Chef Automate](https://www.chef.io/automate/)** platform.  Use these tasks to configure your servers ready for application deployment.
+# Chef Integration for Azure Pipelines
+
+This [Chef](http://chef.io) integration for Azure Pipelines provides a set of tasks to automate commonly performed build and release activities when using the **[Chef Automate](https://www.chef.io/automate/)** platform.  Use these tasks to configure your servers ready for application deployment.
 
 [Chef Automate](https://www.chef.io/automate/) provides a full suite of enterprise capabilities for workflow, visibility and compliance. Chef Automate integrates with the open-source products Chef, InSpec and Habitat.  You can create your own **Chef Automate** server by launching one from the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/chef-software.chef-automate?tab=Overview).
 
@@ -24,7 +26,7 @@ These tasks are typically used in your Build process:
 
 These tasks are typically used as part of your Release process:
 
-* **Add variables to Chef Environment**: Add the VSTS/TFS variables for this environment to the Chef environment
+* **Add variables to Chef Environment**: Add the Azure Pipelines/TFS variables for this environment to the Chef environment
 * **Release cookbook version to environment**: Releases a cookbook by releasing the cookbook constraint on the specified Chef environment
 * **Install InSpec**: Install InSpec on machines in a Deployment Group
 * **Execute InSpec**: Execute InSpec on machines in a Deployment Group
@@ -50,7 +52,7 @@ The following table shows the tasks and what type of agents they are compatibile
 | Publish Cookbook to Supermarket | Yes | Yes | Yes | Yes |
 | Linting | Yes | Yes | Yes | Yes |
 
-**Note: ** To install ChefDK or InSpec on a Private Linux Agent then task process must be running as root or under an account that has passwordless sudo access. For a Private Windows Agent the process must be running with elevated privileges.
+**Note:** To install ChefDK or InSpec on a Private Linux Agent then task process must be running as root or under an account that has passwordless sudo access. For a Private Windows Agent the process must be running with elevated privileges.
 
 ## Getting Started
 

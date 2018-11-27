@@ -1,6 +1,6 @@
 {
   "name": "chef-vsts-tasks",
-  "description": "Chef Integration for Visual Studio Team System (VSTS)",
+  "description": "Chef Integration for Azure Pipelines",
   "author": "Chef Software, Inc.",
   "scripts": {
     "initdev:npm": "npm install && cd tasks/update_environment && npm install && cd ../..",
