@@ -47,7 +47,7 @@ async function run() {
     }
 
     // set the command and the arguments that are to be run
-    let command_args = sprintf("cookbook site share %s -o %s -m %s -u %s -k %s", params["chefCookbookName"], params["chefCookbookPath"], params["chefServiceUrl"], params["chefUsername"], key_filename);
+    let command_args = sprintf("supermarket share %s -o %s -m %s -u %s -k %s", params["chefCookbookName"], params["chefCookbookPath"], params["chefServiceUrl"], params["chefUsername"], key_filename);
 
     // publish the named cookbook to the supermaket
     try {
