@@ -1,5 +1,5 @@
 // Import tasks from vsts
-import * as tl from "vsts-task-lib/task";
+import * as tl from "azure-pipelines-task-lib/task";
 
 // Import tasks for the filesystem
 import * as path from "path";

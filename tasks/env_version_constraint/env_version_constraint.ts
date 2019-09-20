@@ -3,7 +3,7 @@
 import * as Q from "q";
 
 // Import tasks from vsts
-import * as tl from "vsts-task-lib/task";
+import * as tl from "azure-pipelines-task-lib/task";
 
 // Import common tasks
 import * as settings from "./common/settings";

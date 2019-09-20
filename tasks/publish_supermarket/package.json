@@ -8,7 +8,7 @@
         "url": "https://chef-software.visualstudio.com/_git/vsts-chef"
     },
     "dependencies": {
-        "vsts-task-lib": "^1.1.0",
+        "azure-pipelines-task-lib": "^2.8.0",
         "moment": "^2.17.1",
         "sprintf-js": "^1.0.3",
         "dot-object": "^1.7.0"

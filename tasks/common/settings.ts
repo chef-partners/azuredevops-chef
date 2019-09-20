@@ -2,7 +2,7 @@ import { sprintf } from "sprintf-js";
 import * as path from "path";
 import * as os from "os";
 import * as dot from "dot-object";
-import * as tl from "vsts-task-lib/task";
+import * as tl from "azure-pipelines-task-lib/task";
 
 function standard() {
     // intialise variables
