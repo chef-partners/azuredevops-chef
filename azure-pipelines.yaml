@@ -1,0 +1,53 @@
+name: 2.0$(Rev:.r)
+
+stages:
+- stage: Build
+  displayName: "Build:"
+  jobs:
+
+  # Create a job that installs the NPM modules, performs the linting tests and
+  # creates the extension package
+  - job: setup_and_build
+    displayName: Setup & Build    
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+
+    # Install all the dependent NPM modules as required by the tasks
+    - task: Npm@1
+      displayName: 'Install NPM Modules'
+      inputs:
+        verbose: $(System.Debug)
+
+    # Build the extension
+    - task: Npm@1
+      displayName: 'Build Extension'
+      inputs:
+        command: custom
+        customCommand: 'run build:tasks'
+        verbose: $(System.Debug)
+
+    # Copy the build artifacts to the staging directory
+    - task: CopyFiles@2
+      displayName: 'Copy Preview Files to: Artefact Directory'
+      inputs:
+        SourceFolder: '$(build.sourcesdirectory)/build'
+        Contents: 'chef-software.vsts-chef-tasks-preview-$(Build.BuildNumber).vsix'
+        TargetFolder: '$(build.artifactstagingdirectory)/preview'
+
+    - task: CopyFiles@2
+      displayName: 'Copy Production Files to: Artefact Directory'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/build'
+        Contents: 'chef-software.vsts-chef-tasks-$(Build.BuildNumber).vsix'
+        TargetFolder: '$(build.artifactstagingdirectory)/production'
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish Extension packages
+      inputs:
+        targetPath: $(Build.ArtifactStagingDirectory)
+        artifact: build
+
+
+
