@@ -7,7 +7,7 @@
     "clean": "rimraf build && rimraf bin",
     "compile:helpers": "tsc --project scripts/tsconfig.json",
     "lint": "tslint --config tslint.json tasks/**/*.ts",
-    "test": "cross-env NODE_ENV=\"dev\" TS_NODE_PROJECT=\"src/tsconfig.json\" nyc mocha -r ts-node/register -r source-map-support/register --full-trace --bail test/*.spec.ts",
+    "test": "cross-env NODE_ENV=\"dev\" TS_NODE_PROJECT=\"src/tsconfig.json\" nyc mocha",
     "build": "npm run build:preview && npm run build:release && npm run build:patch",
     "build:preview": "webpack-cli --mode development",
     "build:release": "webpack-cli --mode production",
