@@ -138,7 +138,6 @@ export class TaskConfiguration {
 
         let msg = sprintf("%s is not a supported platform", this.platformName);
         // if here then the platform is not supported so fail the task
-        tl.setResult(tl.TaskResult.Failed, msg, true);
 
         throw new Error(msg);
     }
