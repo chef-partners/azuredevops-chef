@@ -1,0 +1,31 @@
+<testsuite name="Mocha Tests" tests="29" failures="0" errors="0" skipped="0" timestamp="Mon, 25 Nov 2019 13:10:31 GMT" time="0.066">
+<testcase classname="Install Components Windows Chef Workstation Script install with download" name="should return the correct command" time="0.005"/>
+<testcase classname="Install Components Windows Chef Workstation Script install with download" name="result should be a array" time="0.001"/>
+<testcase classname="Install Components Windows Chef Workstation Script install specific version with download" name="should return the correct command" time="0"/>
+<testcase classname="Install Components Windows Chef Workstation Script install specific version with download" name="result should be a array" time="0"/>
+<testcase classname="Install Components Windows Chef Workstation Install from existing installer on disk" name="should return the correct command" time="0"/>
+<testcase classname="Install Components Windows Chef Workstation Install from file on disk that does not exist" name="should throw an error" time="0.009"/>
+<testcase classname="Install Components Linux Chef Workstation Script install with download" name="should return the correct command" time="0.001"/>
+<testcase classname="Install Components Linux Chef Workstation Script install with download" name="result should be a array" time="0"/>
+<testcase classname="Install Components Linux Chef Workstation Script install specific version with download" name="should return the correct command" time="0"/>
+<testcase classname="Install Components Linux Chef Workstation Script install specific version with download" name="result should be a array" time="0.001"/>
+<testcase classname="Install Components Linux Chef Workstation Install from existing installer on disk" name="should return the correct command" time="0.001"/>
+<testcase classname="Installing Ruby Gems within Chef password - it should check for installation" name="should return the correct command to check for installation" time="0"/>
+<testcase classname="Installing Ruby Gems within Chef password - latest" name="should return the correct command" time="0"/>
+<testcase classname="Installing Ruby Gems within Chef password - specific version" name="should return the correct command" time="0.001"/>
+<testcase classname="Task Configuration Windows" name="should detect running on Windows" time="0"/>
+<testcase classname="Task Configuration Windows Paths" name="C:\opscode\chef-workstation" time="0"/>
+<testcase classname="Task Configuration Windows Paths" name="C:\opscode\chef-workstation\bin\chef.bat" time="0"/>
+<testcase classname="Task Configuration Windows Paths" name="C:\opscode\chef-workstation\bin\berks.bat" time="0"/>
+<testcase classname="Task Configuration Windows Paths" name="C:\opscode\chef-workstation\bin\inspec.bat" time="0"/>
+<testcase classname="Task Configuration Windows Paths" name="C:\opscode\chef-workstation\bin\knife.bat" time="0"/>
+<testcase classname="Task Configuration Windows Paths" name="C:\Users\russells\workspaces\azdo\azuredevops-chef\test\install.ps1" time="0"/>
+<testcase classname="Task Configuration Linux" name="should detect NOT running on Windows" time="0"/>
+<testcase classname="Task Configuration Linux Paths" name="\opt\chef-workstation" time="0"/>
+<testcase classname="Task Configuration Linux Paths" name="\opt\chef-workstation\bin\chef" time="0"/>
+<testcase classname="Task Configuration Linux Paths" name="\opt\chef-workstation\bin\berks" time="0"/>
+<testcase classname="Task Configuration Linux Paths" name="\opt\chef-workstation\bin\inspec" time="0"/>
+<testcase classname="Task Configuration Linux Paths" name="\opt\chef-workstation\bin\knife" time="0"/>
+<testcase classname="Task Configuration Linux Paths" name="C:\Users\russells\workspaces\azdo\azuredevops-chef\test\install.sh" time="0"/>
+<testcase classname="Task Configuration Unsupported platform" name="should throw an error" time="0.001"/>
+</testsuite>

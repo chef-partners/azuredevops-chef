@@ -6,6 +6,14 @@
             "script": "lint",
             "problemMatcher": "$tsc-watch",
             "isBackground": true
+        },
+        {
+            "type": "typescript",
+            "tsconfig": "scripts/tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": "build"
         }
     ]
 }

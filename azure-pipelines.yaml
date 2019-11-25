@@ -25,22 +25,36 @@ stages:
       displayName: 'Build Extension'
       inputs:
         command: custom
-        customCommand: 'run build:tasks'
+        customCommand: 'run build:all'
         verbose: $(System.Debug)
+
+    # Upload tests
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'junit.xml'
+        searchFolder: '$(build.sourcesdirectory)/build/tests'    
+
+    # Upload coverage
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(build.sourcesdirectory)/build/tests/coverage/cobertura-coverage.xml'
+        reportDirectory: '$(build.sourcesdirectory)/build/tests/coverage'    
 
     # Copy the build artifacts to the staging directory
     - task: CopyFiles@2
       displayName: 'Copy Preview Files to: Artefact Directory'
       inputs:
         SourceFolder: '$(build.sourcesdirectory)/build'
-        Contents: 'chef-software.vsts-chef-tasks-preview-$(Build.BuildNumber).vsix'
+        Contents: 'chef-software.chef-infra-preview-$(Build.BuildNumber).vsix'
         TargetFolder: '$(build.artifactstagingdirectory)/preview'
 
     - task: CopyFiles@2
       displayName: 'Copy Production Files to: Artefact Directory'
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)/build'
-        Contents: 'chef-software.vsts-chef-tasks-$(Build.BuildNumber).vsix'
+        Contents: 'chef-software.chef-infra-$(Build.BuildNumber).vsix'
         TargetFolder: '$(build.artifactstagingdirectory)/production'
 
     - task: PublishPipelineArtifact@1

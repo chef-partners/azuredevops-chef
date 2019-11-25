@@ -3,8 +3,9 @@
     "module": "commonjs",
     "target": "es6",
     "outDir": "../bin",
-    "sourceMap": true
-  },
-  "exclude": [
-  ]
+    "sourceMap": true,
+    "types": [
+      "node"
+    ]
+  }
 }

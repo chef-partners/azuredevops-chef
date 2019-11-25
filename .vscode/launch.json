@@ -7,34 +7,46 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "Launch Program",
-        "program": "${workspaceFolder}/scripts\\build.ts",
-        "cwd": "${workspaceFolder}/bin",
+        "name": "Mocha - All Files",
+        "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
         "args": [
-          "lint"
+          "-r",
+          "ts-node/register",
+          "${workspaceFolder}/tasks/**/*.spec.ts"
         ],
-        "outFiles": [
-          "${workspaceFolder}/bin/*.js"
-        ]
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
       },
+
       {
         "type": "node",
         "request": "launch",
-        "name": "Install ChefDK task",
-        "program": "${workspaceFolder}/tasks/install_chefdk/install_chefdk.ts",
-        "cwd": "${workspaceFolder}/build/production/tasks/install_chefdk",
-        "stopOnEntry": false,
-        "args": [],
+        "name": "Mocha - Current File",
+        "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+        "args": [
+          "-r",
+          "ts-node/register",
+          "${file}"
+        ],
         "env": {
           "NODE_ENV": "dev",
-          "INPUT_chefDKChannel": "current",
-          "INPUT_chefDKForceInstall": "false",
-          "INPUT_useSudo": "1"
+          "TS_NODE_PROJECT": "./tasks/tsconfig.json"
         },
-        "sourceMaps": true,
-        "useWSL": true,
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+      },
+
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug TS script",
+        "program": "${file}",
+        "preLaunchTask": "tsc: build - scripts/tsconfig.json",
+        "env": {
+          "BUILD_BUILDNUMBER": "2.100.98"
+        },
         "outFiles": [
-          "${workspaceFolder}/build/production/tasks/install_chefdk/*.js"
+          "${workspaceFolder}/bin/*.js"
         ]
       }
     ]

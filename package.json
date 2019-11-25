@@ -1,37 +1,78 @@
 {
-  "name": "chef-vsts-tasks",
+  "name": "chef-tasks",
   "description": "Chef Integration for Azure Pipelines",
   "author": "Chef Software, Inc.",
   "scripts": {
-    "initdev:npm": "npm install && cd tasks/update_environment && npm install && cd ../..",
-    "initdev:typings": "pushd tasks && typings install && popd",
-    "initdev": "npm run initdev:npm && npm run initdev:typings",
-    "clean": "rimraf build",
-    "build:tasks": "npm run clean && npm run build:tasks:noclean",
-    "build:tasks:noclean": "npm run compile:scripts && node bin/build.js run",
-    "compile:scripts": "tsc --project scripts/tsconfig.json"
+    "all": "npm run lint && npm run test && npm run clean && npm run compile:helpers && npm run build && npm run package",
+    "clean": "rimraf build && rimraf bin",
+    "compile:helpers": "tsc --project scripts/tsconfig.json",
+    "lint": "tslint --config tslint.json tasks/**/*.ts",
+    "test": "cross-env NODE_ENV=\"dev\" TS_NODE_PROJECT=\"src/tsconfig.json\" nyc mocha -r ts-node/register -r source-map-support/register --full-trace --bail test/*.spec.ts",
+    "build": "npm run build:preview && npm run build:release && npm run build:patch",
+    "build:preview": "webpack-cli --mode development",
+    "build:release": "webpack-cli --mode production",
+    "build:patch": "node bin/patch",
+    "package": "npm run package:preview && npm run package:release",
+    "package:preview": "tfx extension create --manifests vss-extension.json --overrides-file build/conf/preview.json --output-path build/",
+    "package:release": "tfx extension create --manifests vss-extension.json --overrides-file build/conf/release.json --output-path build/"
+  },
+  "nyc": {
+    "reportDir": "build/tests/coverage",
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text",
+      "cobertura",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "devDependencies": {
-    "@types/node": "^9.6.5",
-    "commander": "^2.12.1",
+    "@types/chai": "^4.2.5",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^9.6.55",
+    "chai": "^4.2.0",
+    "commander": "^2.20.3",
+    "copy-webpack-plugin": "^5.0.5",
+    "cross-env": "^6.0.3",
     "fs-extra": "^2.0.0",
+    "glob": "^7.1.6",
     "mkdirp": "^0.5.1",
-    "rimraf": "^2.6.1",
-    "semver": "^5.3.0",
-    "sprintf-js": "^1.0.3",
-    "tfx-cli": "^0.7.10",
+    "mocha": "^6.2.2",
+    "mocha-junit-reporter": "^1.23.1",
+    "mocha-multi-reporters": "^1.1.7",
+    "nyc": "^14.1.1",
+    "rimraf": "^2.7.1",
+    "semver": "^5.7.1",
+    "source-map-support": "^0.5.16",
+    "sprintf-js": "^1.1.2",
+    "tfx-cli": "^0.7.11",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.5.2",
     "tsconfig-glob": "^0.4.3",
     "tslint": "^4.5.1",
-    "typescript": "^2.2.1",
+    "typescript": "^2.9.2",
     "typings": "^2.1.0",
-    "uuidv5": "^1.0.0"
+    "uuidv5": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.8.0",
-    "dot-object": "^1.7.0",
+    "azure-pipelines-task-lib": "^2.9.3",
+    "dot-object": "^1.9.0",
     "is-admin": "^2.1.1",
-    "is-elevated": "^2.0.1",
     "is-root": "^1.0.0",
-    "q": "^1.4.1"
+    "spawn-sync": "^2.0.0"
   }
 }

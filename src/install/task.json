@@ -1,0 +1,95 @@
+{
+  "id": "20a315a3-ad1f-4864-87c9-60eda3ac5e7c",
+  "name": "chef.component.install",
+  "friendlyName": "Install Chef Components",
+  "description": "This task will install either Chef Workstation, InSpec or Ruby Gems into the Chef context",
+  "helpMarkDown": "[More Information](https://chef-partners.github.io/azuredevops-chef/install-task.html",
+  "category": "Azure Pipelines",
+  "author": "Chef",
+  "version": {
+    "Major": 2,
+    "Minor": 0,
+    "Patch": 15
+  },
+  "instanceNameFormat": "Install $(component)",
+  "groups": [
+    {
+      "name": "advanced",
+      "displayName": "Advanced",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "name": "component",
+      "type": "pickList",
+      "label": "Install Component",
+      "defaultValue": "",
+      "helpMarkdown": "Select the software component to install",
+      "options": {
+        "chef-workstation": "Chef Workstation",
+        "inspec": "InSpec",
+        "gem": "Gem"
+      },
+      "required": true
+    },
+    {
+      "name": "gemName",
+      "type": "string",
+      "label": "Gem Name",
+      "defaultValue": "",
+      "helpMarkdown": "Provide the name of the Gem to install. This will be installed into the context of Chef. CHef must be already installed",
+      "visibleRule": "component == gem"
+    },
+    {
+      "name": "forceInstall",
+      "type": "boolean",
+      "label": "Force Install",
+      "defaultValue": false,
+      "helpMarkdown": "Force the installation of the software even if it is already installed",
+      "groupName": "advanced"
+    },
+    {
+      "name": "sudo",
+      "type": "boolean",
+      "label": "Use Sudo",
+      "defaultValue": false,
+      "helpMarkdown": "Use Sudo to perform the installation. (Only valid on Linux build agents).",
+      "groupName": "advanced"
+    },    
+    {
+      "name": "version",
+      "type": "string",
+      "label": "Version",
+      "defaultValue": "",
+      "helpMarkdown": "Version of the component that is to be installed. If not specified the latest version will be installed",
+      "groupName": "advanced"
+    },
+    {
+      "name": "channel",
+      "type": "picklist",
+      "label": "Channel",
+      "defaultValue": "stable",
+      "helpMarkdown": "Channel from which ${component} should be installed.",
+      "options": {
+        "current": "Current",
+        "stable": "Stable",
+        "unstable": "Unstable"
+      },
+      "visibleRule": "component != gem"
+    },
+    {
+      "name": "targetPath",
+      "type": "string",
+      "label": "Target Path",
+      "defaultValue": "",
+      "helpMarkdown": "Full path the file to be installed. This is useful for air gapped environments",
+      "groupName": "advanced"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "install.js"
+    }
+  }
+}

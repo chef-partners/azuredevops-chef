@@ -1,0 +1,10 @@
+{
+  "id": "chef-infra-preview",
+  "name": "Chef Integration - PREVIEW",
+  "files": [
+    {
+      "path": "../preview/tasks",
+      "packagePath": "tasks"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "chef-infra",
+  "public": true,
+  "files": [
+    {
+      "path": "../release/tasks",
+      "packagePath": "tasks"
+    }
+  ]
+}
