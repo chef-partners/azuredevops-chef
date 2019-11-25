@@ -106,7 +106,7 @@ export class InstallComponents {
       if (this.taskConfiguration.Inputs.TargetPath) {
         if (!tl.exist(this.taskConfiguration.Inputs.TargetPath)) {
           let msg = sprintf("Unable to find installation file: %s", this.taskConfiguration.Inputs.TargetPath);
-          tl.setResult(tl.TaskResult.Failed, msg, true);
+          // tl.setResult(tl.TaskResult.Failed, msg, true);
           throw new Error(msg);
         }
       }
