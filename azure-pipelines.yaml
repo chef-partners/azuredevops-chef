@@ -25,7 +25,7 @@ stages:
       displayName: 'Build Extension'
       inputs:
         command: custom
-        customCommand: 'run build:all'
+        customCommand: 'run all'
         verbose: $(System.Debug)
 
     # Upload tests
