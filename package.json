@@ -3,7 +3,7 @@
   "description": "Chef Integration for Azure Pipelines",
   "author": "Chef Software, Inc.",
   "scripts": {
-    "all": "npm run lint && npm run test && npm run clean && npm run compile:helpers && npm run build && npm run package",
+    "all": "npm run lint && npm run clean && npm run test && npm run compile:helpers && npm run build && npm run package",
     "clean": "rimraf build && rimraf bin",
     "compile:helpers": "tsc --project scripts/tsconfig.json",
     "lint": "tslint --config tslint.json tasks/**/*.ts",
