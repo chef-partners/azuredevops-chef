@@ -4,6 +4,7 @@ import { expect } from "chai";
 import { join as pathJoin } from "path";
 import { InstallComponents } from "../src/common/installComponents";
 import { writeFileSync, unlinkSync } from "fs-extra";
+import { OperationCanceledException } from "typescript";
 
 // create dummy files for testing that the external command works
 let windowsInstallerFile_ChefWorkstation = pathJoin(__dirname, "chef-workstation.msi");
@@ -48,6 +49,34 @@ describe("Install Components", () => {
     before(() => {
       tc = new TaskConfiguration(__dirname, "win32");
       ic = new InstallComponents(tc);
+    });
+
+    describe("Installation considerations", () => {
+
+      // test that the installation will occur if not installed
+      describe("If component is not installed", () => {
+        it("should install", () => {
+          expect(ic.shouldInstall()).to.eq(true);
+        });
+      });
+
+      describe("If component is installed", () => {
+
+        before(() => {
+          process.env.INSTALLED = "true";
+        });
+
+        after(() => {
+          process.env.INSTALLED = "";
+        });
+
+        it("should not install", () => {
+          expect(ic.shouldInstall()).to.eq(false);
+        });
+      });
+
+
+
     });
 
     describe("Chef Workstation", () => {

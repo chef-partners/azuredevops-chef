@@ -101,7 +101,7 @@ export class TaskConfiguration {
 
   // Initialise class properties
 
-  private isDev: boolean = false; // Is the task running in development mode. This is so that the code extracts parameters from the envionment
+  public isDev: boolean = false; // Is the task running in development mode. This is so that the code extracts parameters from the envionment
   public runningAsRoot: boolean = false; // Is process running as a root
   private platformName: string = null;
 

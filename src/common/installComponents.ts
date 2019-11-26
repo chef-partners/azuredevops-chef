@@ -42,31 +42,7 @@ export class InstallComponents {
     // Determine if the component is installed
     let installed = this.isInstalled();
     let msg: string;
-    let shouldInstall: boolean = true;
-
-    // if the component is not installed or force install has been set
-    // install it
-    if (!installed || this.taskConfiguration.Inputs.ForceInstall) {
-
-      console.log("Installing Component: %s %s", this.taskConfiguration.Inputs.ComponentName, this.taskConfiguration.Inputs.GemName);
-
-      // check that the agent is running with the correct privileges
-      if (!this.taskConfiguration.runningAsRoot) {
-        if (this.taskConfiguration.IsWindows) {
-
-          msg = "Agent must be running with Elevated Privileges to install software";
-          this.taskConfiguration.FailTask(msg);
-          shouldInstall = false;
-
-        } else {
-          if (!this.taskConfiguration.Inputs.UseSudo) {
-            msg = "Agent must be running as root or the option to Use Sudo must be enabled to install software";
-            this.taskConfiguration.FailTask(msg);
-            shouldInstall = false;
-          }
-        }
-      }
-    }
+    let shouldInstall: boolean = this.shouldInstall();
 
     // Get the command to perform the installation
     if (shouldInstall) {
@@ -78,7 +54,56 @@ export class InstallComponents {
       } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
       }
-    }    
+    }
+  }
+
+  /**
+   * Determine if the component should be installed or not
+   * 
+   * This is a public method so that the logic can be tested
+   */
+  public shouldInstall(): boolean {
+
+    let msg: string;
+    let shouldInstall: boolean = false;
+
+    // determine if the component is installed
+    let installed = this.isInstalled();
+
+    // if running as root then can be installed
+    // however if not then the operating system needs to be looked at and a sudo check performed
+    if (this.taskConfiguration.runningAsRoot) {
+      shouldInstall = true;
+    } else {
+
+      if (this.taskConfiguration.IsWindows) {
+
+        // if the os is Windows then leave as false with an error message
+        msg = "Agent must be running with Elevated Privileges to install software";
+        this.taskConfiguration.FailTask(msg);
+      } else {
+
+        // the os is not windows so check to see if sudo use has been allowed
+        if (this.taskConfiguration.Inputs.UseSudo) {
+          shouldInstall = true;
+        } else {
+
+          msg = "Agent must be running as root or the option to Use Sudo must be enabled to install software";
+          this.taskConfiguration.FailTask(msg);
+        }
+
+      }
+    }
+
+    // Finally determine if the component should be installed based on whether it is or not
+    // and if force install has been set
+    if (shouldInstall) {
+      if (installed && !this.taskConfiguration.Inputs.ForceInstall) {
+        shouldInstall = false;
+      }
+    }
+
+    return shouldInstall;
   }
 
   /**
@@ -194,32 +219,44 @@ export class InstallComponents {
     return cmdParts;
   }
 
+  /**
+   * Method to determine if the selected component is installed or not
+   * 
+   * If running in DEV mode then environment variables are used to test
+   * the installation valued
+   */
   private isInstalled(): boolean {
     let installed: boolean = false;
 
-    // determine if the component is installed or not
-    if (this.taskConfiguration.Inputs.ComponentName === "gem") {
-      // For gems this involves running the command to see if the gem is installed
-      // in the context of chef. The command is retrieved and then executed
+    if (this.taskConfiguration.isDev) {
 
-      // execute the command to check if the gem is installed or not
-      let result = this.execCmd(this.isGemInstalledCmd());
+      installed = (process.env.INSTALLED === "true");
 
-      // if the result contains true then it is installed
-      installed = (result.stdout.trim() === "true");
     } else {
+      // determine if the component is installed or not
+      if (this.taskConfiguration.Inputs.ComponentName === "gem") {
+        // For gems this involves running the command to see if the gem is installed
+        // in the context of chef. The command is retrieved and then executed
 
-      // When checking for ChefWorkstation or InSpec check the paths
-      switch (this.taskConfiguration.Inputs.ComponentName) {
-        case "chef-workstation":
-          installed = tl.exist(this.taskConfiguration.Paths.ChefWorkstationDir);
-          break;
-        case "inspec":
-          let inspecInstalled = this.taskConfiguration.Paths.GetInspecPath();
-          if (inspecInstalled) {
-            installed = tl.exist(inspecInstalled);
-          }
-          break;
+        // execute the command to check if the gem is installed or not
+        let result = this.execCmd(this.isGemInstalledCmd());
+
+        // if the result contains true then it is installed
+        installed = (result.stdout.trim() === "true");
+      } else {
+
+        // When checking for ChefWorkstation or InSpec check the paths
+        switch (this.taskConfiguration.Inputs.ComponentName) {
+          case "chef-workstation":
+            installed = tl.exist(this.taskConfiguration.Paths.ChefWorkstationDir);
+            break;
+          case "inspec":
+            let inspecInstalled = this.taskConfiguration.Paths.GetInspecPath();
+            if (inspecInstalled) {
+              installed = tl.exist(inspecInstalled);
+            }
+            break;
+        }
       }
     }
 
