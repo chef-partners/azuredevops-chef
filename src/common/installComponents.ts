@@ -42,6 +42,7 @@ export class InstallComponents {
     // Determine if the component is installed
     let installed = this.isInstalled();
     let msg: string;
+    let shouldInstall: boolean = true;
 
     // if the component is not installed or force install has been set
     // install it
@@ -55,16 +56,20 @@ export class InstallComponents {
 
           msg = "Agent must be running with Elevated Privileges to install software";
           this.taskConfiguration.FailTask(msg);
+          shouldInstall = false;
 
         } else {
           if (!this.taskConfiguration.Inputs.UseSudo) {
             msg = "Agent must be running as root or the option to Use Sudo must be enabled to install software";
             this.taskConfiguration.FailTask(msg);
+            shouldInstall = false;
           }
         }
       }
+    }
 
-      // Get the command to perform the installation
+    // Get the command to perform the installation
+    if (shouldInstall) {
       let cmd = this.installCmd();
 
       // Attempt to execute the command
@@ -73,7 +78,7 @@ export class InstallComponents {
       } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
       }
-    }
+    }    
   }
 
   /**
