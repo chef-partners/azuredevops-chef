@@ -41,6 +41,7 @@ export class InstallComponents {
 
     // Determine if the component is installed
     let installed = this.isInstalled();
+    let msg: string;
 
     // if the component is not installed or force install has been set
     // install it
@@ -51,10 +52,14 @@ export class InstallComponents {
       // check that the agent is running with the correct privileges
       if (!this.taskConfiguration.runningAsRoot) {
         if (this.taskConfiguration.IsWindows) {
-          throw new Error("Agent must be running with Elevated Privileges to install software");
+
+          msg = "Agent must be running with Elevated Privileges to install software";
+          this.taskConfiguration.FailTask(msg);
+
         } else {
           if (!this.taskConfiguration.Inputs.UseSudo) {
-            throw new Error("Agent must be running as root or the option to Use Sudo must be enabled to install software");
+            msg = "Agent must be running as root or the option to Use Sudo must be enabled to install software";
+            this.taskConfiguration.FailTask(msg);
           }
         }
       }
@@ -106,8 +111,7 @@ export class InstallComponents {
       if (this.taskConfiguration.Inputs.TargetPath) {
         if (!tl.exist(this.taskConfiguration.Inputs.TargetPath)) {
           let msg = sprintf("Unable to find installation file: %s", this.taskConfiguration.Inputs.TargetPath);
-          // tl.setResult(tl.TaskResult.Failed, msg, true);
-          throw new Error(msg);
+          this.taskConfiguration.FailTask(msg);
         }
       }
 
@@ -254,7 +258,8 @@ export class InstallComponents {
       // check the result to see if a password is required
       // if it is throw an error and fail the task
       if (/^sudo: a password is required/.test(result.stderr)) {
-        throw new Error("A password is required for Sudo. Please configure the agent account to run sudo without a password");
+        let msg = "A password is required for Sudo. Please configure the agent account to run sudo without a password";
+        this.taskConfiguration.FailTask(msg);
       } else {
         console.log("    No (NOPASSWD appears to be enabled for the agent account)");
 

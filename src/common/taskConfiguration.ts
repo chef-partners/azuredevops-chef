@@ -138,14 +138,21 @@ export class TaskConfiguration {
 
         let msg = sprintf("%s is not a supported platform", this.platformName);
         // if here then the platform is not supported so fail the task
-
-        throw new Error(msg);
+        this.FailTask(msg);
     }
 
     // Initialise sub classes based on the platform
     this.Paths = new Paths(this.platformName, taskDir);
     this.Inputs = new Inputs();
 
+  }
+
+  public FailTask(msg: string) {
+    if (this.isDev) {
+      throw new Error(msg);
+    } else {
+      tl.setResult(tl.TaskResult.Failed, msg, true);
+    }
   }
 
   /**
