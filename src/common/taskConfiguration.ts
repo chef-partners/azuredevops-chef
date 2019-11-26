@@ -60,13 +60,13 @@ class Paths {
       this.Inspec = pathJoin("C:", "opscode", "inspec", "bin", "inspec.bat");
 
       // set the path to the installation script
-      this.Script = pathJoin(this.taskDir, "install.ps1");
+      this.Script = pathJoin(this.taskDir, "scripts", "install.ps1");
     } else {
       this.ChefWorkstationDir = pathJoin("/", "opt", "chef-workstation");
       this.Inspec = pathJoin("/", "usr", "bin", "inspec");
 
       // set the path to the installation script
-      this.Script = pathJoin(this.taskDir, "install.sh");
+      this.Script = pathJoin(this.taskDir, "scripts", "install.sh");
     }
 
     // set the path to the individual commands based on the workstation dir

@@ -64,7 +64,7 @@ describe("Install Components", () => {
         let expected = [
           "powershell.exe",
           "-Command",
-          pathJoin(__dirname, "install.ps1"),
+          pathJoin(__dirname, "scripts", "install.ps1"),
           ";",
           "Install-Project",
           "-Project",
@@ -99,7 +99,7 @@ describe("Install Components", () => {
         let expected = [
           "powershell.exe",
           "-Command",
-          pathJoin(__dirname, "install.ps1"),
+          pathJoin(__dirname, "scripts", "install.ps1"),
           ";",
           "Install-Project",
           "-Project",
@@ -136,7 +136,7 @@ describe("Install Components", () => {
         let expected = [
           "powershell.exe",
           "-Command",
-          pathJoin(__dirname, "install.ps1"),
+          pathJoin(__dirname, "scripts", "install.ps1"),
           ";",
           "Install-Project",
           "-Filename",
@@ -193,7 +193,7 @@ describe("Install Components", () => {
         // build up the expected array to install chef workstation
         let expected = [
           "bash",
-          pathJoin(__dirname, "install.sh"),
+          pathJoin(__dirname, "scripts", "install.sh"),
           "-p",
           "chef-workstation",
           "-c",
@@ -225,7 +225,7 @@ describe("Install Components", () => {
         // build up the expected array to install chef workstation
         let expected = [
           "bash",
-          pathJoin(__dirname, "install.sh"),
+          pathJoin(__dirname, "scripts", "install.sh"),
           "-p",
           "chef-workstation",
           "-c",
@@ -259,7 +259,7 @@ describe("Install Components", () => {
         // build up the expected array to install chef workstation
         let expected = [
           "bash",
-          pathJoin(__dirname, "install.sh"),
+          pathJoin(__dirname, "scripts", "install.sh"),
           "-f",
           linuxInstallerFile_ChefWorkstation
         ];

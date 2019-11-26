@@ -25,7 +25,7 @@ describe("Task Configuration", () => {
       let binInspec = pathJoin(chefWorkstationDir, "bin", "inspec.bat");
       let binKnife = pathJoin(chefWorkstationDir, "bin", "knife.bat");
 
-      let pathScript = pathJoin(__dirname, "install.ps1");
+      let pathScript = pathJoin(__dirname, "scripts", "install.ps1");
 
       it(chefWorkstationDir, () => {
         expect(tc.Paths.ChefWorkstationDir).to.equal(chefWorkstationDir);
@@ -72,7 +72,7 @@ describe("Task Configuration", () => {
       let binInspec = pathJoin(chefWorkstationDir, "bin", "inspec");
       let binKnife = pathJoin(chefWorkstationDir, "bin", "knife");
 
-      let pathScript = pathJoin(__dirname, "install.sh");
+      let pathScript = pathJoin(__dirname, "scripts", "install.sh");
 
       it(chefWorkstationDir, () => {
         expect(tc.Paths.ChefWorkstationDir).to.equal(chefWorkstationDir);

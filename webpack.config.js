@@ -30,8 +30,7 @@ var config = {
     ]
   },
   output: {
-    filename: "[name]/[name].js",
-    path: "/dist/"
+    filename: "[name]/[name].js"
   },  
   plugins: [
     new copyWebpackPlugin(
@@ -43,6 +42,11 @@ var config = {
         {
           from: "**/icon.png",
           context: "src"
+        },
+        {
+          from: "install/scripts",
+          context: "src",
+          to: "install/scripts"
         },
         {
           from: "conf/*.json",
