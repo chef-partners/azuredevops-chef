@@ -260,6 +260,8 @@ export class InstallComponents {
       parts = ["sudo", "-n", "true"];
       let result = this.execCmd(parts);
 
+      tl.debug(sprintf("Sudo check result: %s", result.stderr));
+
       // check the result to see if a password is required
       // if it is throw an error and fail the task
       if (/^sudo: a password is required/.test(result.stderr)) {
