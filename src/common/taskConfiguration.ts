@@ -212,7 +212,6 @@ export class TaskConfiguration {
         case "input":
           // get the value from the task parameters
           value = tl.getInput(name, required);
-          tl.debug(sprintf("Retrieved parameter '%s' value: %s", name, value));
       }
     }
 

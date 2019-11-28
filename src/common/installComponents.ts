@@ -84,6 +84,7 @@ export class InstallComponents {
         this.taskConfiguration.FailTask(msg);
       } else {
 
+        tl.debug(sprintf("UseSudo: %s", this.taskConfiguration.Inputs.UseSudo));
         // the os is not windows so check to see if sudo use has been allowed
         if (this.taskConfiguration.Inputs.UseSudo) {
           shouldInstall = true;
@@ -297,8 +298,8 @@ export class InstallComponents {
       console.log("Determine if Sudo requires a password");
 
       // build up a command to check if a password is required or not
-      parts = ["sudo", "-n", "true"];
-      let result = this.execCmd(parts);
+      let sudoParts = ["sudo", "-n", "true"];
+      let result = this.execCmd(sudoParts);
 
       tl.debug(sprintf("Sudo check result: %s", result.stderr));
 
