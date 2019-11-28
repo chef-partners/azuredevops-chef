@@ -110,18 +110,15 @@ export class TaskConfiguration {
   public IsWindows: boolean = false; // State if running on Windows
 
   // constructor method which will determine some initial settings
-  constructor(taskDir: string = null, testPlatform: string = null) {
+  constructor(taskDir: string = null) {
 
     // Determine if running in DEV mode
+    // this is so that tasks cen be run on a local workstation if required
     this.isDev = process.env["NODE_ENV"] && process.env["NODE_ENV"].toUpperCase() === "DEV" ? true : false;
 
     // determine platform name
     // the testPlatform string can be used if and only if NODE is running in DEV mode
-    if (this.isDev && testPlatform != null) {
-      this.platformName = testPlatform;
-    } else {
-      this.platformName = platform();
-    }
+    this.platformName = platform();
 
     // determine defaults based on the platform
     switch (this.platformName) {
@@ -183,9 +180,9 @@ export class TaskConfiguration {
       }
 
       // output information to the log
-      console.log("Running as root: %s", await this.runningAsRoot);
+      this.log("Running as root: %s", await this.runningAsRoot);
       if (!this.IsWindows) {
-        console.log("Using sudo: %s", this.Inputs.UseSudo);
+        this.log("Using sudo: %s", this.Inputs.UseSudo);
       }
 
     } catch (error) {
@@ -194,6 +191,10 @@ export class TaskConfiguration {
 
     // return the object to the calling function
     return this;
+  }
+
+  public log(message: any, ...params: any[]) {
+    console.log(message, ...params);
   }
 
   private getParamValue(name: string, required: boolean, type: string = null, connectedService: string = null): string {

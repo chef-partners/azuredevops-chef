@@ -45,6 +45,7 @@ export class InstallComponents {
     let shouldInstall: boolean = this.shouldInstall();
 
     // Get the command to perform the installation
+    tl.debug(sprintf("ShouldInstall: %s", shouldInstall));
     if (shouldInstall) {
       let cmd = this.installCmd();
 
@@ -99,6 +100,8 @@ export class InstallComponents {
     // and if force install has been set
     if (shouldInstall) {
       if (installed && !this.taskConfiguration.Inputs.ForceInstall) {
+        msg = "Component is already installed";
+        this.taskConfiguration.FailTask(msg);
         shouldInstall = false;
       }
     }
@@ -225,7 +228,7 @@ export class InstallComponents {
    * If running in DEV mode then environment variables are used to test
    * the installation valued
    */
-  private isInstalled(): boolean {
+  public isInstalled(): boolean {
     let installed: boolean = false;
 
     if (this.taskConfiguration.isDev) {

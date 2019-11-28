@@ -12,7 +12,7 @@
         "args": [
           "-r",
           "ts-node/register",
-          "${workspaceFolder}/tasks/**/*.spec.ts"
+          "${workspaceFolder}/test/*.spec.ts"
         ],
         "console": "integratedTerminal",
         "internalConsoleOptions": "neverOpen"
@@ -29,8 +29,8 @@
           "${file}"
         ],
         "env": {
-          "NODE_ENV": "dev",
-          "TS_NODE_PROJECT": "./tasks/tsconfig.json"
+          "NODE_ENV": "test",
+          "TS_NODE_PROJECT": "./src/tsconfig.json"
         },
         "console": "integratedTerminal",
         "internalConsoleOptions": "neverOpen"

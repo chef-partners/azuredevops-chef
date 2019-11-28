@@ -1,15 +1,80 @@
-// Import necessary libraries
+/**
+ * Peform tests to ensure that the taskCOnfiguration and thus the parameters that are
+ * passed are correct and that the assumptions that have been made are sound
+ */
+
+// Import libraries --------------------------------------------------
+// - local libs
 import { TaskConfiguration } from "../src/common/taskConfiguration";
-import { expect } from "chai";
+
+// - External task libs
+import * as tl from "azure-pipelines-task-lib";
+
+// - Standard libs
 import { join as pathJoin } from "path";
 
+// - Test libraries
+import { expect } from "chai";
+import * as sinon from "sinon";
+import * as os from "os";
+
+// -------------------------------------------------------------------
+
+// Configure constants
+const WINDOWS = "win32";
+const LINUX = "linux";
+const MACOS = "darwin";
+
+// Declare properties
+let inputs = {};
+let platform;
+let tlsetResult;
+let getInput;
+let tc: TaskConfiguration;
+
+// Configure stubs for this test suite
+
+
+
 describe("Task Configuration", () => {
+
+  before(() => {
+
+    // stub out the getInputs from the azure devops task library
+    getInput = sinon.stub(tl, "getInput").callsFake((name) => {
+      return inputs[name];
+    });
+  
+    // stub out the platform function from the os object
+    platform = sinon.stub(os, "platform").callsFake(() => {
+      return inputs["platform"];
+    });
+  
+    // stub the azdo tasklib setResult function
+    tlsetResult = sinon.stub(tl, "setResult");
+  });
+
+  after(() => {
+    getInput.restore();
+    platform.restore();
+    tlsetResult.restore();
+  });
+  
 
   // Check that the platform is correctly detected as windows and that
   // the paths are setup correctly
   describe("Windows", () => {
 
-    let tc = new TaskConfiguration(__dirname, "win32");
+    // Configure the platform being used and instantaiate the class
+    before(() => {
+
+      // set the platform to windows
+      inputs = {
+        "platform": WINDOWS
+      };
+
+      tc = new TaskConfiguration(__dirname);
+    });
 
     it("should detect running on Windows", () => {
       expect(tc.IsWindows).to.equal(true);
@@ -55,8 +120,16 @@ describe("Task Configuration", () => {
 
   // Ensure that the paths are setup correctly for Linux
   describe("Linux", () => {
+    // Configure the platform being used and instantaiate the class
+    before(() => {
 
-    let tc = new TaskConfiguration(__dirname, "linux");
+      // set the platform to windows
+      inputs = {
+        "platform": LINUX
+      };
+
+      tc = new TaskConfiguration(__dirname);
+    });
 
     it("should detect NOT running on Windows", () => {
       expect(tc.IsWindows).to.equal(false);
@@ -103,8 +176,19 @@ describe("Task Configuration", () => {
   // ensure that an error is thrown when an unknown OS is presented
   describe("Unsupported platform", () => {
 
-    it("should throw an error", () => {
-      expect(() => { let tc = new TaskConfiguration(__dirname, "darwin"); }).to.throw("darwin is not a supported platform");
+    // Configure the platform being used and instantaiate the class
+    before(() => {
+
+      // set the platform to windows
+      inputs = {
+        "platform": MACOS
+      };
+
+      tc = new TaskConfiguration(__dirname);
+    });    
+
+    it("should report that the platform the task is running on is not supported", () => {
+      sinon.assert.called(tlsetResult);
     });
   });
   

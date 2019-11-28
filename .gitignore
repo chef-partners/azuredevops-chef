@@ -6,7 +6,7 @@ bin
 *.js
 !webpack.config.js
 *.map
-tasks/*/common
+src/*/common
 .vscode/settings.json
 local
 .nyc_output/
