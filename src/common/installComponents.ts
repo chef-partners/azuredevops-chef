@@ -85,10 +85,10 @@ export class InstallComponents {
       } else {
 
         tl.debug(sprintf("*** RunningAsRoot: %s", this.taskConfiguration.runningAsRoot));
-        tl.debug(sprintf("*** UseSudo: %s", this.taskConfiguration.Inputs.UseSudo));
-        tl.debug(typeof this.taskConfiguration.Inputs.UseSudo);
+        tl.debug(sprintf("*** UseSudo: %s", this.taskConfiguration.Inputs.SudoIsSet()));
+        tl.debug(typeof this.taskConfiguration.Inputs.SudoIsSet());
         // the os is not windows so check to see if sudo use has been allowed
-        if (this.taskConfiguration.Inputs.UseSudo === true) {
+        if (this.taskConfiguration.Inputs.SudoIsSet()) {
           shouldInstall = true;
         } else {
           msg = "Agent must be running as root or the option to Use Sudo must be enabled to install software";
@@ -101,7 +101,7 @@ export class InstallComponents {
     // Finally determine if the component should be installed based on whether it is or not
     // and if force install has been set
     if (shouldInstall === true) {
-      if (installed === true && this.taskConfiguration.Inputs.ForceInstall === false) {
+      if (installed === true && this.taskConfiguration.Inputs.ForceIsSet() === false) {
         msg = "Component is already installed";
         this.taskConfiguration.FailTask(msg);
         shouldInstall = false;
@@ -294,7 +294,7 @@ export class InstallComponents {
   private checkSudo(): string[] {
     let parts: string[] = [];
 
-    if (this.taskConfiguration.Inputs.UseSudo) {
+    if (this.taskConfiguration.Inputs.SudoIsSet()) {
 
       console.log("Determine if Sudo requires a password");
 

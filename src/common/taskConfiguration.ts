@@ -28,6 +28,22 @@ class Inputs {
   public Version: string = null; // The version of the software component to install
   public Channel: string = null; // WHat channel should the software component be installed from
   public TargetPath: string = null; // The path to download software to
+
+  public SudoIsSet(): boolean {
+    let result: any = this.UseSudo;
+    if (typeof result === "string") {
+      result = (result === "true");
+    }
+    return result;
+  }
+
+  public ForceIsSet(): boolean {
+    let result: any = this.ForceInstall;
+    if (typeof result === "string") {
+      result = (result === "true");
+    }
+    return result;
+  }
 }
 
 class Paths {
@@ -187,7 +203,7 @@ export class TaskConfiguration {
       // output information to the log
       this.log("Running as root: %s", await this.runningAsRoot);
       if (!this.IsWindows) {
-        this.log("Using sudo: %s", this.Inputs.UseSudo);
+        this.log("Using sudo: %s", this.Inputs.SudoIsSet());
       }
 
     } catch (error) {
