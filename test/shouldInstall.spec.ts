@@ -26,6 +26,7 @@ const LINUX = "linux";
 
 // Declare properties
 let stub_isInstalled;
+let stub_isSudoInstalled;
 let stub_tlDebug;
 let stub_tlsetResult;
 let stub_getInput;
@@ -353,10 +354,15 @@ describe("Check environment for installation", () => {
         stub_isInstalled = sinon.stub(ic, "isInstalled").callsFake(() => {
           return false;
         });
+
+        stub_isSudoInstalled = sinon.stub(ic, "isSudoInstalled").callsFake(() => {
+          return true;
+        });
       });
 
       afterEach(() => {
         stub_isInstalled.restore();
+        stub_isSudoInstalled.restore();
       });
 
       it("detects platform is NOT Windows", () => {
