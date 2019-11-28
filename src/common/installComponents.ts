@@ -77,16 +77,18 @@ export class InstallComponents {
       shouldInstall = true;
     } else {
 
-      if (this.taskConfiguration.IsWindows) {
+      if (this.taskConfiguration.IsWindows === true) {
 
         // if the os is Windows then leave as false with an error message
         msg = "Agent must be running with Elevated Privileges to install software";
         this.taskConfiguration.FailTask(msg);
       } else {
 
-        tl.debug(sprintf("UseSudo: %s", this.taskConfiguration.Inputs.UseSudo));
+        tl.debug(sprintf("*** RunningAsRoot: %s", this.taskConfiguration.runningAsRoot));
+        tl.debug(sprintf("*** UseSudo: %s", this.taskConfiguration.Inputs.UseSudo));
         // the os is not windows so check to see if sudo use has been allowed
-        if (this.taskConfiguration.Inputs.UseSudo) {
+        if (this.taskConfiguration.Inputs.UseSudo === true) {
+          tl.debug("Should NOT be here");
           shouldInstall = true;
         } else {
 
@@ -99,8 +101,8 @@ export class InstallComponents {
 
     // Finally determine if the component should be installed based on whether it is or not
     // and if force install has been set
-    if (shouldInstall) {
-      if (installed && !this.taskConfiguration.Inputs.ForceInstall) {
+    if (shouldInstall === true) {
+      if (installed === true && this.taskConfiguration.Inputs.ForceInstall === false) {
         msg = "Component is already installed";
         this.taskConfiguration.FailTask(msg);
         shouldInstall = false;
