@@ -299,7 +299,7 @@ export class InstallComponents {
       result = this.execCmd(sudoInstalled);
 
       // only proceed if stdout is not empty
-      if (result.stdout === null) {
+      if (result.stdout === "") {
         tl.setResult(tl.TaskResult.Failed, "Sudo is not installed", true);
       } else {
         console.log("Determine if Sudo requires a password");
