@@ -84,9 +84,6 @@ export class InstallComponents {
         this.taskConfiguration.FailTask(msg);
       } else {
 
-        tl.debug(sprintf("*** RunningAsRoot: %s", this.taskConfiguration.runningAsRoot));
-        tl.debug(sprintf("*** UseSudo: %s", this.taskConfiguration.Inputs.SudoIsSet()));
-        tl.debug(typeof this.taskConfiguration.Inputs.SudoIsSet());
         // the os is not windows so check to see if sudo use has been allowed
         if (this.taskConfiguration.Inputs.SudoIsSet()) {
           shouldInstall = true;
@@ -293,27 +290,37 @@ export class InstallComponents {
    */
   private checkSudo(): string[] {
     let parts: string[] = [];
+    let result: IExecSyncResult;
 
     if (this.taskConfiguration.Inputs.SudoIsSet()) {
 
-      console.log("Determine if Sudo requires a password");
+      // check to see if sudo is installed, if not raise a build error
+      let sudoInstalled = ["which", "sudo"]
+      result = this.execCmd(sudoInstalled);
 
-      // build up a command to check if a password is required or not
-      let sudoParts = ["sudo", "-n", "true"];
-      let result = this.execCmd(sudoParts);
-
-      tl.debug(sprintf("Sudo check result: %s", result.stderr));
-
-      // check the result to see if a password is required
-      // if it is throw an error and fail the task
-      if (/^sudo: a password is required/.test(result.stderr)) {
-        let msg = "A password is required for Sudo. Please configure the agent account to run sudo without a password";
-        this.taskConfiguration.FailTask(msg);
+      // only proceed if stdout is not empty
+      if (result.stdout === null) {
+        tl.setResult(tl.TaskResult.Failed, "Sudo is not installed", true);
       } else {
-        console.log("    No (NOPASSWD appears to be enabled for the agent account)");
+        console.log("Determine if Sudo requires a password");
 
-        // set sudo on the parts
-        parts.push("sudo");
+        // build up a command to check if a password is required or not
+        let sudoParts = ["sudo", "-n", "true"];
+        result = this.execCmd(sudoParts);
+
+        tl.debug(sprintf("Sudo check result: %s", result.stderr));
+
+        // check the result to see if a password is required
+        // if it is throw an error and fail the task
+        if (/^sudo: a password is required/.test(result.stderr)) {
+          let msg = "A password is required for Sudo. Please configure the agent account to run sudo without a password";
+          this.taskConfiguration.FailTask(msg);
+        } else {
+          console.log("    No (NOPASSWD appears to be enabled for the agent account)");
+
+          // set sudo on the parts
+          parts.push("sudo");
+        }
       }
     }
 
