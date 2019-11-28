@@ -195,8 +195,6 @@ export class TaskConfiguration {
         // get the parameter value
         let value = this.getParamValue(paramName, false, "input");
 
-        tl.debug(sprintf("%s [%s] - %s", paramName, mapping[paramName], typeof value));
-
         // Set the property on the object with the value
         toDotted(mapping[paramName], value, this);
       }
