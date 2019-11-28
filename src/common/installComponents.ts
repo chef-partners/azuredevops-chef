@@ -86,12 +86,11 @@ export class InstallComponents {
 
         tl.debug(sprintf("*** RunningAsRoot: %s", this.taskConfiguration.runningAsRoot));
         tl.debug(sprintf("*** UseSudo: %s", this.taskConfiguration.Inputs.UseSudo));
+        tl.debug(typeof this.taskConfiguration.Inputs.UseSudo);
         // the os is not windows so check to see if sudo use has been allowed
         if (this.taskConfiguration.Inputs.UseSudo === true) {
-          tl.debug("Should NOT be here");
           shouldInstall = true;
         } else {
-
           msg = "Agent must be running as root or the option to Use Sudo must be enabled to install software";
           this.taskConfiguration.FailTask(msg);
         }
