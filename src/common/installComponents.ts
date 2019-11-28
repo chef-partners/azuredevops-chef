@@ -70,6 +70,7 @@ export class InstallComponents {
 
     // determine if the component is installed
     let installed = this.isInstalled();
+    let sudoInstalled = this.isSudoInstalled();
 
     // if running as root then can be installed
     // however if not then the operating system needs to be looked at and a sudo check performed
@@ -88,7 +89,7 @@ export class InstallComponents {
         if (this.taskConfiguration.Inputs.SudoIsSet()) {
 
           // check that sudo is installed
-          if (this.isSudoInstalled()) {
+          if (sudoInstalled) {
             shouldInstall = true;
           } else {
             msg = "The option to UseSudo has been set but Sudo is not installed";
@@ -229,17 +230,7 @@ export class InstallComponents {
   }
 
   public isSudoInstalled(): boolean {
-    let installed: boolean = false;
-
-    // check to see if sudo is installed, if not raise a build error
-    let result = this.execCmd(["which", "sudo"]);
-
-    if (result.stdout !== "") {
-      installed = true;
-    }
-
-    tl.debug(sprintf("Sudo is installed: %s", installed));
-    return installed;
+    return tl.exist(this.taskConfiguration.Paths.Sudo);
   }
 
   /**

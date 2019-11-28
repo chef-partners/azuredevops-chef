@@ -54,6 +54,7 @@ class Paths {
   public Inspec: string = null;
   public Knife: string = null;
   public Script: string = null;
+  public Sudo: string = "/usr/bin/sudo";
 
   private taskDir: string = null; // Path to the currently running task folder. This is used to find task specific files.
 
