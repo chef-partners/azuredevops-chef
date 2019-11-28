@@ -304,7 +304,7 @@ export class InstallComponents {
     let parts: string[] = [];
     let result: IExecSyncResult;
 
-    if (this.taskConfiguration.Inputs.SudoIsSet()) {
+    if (this.taskConfiguration.Inputs.SudoIsSet() && this.isSudoInstalled()) {
 
       console.log("Determine if Sudo requires a password");
 
