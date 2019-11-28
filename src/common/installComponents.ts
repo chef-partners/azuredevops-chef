@@ -232,10 +232,9 @@ export class InstallComponents {
     let installed: boolean = false;
 
     // check to see if sudo is installed, if not raise a build error
-    let sudoInstalled = ["which", "sudo"];
-    let result = this.execCmd(sudoInstalled);
+    let result = tl.which("sudo");
 
-    if (result.stdout !== "") {
+    if (result !== "not found") {
       installed = true;
     }
 
