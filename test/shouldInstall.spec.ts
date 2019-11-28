@@ -335,6 +335,50 @@ describe("Check environment for installation", () => {
         expect(ic.shouldInstall()).to.eq(true);
       });
     });
+
+    describe("not root, is sudo, not installed, no force", () => {
+      before(() => {
+        inputs["forceInstall"] = false;
+        inputs["sudo"] = true;
+      });
+
+      beforeEach(() => {
+        tc = new TaskConfiguration(__dirname);
+        ic = new InstallComponents(tc);
+  
+        tc.getTaskParameters();
+        tc.runningAsRoot = false;
+
+        // create some stubs so that the method can be tests
+        stub_isInstalled = sinon.stub(ic, "isInstalled").callsFake(() => {
+          return false;
+        });
+      });
+
+      afterEach(() => {
+        stub_isInstalled.restore();
+      });
+
+      it("detects platform is NOT Windows", () => {
+        expect(tc.IsWindows).to.eq(false);
+      });
+
+      it("is not running as root", () => {
+        expect(tc.runningAsRoot).to.eq(false);
+      });
+
+      it("is using Sudo", () => {
+        expect(tc.Inputs.UseSudo).to.eq(true);
+      });      
+
+      it("forceInstall is not set", () => {
+        expect(tc.Inputs.ForceInstall).to.eq(false);
+      });     
+
+      it("should install", () => {
+        expect(ic.shouldInstall()).to.eq(true);
+      });
+    });    
     
     describe("is root, is sudo, not installed, no force", () => {
       before(() => {

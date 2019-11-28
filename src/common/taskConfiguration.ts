@@ -175,8 +175,13 @@ export class TaskConfiguration {
       // iterate around the mapping and set the object values
       for (let paramName in mapping) {
 
-        // Set the property on the object based on the parameter name and the dotted notation
-        toDotted(mapping[paramName], this.getParamValue(paramName, false, "input"), this);
+        // get the parameter value
+        let value = this.getParamValue(paramName, false, "input");
+
+        tl.debug(sprintf("%s [%s] - %s", paramName, mapping[paramName], typeof value));
+
+        // Set the property on the object with the value
+        toDotted(mapping[paramName], value, this);
       }
 
       // output information to the log
