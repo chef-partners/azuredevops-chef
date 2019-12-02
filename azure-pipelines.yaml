@@ -84,7 +84,7 @@ stages:
               inputs:
                 connectedServiceName: $(connectedServiceName)
                 fileType: vsix
-                vsixFile: $(Pipeline.Workspace)/preview/*.vsix
+                vsixFile: $(Pipeline.Workspace)/*.vsix
 
             - task: ShareAzureDevopsExtension@2
               displayName: Share
