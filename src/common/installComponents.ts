@@ -2,6 +2,8 @@ import { TaskConfiguration } from "./taskConfiguration";
 import { sprintf } from "sprintf-js";
 import * as tl from "azure-pipelines-task-lib"; // task library for Azure DevOps
 import { IExecSyncResult } from "azure-pipelines-task-lib/toolrunner";
+import { Scripts } from "./scripts";
+import { writeFileSync } from "fs";
 
 /**
  * InstallComponents is responsible for taking in the TaskConfiguration
@@ -56,6 +58,27 @@ export class InstallComponents {
         tl.setResult(tl.TaskResult.Failed, err.message);
       }
     }
+  }
+
+  /**
+   * Decode the script for the platform the agent is run on and write it
+   * out to disk
+   */
+  public WriteScript() {
+
+    // initialise variables
+    let scripts = new Scripts();
+    let script: string = scripts.GetScript(this.taskConfiguration.IsWindows);
+
+    // write out the script to the filename
+    tl.debug(sprintf("Writing out Chef install script: %s", this.taskConfiguration.Paths.Script));
+    writeFileSync(this.taskConfiguration.Paths.Script, script, "utf-8");
+
+    // check that the file has been written out properyl, it not raise an error
+    if (!scripts.VerifyScript(this.taskConfiguration.IsWindows, this.taskConfiguration.Paths.Script)) {
+      tl.setResult(tl.TaskResult.Failed, "Chef install script was not written out successfully", true);
+    }
+
   }
 
   /**
@@ -146,6 +169,10 @@ export class InstallComponents {
       
 
     } else {
+
+      // write out the script
+      this.WriteScript();
+
       // determine if a targetPath has been specified, and if it has check that it exists
       // if it does not exist, return a message and set the error flag
       if (this.taskConfiguration.Inputs.TargetPath) {

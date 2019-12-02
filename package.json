@@ -72,6 +72,7 @@
   },
   "dependencies": {
     "azure-pipelines-task-lib": "^2.9.3",
+    "crypto-js": "^3.1.9-1",
     "dot-object": "^1.9.0",
     "is-admin": "^2.1.1",
     "is-root": "^1.0.0",

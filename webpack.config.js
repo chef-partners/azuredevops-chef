@@ -44,11 +44,6 @@ var config = {
           context: "src"
         },
         {
-          from: "install/scripts",
-          context: "src",
-          to: "install/scripts"
-        },
-        {
           from: "conf/*.json",
           to: "../.."
         }

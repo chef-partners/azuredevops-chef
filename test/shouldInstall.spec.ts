@@ -79,7 +79,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -119,7 +119,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -159,7 +159,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -200,7 +200,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -254,7 +254,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -300,7 +300,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -344,7 +344,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -393,7 +393,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -437,7 +437,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -481,7 +481,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -525,7 +525,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();
@@ -569,7 +569,7 @@ describe("Check environment for installation", () => {
       });
 
       beforeEach(() => {
-        tc = new TaskConfiguration(__dirname);
+        tc = new TaskConfiguration();
         ic = new InstallComponents(tc);
   
         tc.getTaskParameters();

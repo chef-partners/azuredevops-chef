@@ -10,11 +10,12 @@ import { InstallComponents } from "../src/common/installComponents";
 
 // - External task libs
 import * as tl from "azure-pipelines-task-lib";
+import * as rimraf from "rimraf";
 
 // - Standard libs
 import * as os from "os";
 import { join as pathJoin } from "path";
-import { writeFileSync, unlinkSync } from "fs";
+import { writeFileSync, unlinkSync, mkdirSync, existsSync } from "fs";
 
 // - Test libraries
 import { expect } from "chai";
@@ -57,6 +58,22 @@ function ephemeralFiles(remove) {
   }
 }
 
+// define a tempdir that the scripts can be written out to
+function tempDir(remove: boolean = false): string {
+
+  let path = pathJoin(__dirname, "temp");
+
+  if (remove) {
+    rimraf.sync(path);
+  } else {
+    if (!existsSync(path)) {
+      mkdirSync(path);
+    }
+  }
+
+  return path;
+}
+
 describe("Install Components", () => {
 
   // Setup the hooks for the tests in this suite
@@ -79,6 +96,8 @@ describe("Install Components", () => {
     });
 
     ephemeralFiles(false);
+
+    process.env.AGENT_TEMPDIRECTORY = tempDir();
   });
 
   after(() => {
@@ -88,6 +107,8 @@ describe("Install Components", () => {
     platform.restore();
     tlsetResult.restore();
     tlDebug.restore();
+
+    process.env.AGENT_TEMPDIRECTORY = "";
   });
 
   describe("Windows", () => {
@@ -115,7 +136,7 @@ describe("Install Components", () => {
         let expected = [
           "powershell.exe",
           "-Command",
-          pathJoin(__dirname, "scripts", "install.ps1"),
+          pathJoin(tempDir(false), "install.ps1"),
           ";",
           "Install-Project",
           "-Project",
@@ -126,7 +147,7 @@ describe("Install Components", () => {
 
         it("should return an array", () => {
           // create the objects that are required
-          tc = new TaskConfiguration(__dirname);
+          tc = new TaskConfiguration();
           ic = new InstallComponents(tc);
 
           tc.getTaskParameters();
@@ -135,7 +156,7 @@ describe("Install Components", () => {
 
         it("should return the expected command", () => {
           // create the objects that are required
-          tc = new TaskConfiguration(__dirname);
+          tc = new TaskConfiguration();
           ic = new InstallComponents(tc);
 
           tc.getTaskParameters();
@@ -158,7 +179,7 @@ describe("Install Components", () => {
         let expected = [
           "powershell.exe",
           "-Command",
-          pathJoin(__dirname, "scripts", "install.ps1"),
+          pathJoin(tempDir(false), "install.ps1"),
           ";",
           "Install-Project",
           "-Project",
@@ -193,7 +214,7 @@ describe("Install Components", () => {
         let expected = [
           "powershell.exe",
           "-Command",
-          pathJoin(__dirname, "scripts", "install.ps1"),
+          pathJoin(tempDir(false), "install.ps1"),
           ";",
           "Install-Project",
           "-Filename",
@@ -253,7 +274,7 @@ describe("Install Components", () => {
         // create the expected parts
         let expected = [
           "bash",
-          pathJoin(__dirname, "scripts", "install.sh"),
+          pathJoin(tempDir(false), "install.sh"),
           "-p",
           "chef-workstation",
           "-c",
@@ -262,7 +283,7 @@ describe("Install Components", () => {
 
         it("should return an array", () => {
           // create the objects that are required
-          tc = new TaskConfiguration(__dirname);
+          tc = new TaskConfiguration();
           ic = new InstallComponents(tc);
 
           tc.getTaskParameters();
@@ -271,7 +292,7 @@ describe("Install Components", () => {
 
         it("should return the expected command", () => {
           // create the objects that are required
-          tc = new TaskConfiguration(__dirname);
+          tc = new TaskConfiguration();
           ic = new InstallComponents(tc);
 
           tc.getTaskParameters();
@@ -293,7 +314,7 @@ describe("Install Components", () => {
         // build up the expected array to install chef workstation
         let expected = [
           "bash",
-          pathJoin(__dirname, "scripts", "install.sh"),
+          pathJoin(tempDir(false), "install.sh"),
           "-p",
           "chef-workstation",
           "-c",
@@ -325,7 +346,7 @@ describe("Install Components", () => {
         // build up the expected array to install chef workstation
         let expected = [
           "bash",
-          pathJoin(__dirname, "scripts", "install.sh"),
+          pathJoin(tempDir(false), "install.sh"),
           "-f",
           linuxInstallerFile_ChefWorkstation
         ];

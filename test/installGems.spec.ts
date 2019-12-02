@@ -64,7 +64,7 @@ describe("Installing Ruby Gems within Chef", () => {
 
     it("should return the correct command to check for installation", () => {
 
-      tc = new TaskConfiguration(__dirname);
+      tc = new TaskConfiguration();
       ic = new InstallComponents(tc);      
 
       tc.getTaskParameters();

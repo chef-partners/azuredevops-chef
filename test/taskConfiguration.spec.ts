@@ -9,9 +9,11 @@ import { TaskConfiguration } from "../src/common/taskConfiguration";
 
 // - External task libs
 import * as tl from "azure-pipelines-task-lib";
+import * as rimraf from "rimraf";
 
 // - Standard libs
 import { join as pathJoin } from "path";
+import { mkdirSync, existsSync } from "fs";
 
 // - Test libraries
 import { expect } from "chai";
@@ -32,7 +34,21 @@ let tlsetResult;
 let getInput;
 let tc: TaskConfiguration;
 
-// Configure stubs for this test suite
+// define a tempdir that the scripts can be written out to
+function tempDir(remove: boolean = false): string {
+
+  let path = pathJoin(__dirname, "temp");
+
+  if (remove) {
+    rimraf.sync(path);
+  } else {
+    if (!existsSync(path)) {
+      mkdirSync(path);
+    }
+  }
+
+  return path;
+}
 
 
 
@@ -52,12 +68,16 @@ describe("Task Configuration", () => {
   
     // stub the azdo tasklib setResult function
     tlsetResult = sinon.stub(tl, "setResult");
+
+    process.env.AGENT_TEMPDIRECTORY = tempDir();
   });
 
   after(() => {
     getInput.restore();
     platform.restore();
     tlsetResult.restore();
+
+    process.env.AGENT_TEMPDIRECTORY = "";
   });
   
 
@@ -73,7 +93,7 @@ describe("Task Configuration", () => {
         "platform": WINDOWS
       };
 
-      tc = new TaskConfiguration(__dirname);
+      tc = new TaskConfiguration();
     });
 
     it("should detect running on Windows", () => {
@@ -90,7 +110,7 @@ describe("Task Configuration", () => {
       let binInspec = pathJoin(chefWorkstationDir, "bin", "inspec.bat");
       let binKnife = pathJoin(chefWorkstationDir, "bin", "knife.bat");
 
-      let pathScript = pathJoin(__dirname, "scripts", "install.ps1");
+      let pathScript = pathJoin(tempDir(false), "install.ps1");
 
       it(chefWorkstationDir, () => {
         expect(tc.Paths.ChefWorkstationDir).to.equal(chefWorkstationDir);
@@ -128,7 +148,7 @@ describe("Task Configuration", () => {
         "platform": LINUX
       };
 
-      tc = new TaskConfiguration(__dirname);
+      tc = new TaskConfiguration();
     });
 
     it("should detect NOT running on Windows", () => {
@@ -145,7 +165,7 @@ describe("Task Configuration", () => {
       let binInspec = pathJoin(chefWorkstationDir, "bin", "inspec");
       let binKnife = pathJoin(chefWorkstationDir, "bin", "knife");
 
-      let pathScript = pathJoin(__dirname, "scripts", "install.sh");
+      let pathScript = pathJoin(tempDir(false), "install.sh");
 
       it(chefWorkstationDir, () => {
         expect(tc.Paths.ChefWorkstationDir).to.equal(chefWorkstationDir);
@@ -184,7 +204,7 @@ describe("Task Configuration", () => {
         "platform": MACOS
       };
 
-      tc = new TaskConfiguration(__dirname);
+      tc = new TaskConfiguration();
     });    
 
     it("should report that the platform the task is running on is not supported", () => {

@@ -55,21 +55,18 @@ class Paths {
   public Knife: string = null;
   public Script: string = null;
   public Sudo: string = "/usr/bin/sudo";
-
-  private taskDir: string = null; // Path to the currently running task folder. This is used to find task specific files.
+  public TmpDir: string;
 
   /**
    * Depending on the OS the correct defaults will be set on the paths
    * @param osName Name of the operating system that the task is running o
-   * @param taskDir Folder of the currently running task
    */
-  constructor(osName: string, taskDir: string) {
+  constructor(osName: string) {
 
     let extension: string = "";
 
-    this.taskDir = taskDir;
-
-    tl.debug(sprintf("taskDir=%s", this.taskDir));
+    // Set the TmpDir to the path of the agent environment variable
+    this.TmpDir = process.env.AGENT_TEMPDIRECTORY;
 
     if (osName === "win32") {
       extension = ".bat";
@@ -77,13 +74,13 @@ class Paths {
       this.Inspec = pathJoin("C:", "opscode", "inspec", "bin", "inspec.bat");
 
       // set the path to the installation script
-      this.Script = pathJoin(this.taskDir, "scripts", "install.ps1");
+      this.Script = pathJoin(this.TmpDir, "install.ps1");
     } else {
       this.ChefWorkstationDir = pathJoin("/", "opt", "chef-workstation");
       this.Inspec = pathJoin("/", "usr", "bin", "inspec");
 
       // set the path to the installation script
-      this.Script = pathJoin(this.taskDir, "scripts", "install.sh");
+      this.Script = pathJoin(this.TmpDir, "install.sh");
     }
 
     // set the path to the individual commands based on the workstation dir
@@ -91,6 +88,7 @@ class Paths {
     this.Berks = pathJoin(this.ChefWorkstationDir, "bin", sprintf("berks%s", extension));
     this.InspecEmbedded = pathJoin(this.ChefWorkstationDir, "bin", sprintf("inspec%s", extension));
     this.Knife = pathJoin(this.ChefWorkstationDir, "bin", sprintf("knife%s", extension));
+
   }
 
   /**
@@ -127,7 +125,7 @@ export class TaskConfiguration {
   public IsWindows: boolean = false; // State if running on Windows
 
   // constructor method which will determine some initial settings
-  constructor(taskDir: string = null) {
+  constructor() {
 
     // Determine if running in DEV mode
     // this is so that tasks cen be run on a local workstation if required
@@ -156,7 +154,7 @@ export class TaskConfiguration {
     }
 
     // Initialise sub classes based on the platform
-    this.Paths = new Paths(this.platformName, taskDir);
+    this.Paths = new Paths(this.platformName);
     this.Inputs = new Inputs();
 
   }

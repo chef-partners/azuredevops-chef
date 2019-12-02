@@ -1,6 +1,6 @@
 {
-  "id": "chef-infra-preview",
-  "name": "Chef Integration - PREVIEW",
+  "id": "chef-preview",
+  "name": "Chef - PREVIEW",
   "files": [
     {
       "path": "../preview/tasks",
