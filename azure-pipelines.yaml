@@ -100,26 +100,27 @@ stages:
                 vsixFile: $(Pipeline.Workspace)/preview/*.vsix
                 accounts: $(shareAccounts)
 
-  - deployment: azdo_extension_release
-    displayName: Publish Release Extension
-    pool:
-      vmImage: ubuntu-latest
-    environment: 'Release'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - task: DownloadPipelineArtifact@2
-              inputs:
-                buildType: current
-                itemPattern: preview/*.vsix
-                targetPath: $(Pipeline.Workspace)
 
-            - task: PublishAzureDevopsExtension@2
-              displayName: Publish
-              inputs:
-                connectedServiceName: $(connectedServiceName)
-                fileType: vsix
-                vsixFile: $(Pipeline.Workspace)/release/*.vsix
+#  - deployment: azdo_extension_release
+#    displayName: Publish Release Extension
+#    pool:
+#      vmImage: ubuntu-latest
+#    environment: 'Release'
+#    strategy:
+#      runOnce:
+#        deploy:
+#          steps:
+#            - task: DownloadPipelineArtifact@2
+#              inputs:
+#                buildType: current
+#                itemPattern: preview/*.vsix
+#                targetPath: $(Pipeline.Workspace)
+#
+#            - task: PublishAzureDevopsExtension@2
+#              displayName: Publish
+#              inputs:
+#                connectedServiceName: $(connectedServiceName)
+#                fileType: vsix
+#                vsixFile: $(Pipeline.Workspace)/release/*.vsix
 
 
