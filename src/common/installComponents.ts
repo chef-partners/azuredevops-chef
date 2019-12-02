@@ -236,7 +236,7 @@ export class InstallComponents {
 
           // installation will be performed using the download method from the script
           cmdParts.push(
-            "-p",
+            "-P",
             this.taskConfiguration.Inputs.ComponentName,
             "-c",
             this.taskConfiguration.Inputs.Channel

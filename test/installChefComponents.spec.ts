@@ -275,7 +275,7 @@ describe("Install Components", () => {
         let expected = [
           "bash",
           pathJoin(tempDir(false), "install.sh"),
-          "-p",
+          "-P",
           "chef-workstation",
           "-c",
           "stable"
@@ -315,7 +315,7 @@ describe("Install Components", () => {
         let expected = [
           "bash",
           pathJoin(tempDir(false), "install.sh"),
-          "-p",
+          "-P",
           "chef-workstation",
           "-c",
           "stable",
