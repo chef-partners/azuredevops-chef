@@ -1,5 +1,10 @@
 name: 2.1$(Rev:.r)
 
+# Define variables
+variables:
+  shareAccounts: turtlesystems
+  connectedServiceName: Marketplace Publish - RJS PAT 
+
 stages:
 - stage: Build
   displayName: "Build:"
@@ -47,14 +52,14 @@ stages:
       displayName: 'Copy Preview Files to: Artefact Directory'
       inputs:
         SourceFolder: '$(build.sourcesdirectory)/build'
-        Contents: 'chef-software.chef-infra-preview-$(Build.BuildNumber).vsix'
+        Contents: 'chef-software.chef-preview-$(Build.BuildNumber).vsix'
         TargetFolder: '$(build.artifactstagingdirectory)/preview'
 
     - task: CopyFiles@2
       displayName: 'Copy Production Files to: Artefact Directory'
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)/build'
-        Contents: 'chef-software.chef-infra-$(Build.BuildNumber).vsix'
+        Contents: 'chef-software.chef-$(Build.BuildNumber).vsix'
         TargetFolder: '$(build.artifactstagingdirectory)/production'
 
     - task: PublishPipelineArtifact@1
@@ -63,5 +68,58 @@ stages:
         targetPath: $(Build.ArtifactStagingDirectory)
         artifact: build
 
+- stage: Deploy
+  jobs:
+  - deployment: azdo_extension_preview
+    displayName: Publish Preview Extension
+    pool:
+      vmImage: ubuntu-latest
+    environment: Preview
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadPipelineArtifact@2
+              inputs:
+                buildType: current
+                itemPattern: preview/*.vsix
+                targetPath: $(Pipeline.Workspace)
+
+            - task: PublishAzureDevopsExtension@2
+              displayName: Publish
+              inputs:
+                connectedServiceName: $(connectedServiceName)
+                fileType: vsix
+                vsixFile: $(Pipeline.Workspace)/preview/*.vsix
+
+            - task: ShareAzureDevopsExtension@2
+              displayName: Share
+              inputs:
+                connectedServiceName: $(connectedServiceName)
+                method: vsix
+                vsixFile: $(Pipeline.Workspace)/preview/*.vsix
+                accounts: $(shareAccounts)
+
+  - deployment: azdo_extension_release
+    displayName: Publish Release Extension
+    pool:
+      vmImage: ubuntu-latest
+    environment: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadPipelineArtifact@2
+              inputs:
+                buildType: current
+                itemPattern: preview/*.vsix
+                targetPath: $(Pipeline.Workspace)
+
+            - task: PublishAzureDevopsExtension@2
+              displayName: Publish
+              inputs:
+                connectedServiceName: $(connectedServiceName)
+                fileType: vsix
+                vsixFile: $(Pipeline.Workspace)/release/*.vsix
 
 
