@@ -131,7 +131,7 @@ export class InstallComponents {
     if (shouldInstall === true) {
       if (installed === true && this.taskConfiguration.Inputs.ForceIsSet() === false) {
         msg = "Component is already installed";
-        this.taskConfiguration.FailTask(msg);
+        tl.setResult(tl.TaskResult.Skipped, msg);
         shouldInstall = false;
       }
     }
