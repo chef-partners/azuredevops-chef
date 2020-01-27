@@ -64,7 +64,7 @@ async function run() {
                 }
 
                 // set the command and the arguments to run
-                command_args = sprintf("exec . %s %s", inspec_arguments, test_output_args);
+                command_args = sprintf("exec %s %s", inspec_arguments, test_output_args);
 
                 tl.debug(sprintf("InSpec Command [%s]: %s %s", inspec_profile_path, command, command_args));
 

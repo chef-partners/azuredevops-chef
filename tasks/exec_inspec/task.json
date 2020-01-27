@@ -32,9 +32,9 @@
             "name": "inspecArguments",
             "type": "string",
             "label": "InSpec Arguments",
-            "defaultValue": "",
+            "defaultValue": ".",
             "required": false,
-            "helpMarkDown": "Additional arguments that should be passed to InSpec, e.g. a target"
+            "helpMarkDown": "Arguments that should be passed to `inspec exec`. By default this is all profiles in the directory."
         },
         {
             "name": "inspecResultsFile",
