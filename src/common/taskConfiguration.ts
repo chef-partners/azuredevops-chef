@@ -21,13 +21,14 @@ import {join as pathJoin} from "path";
 import {str as toDotted} from "dot-object";
 
 class Inputs {
-  public ComponentName: string = null; // Name of the software component being installed
+  public ComponentName: string = null; // Name of the software component being installed or executed
   public GemName: string = null; // If the component is a gem, state the gem to be installed
   public ForceInstall: boolean = false; // Force the installation of the software
   public UseSudo: boolean = false; // Should Sudo be used for the operations
   public Version: string = null; // The version of the software component to install
   public Channel: string = null; // WHat channel should the software component be installed from
   public TargetPath: string = null; // The path to download software to
+  public Arguments: string = null; // Arguments that need to be passed to the component being executed
 
   public SudoIsSet(): boolean {
     let result: any = this.UseSudo;
@@ -49,9 +50,11 @@ class Inputs {
 class Paths {
   public Berks: string = null;
   public Chef: string = null;
+  public ChefClient: string = null;
   public ChefWorkstationDir: string = null;
   public InspecEmbedded: string = null;
   public Inspec: string = null;
+  public Kitchen: string = null;
   public Knife: string = null;
   public Script: string = null;
   public Sudo: string = "/usr/bin/sudo";
@@ -85,8 +88,10 @@ class Paths {
 
     // set the path to the individual commands based on the workstation dir
     this.Chef = pathJoin(this.ChefWorkstationDir, "bin", sprintf("chef%s", extension));
+    this.ChefClient = pathJoin(this.ChefWorkstationDir, "bin", sprintf("chef-client%s", extension));
     this.Berks = pathJoin(this.ChefWorkstationDir, "bin", sprintf("berks%s", extension));
     this.InspecEmbedded = pathJoin(this.ChefWorkstationDir, "bin", sprintf("inspec%s", extension));
+    this.Kitchen = pathJoin(this.ChefWorkstationDir, "bin", sprintf("kitchen%s", extension));
     this.Knife = pathJoin(this.ChefWorkstationDir, "bin", sprintf("knife%s", extension));
 
   }
@@ -109,6 +114,35 @@ class Paths {
     }
 
     return result;
+  }
+  
+  /**
+   * Get the path for the component
+   */
+  public GetPath(name: string): string {
+
+    let path: string = null;
+
+    // perform a switch on the name of the component and return the path to it
+    switch (name) {
+      case "chef":
+        path = this.Chef;
+        break;
+      case "chef-client":
+        path = this.ChefClient;
+        break;
+      case "knife": 
+        path = this.Knife;
+        break;
+      case "inspec":
+        path = this.GetInspecPath();
+        break;
+      case "kitchen":
+        path = this.Kitchen;
+        break;
+    }
+
+    return path;
   }
 }
 
@@ -183,7 +217,8 @@ export class TaskConfiguration {
       "sudo": "Inputs.UseSudo",
       "version": "Inputs.Version",
       "channel": "Inputs.Channel",
-      "targetPath": "Inputs.TargetPath"
+      "targetPath": "Inputs.TargetPath",
+      "arguments": "Inputs.Arguments"
     };
 
     try {

@@ -1,0 +1,51 @@
+{
+  "id": "b3f0ceef-e22a-43c5-ab37-96287e35d494",
+  "name": "chef.component.execute",
+  "friendlyName": "Execute Chef Component",
+  "description": "This task allows the execution of any Chef component",
+  "helpMarkDown": "[More Information](https://chef-partners.github.io/azuredevops-chef/execute-task.html",
+  "category": "Azure Pipelines",
+  "author": "Chef",
+  "version": {
+    "Major": 2,
+    "Minor": 0,
+    "Patch": 15
+  },
+  "instanceNameFormat": "Execute $(component)",
+  "groups": [
+    {
+      "name": "advanced",
+      "displayName": "Advanced",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "name": "component",
+      "type": "pickList",
+      "label": "Chef Component",
+      "defaultValue": "",
+      "helpMarkdown": "Select the software component to execute",
+      "options": {
+        "chef": "Chef",
+        "chef-client": "Chef Infra Client",
+        "knife": "Knife",
+        "inspec": "Inspec",
+        "kitchen": "Test-Kitchen"
+      },
+      "required": true
+    },
+    {
+      "name": "arguments",
+      "type": "string",
+      "label": "Arguments",
+      "defaultValue": "",
+      "helpMarkdown": "Arguments to pass to the component to execute"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "execute.js"
+    }
+  }
+}
