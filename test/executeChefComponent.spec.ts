@@ -18,6 +18,7 @@ import { mkdirSync, existsSync } from "fs";
 // - test libraries
 import { expect } from "chai";
 import * as sinon from "sinon";
+import * as os from "os";
 
 // --------------------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ const LINUX = "linux";
 // Declare properties
 let inputs = {};
 let getInput;
+let platform;
 let tc: TaskConfiguration;
 let ex: ExecuteComponent;
 
@@ -47,7 +49,7 @@ function tempDir(remove: boolean = false): string {
   return path;
 }
 
-describe("Install Components", () => {
+describe("Execute Components", () => {
 
   // Setup the mocks and other settings that are required before each test
   before(() => {
@@ -56,11 +58,17 @@ describe("Install Components", () => {
       return inputs[name];
     });
 
+    // stub out the platform function from the os object
+    platform = sinon.stub(os, "platform").callsFake(() => {
+      return inputs["platform"];
+    });
+
     process.env.AGENT_TEMPDIRECTORY = tempDir();
   });
 
   after(() => {
     getInput.restore();
+    platform.restore();
     process.env.AGENT_TEMPDIRECTORY = "";
   });
 
