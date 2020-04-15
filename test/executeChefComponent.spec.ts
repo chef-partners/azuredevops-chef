@@ -92,7 +92,7 @@ describe("Execute Components", () => {
       describe("Specify configuration file to use", () => {
 
         let expected = [
-          "C:\\opscode\\chef-workstation\\bin\\chef-client.bat",
+          pathJoin("C:", "opscode", "chef-workstation", "bin", "chef-client.bat"),
           "-c c:/chef/test-client.rb"
         ];
 
@@ -112,5 +112,7 @@ describe("Execute Components", () => {
 
     });
   });
+
+  
 
 });
