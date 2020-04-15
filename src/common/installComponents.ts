@@ -1,4 +1,5 @@
 import { TaskConfiguration } from "./taskConfiguration";
+import { Utils } from "./utils";
 import { sprintf } from "sprintf-js";
 import * as tl from "azure-pipelines-task-lib"; // task library for Azure DevOps
 import { IExecSyncResult } from "azure-pipelines-task-lib/toolrunner";
@@ -26,12 +27,18 @@ export class InstallComponents {
   private taskConfiguration: TaskConfiguration;
 
   /**
+   * Utils object containing common methods
+   */
+  private utils: Utils;
+
+  /**
    * Creates a new instance of the class
    * 
    * @param taskConfiguration The current task configuration
    */
   constructor (taskConfiguration: TaskConfiguration) {
     this.taskConfiguration = taskConfiguration;
+    this.utils = new Utils(this.taskConfiguration);
   }
 
   /**
@@ -53,7 +60,7 @@ export class InstallComponents {
 
       // Attempt to execute the command
       try {
-        let result = this.execCmd(cmd);
+        let result = this.utils.ExecCmd(cmd);
       } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
       }
@@ -93,7 +100,7 @@ export class InstallComponents {
 
     // determine if the component is installed
     let installed = this.isInstalled();
-    let sudoInstalled = this.isSudoInstalled();
+    let sudoInstalled = this.utils.IsSudoInstalled();
 
     // if running as root then can be installed
     // however if not then the operating system needs to be looked at and a sudo check performed
@@ -220,7 +227,7 @@ export class InstallComponents {
       } else {
 
         // determine if using Sudo to perform the installation
-        cmdParts = this.checkSudo();
+        cmdParts = this.utils.CheckSudo();
 
         cmdParts.push("bash");
 
@@ -256,9 +263,7 @@ export class InstallComponents {
     return cmdParts;
   }
 
-  public isSudoInstalled(): boolean {
-    return tl.exist(this.taskConfiguration.Paths.Sudo);
-  }
+
 
   /**
    * Method to determine if the selected component is installed or not
@@ -280,7 +285,7 @@ export class InstallComponents {
         // in the context of chef. The command is retrieved and then executed
 
         // execute the command to check if the gem is installed or not
-        let result = this.execCmd(this.isGemInstalledCmd());
+        let result = this.utils.ExecCmd(this.isGemInstalledCmd());
 
         // if the result contains true then it is installed
         installed = (result.stdout.trim() === "true");
@@ -321,53 +326,5 @@ export class InstallComponents {
     ];
 
     return cmdParts;
-  }
-
-  /**
-   * checkSudo determines if sudo is to be used
-   * it also checks that sudo has been configured properly for the agent user
-   */
-  private checkSudo(): string[] {
-    let parts: string[] = [];
-    let result: IExecSyncResult;
-
-    if (this.taskConfiguration.Inputs.SudoIsSet() && this.isSudoInstalled()) {
-
-      console.log("Determine if Sudo requires a password");
-
-      // build up a command to check if a password is required or not
-      let sudoParts = ["sudo", "-n", "true"];
-      result = this.execCmd(sudoParts);
-
-      tl.debug(sprintf("Sudo check result: %s", result.stderr));
-
-      // check the result to see if a password is required
-      // if it is throw an error and fail the task
-      if (/^sudo: a password is required/.test(result.stderr)) {
-        let msg = "A password is required for Sudo. Please configure the agent account to run sudo without a password";
-        this.taskConfiguration.FailTask(msg);
-      } else {
-        console.log("    No (NOPASSWD appears to be enabled for the agent account)");
-
-        // set sudo on the parts
-        parts.push("sudo");
-      }
-    }
-
-    // return to the calling function
-    return parts;
-  }
-
-  private execCmd(parts: string[]): IExecSyncResult {
-
-    // get the command from the string so that it can be set as the command
-    // on the Task library
-    let cmd = parts.shift();
-    let args = parts.join(" ");
-
-    // execute the command
-    let result = tl.tool(cmd).line(args).execSync();
-
-    return result;
   }
 }
