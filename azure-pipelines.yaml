@@ -1,4 +1,4 @@
-name: 2.1$(Rev:.r)
+name: 2.3$(Rev:.r)
 
 # Define variables
 variables:
