@@ -46,6 +46,11 @@ var config = {
         {
           from: "conf/*.json",
           to: "../.."
+        },
+        {
+          from: "common",
+          to: "common",
+          context: "src"
         }
       ]
     )

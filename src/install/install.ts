@@ -1,8 +1,6 @@
 // Import the necessary tasks
-import * as task from "./common/taskConfiguration";
-import * as ic from "./common/installComponents";
-import { dirname, join as pathJoin } from "path";
-import { readdirSync } from "fs";
+import * as task from "../common/taskConfiguration";
+import * as ic from "../common/installComponents";
 
 // Perform the install operation
 async function run() {
