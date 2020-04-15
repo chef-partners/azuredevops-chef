@@ -84,5 +84,5 @@ export class Utils {
 
   public IsSudoInstalled(): boolean {
     return tl.exist(this.taskConfiguration.Paths.Sudo);
-  }  
+  }
 }

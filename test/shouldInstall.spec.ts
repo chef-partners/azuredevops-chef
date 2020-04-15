@@ -355,9 +355,10 @@ describe("Check environment for installation", () => {
           return false;
         });
 
-        stub_isSudoInstalled = sinon.stub(ic, "isSudoInstalled").callsFake(() => {
+        stub_isSudoInstalled = sinon.stub(ic.utils, "IsSudoInstalled").callsFake(() => {
           return true;
         });
+
       });
 
       afterEach(() => {

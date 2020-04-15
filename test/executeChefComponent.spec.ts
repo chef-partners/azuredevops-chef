@@ -60,6 +60,7 @@ describe("Install Components", () => {
   });
 
   after(() => {
+    getInput.restore();
     process.env.AGENT_TEMPDIRECTORY = "";
   });
 

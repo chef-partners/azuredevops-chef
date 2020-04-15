@@ -29,7 +29,7 @@ export class InstallComponents {
   /**
    * Utils object containing common methods
    */
-  private utils: Utils;
+  public utils: Utils;
 
   /**
    * Creates a new instance of the class
