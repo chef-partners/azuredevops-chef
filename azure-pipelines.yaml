@@ -3,7 +3,7 @@ name: 2.1$(Rev:.r)
 # Define variables
 variables:
   shareAccounts: turtlesystems
-  connectedServiceName: Marketplace Publish - RJS PAT 
+  connectedServiceName: Azure DevOps Extension Pub Token
 
 stages:
 - stage: Build
