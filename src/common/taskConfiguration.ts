@@ -52,6 +52,7 @@ class Paths {
   public Chef: string = null;
   public ChefClient: string = null;
   public ChefWorkstationDir: string = null;
+  public Habitat: string = null;
   public InspecEmbedded: string = null;
   public Inspec: string = null;
   public Kitchen: string = null;
@@ -75,12 +76,14 @@ class Paths {
       extension = ".bat";
       this.ChefWorkstationDir = pathJoin("C:", "opscode", "chef-workstation");
       this.Inspec = pathJoin("C:", "opscode", "inspec", "bin", "inspec.bat");
+      this.Habitat = pathJoin("C:", "ProgramData", "Habitat", "hab.exe");
 
       // set the path to the installation script
       this.Script = pathJoin(this.TmpDir, "install.ps1");
     } else {
       this.ChefWorkstationDir = pathJoin("/", "opt", "chef-workstation");
       this.Inspec = pathJoin("/", "usr", "bin", "inspec");
+      this.Habitat = pathJoin("/", "bin", "habitat");
 
       // set the path to the installation script
       this.Script = pathJoin(this.TmpDir, "install.sh");

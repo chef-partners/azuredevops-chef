@@ -49,8 +49,6 @@ export class InstallComponents {
   public async Install() {
 
     // Determine if the component is installed
-    let installed = this.isInstalled();
-    let msg: string;
     let shouldInstall: boolean = this.shouldInstall();
 
     // Get the command to perform the installation
@@ -75,15 +73,15 @@ export class InstallComponents {
 
     // initialise variables
     let scripts = new Scripts();
-    let script: string = scripts.GetScript(this.taskConfiguration.IsWindows);
+    let script: string = scripts.GetScript(this.taskConfiguration.IsWindows, this.taskConfiguration.Inputs.ComponentName);
 
     // write out the script to the filename
-    tl.debug(sprintf("Writing out Chef install script: %s", this.taskConfiguration.Paths.Script));
+    tl.debug(sprintf("Writing out component installation script: %s", this.taskConfiguration.Paths.Script));
     writeFileSync(this.taskConfiguration.Paths.Script, script, "utf-8");
 
     // check that the file has been written out properyl, it not raise an error
     if (!scripts.VerifyScript(this.taskConfiguration.IsWindows, this.taskConfiguration.Paths.Script)) {
-      tl.setResult(tl.TaskResult.Failed, "Chef install script was not written out successfully", true);
+      tl.setResult(tl.TaskResult.Failed, "Component installation script was not written out successfully", true);
     }
 
   }
@@ -174,7 +172,6 @@ export class InstallComponents {
         );
       }
       
-
     } else {
 
       // write out the script
@@ -190,38 +187,53 @@ export class InstallComponents {
       }
 
       // use the flag to determine if running on Windows to build up the install command
+      // this checks whether installing Habitat or not
       if (this.taskConfiguration.IsWindows) {
+        
+        // Build up the cmdParts to be used
+        // this sets up the common parts
         cmdParts = [
           "powershell.exe",
           "-Command",
-          this.taskConfiguration.Paths.Script,
-          ";",
-          "Install-Project"
+          this.taskConfiguration.Paths.Script
         ];
 
-        // add more parts to the cmd based on whether the targetPath has been set or not
-        if (this.taskConfiguration.Inputs.TargetPath) {
-          cmdParts.push(
-            "-Filename",
-            this.taskConfiguration.Inputs.TargetPath
-          );
-        } else {
+        if (this.taskConfiguration.Inputs.ComponentName !== "habitat") {
 
-          // installation will be performed using the download method from the script
+          // add the necessary parts to the cmd
           cmdParts.push(
-            "-Project",
-            this.taskConfiguration.Inputs.ComponentName,
-            "-Channel",
-            this.taskConfiguration.Inputs.Channel
+            ";",
+            "Install-Project"
           );
 
-          // add the version if it has been specified
-          if (this.taskConfiguration.Inputs.Version) {
+          // add more parts to the cmd based on whether the targetPath has been set or not
+          if (this.taskConfiguration.Inputs.TargetPath) {
             cmdParts.push(
-              "-Version",
-              this.taskConfiguration.Inputs.Version
+              "-Filename",
+              this.taskConfiguration.Inputs.TargetPath
+            );
+          } else {
+
+            // installation will be performed using the download method from the script
+            cmdParts.push(
+              "-Project",
+              this.taskConfiguration.Inputs.ComponentName
             );
           }
+        }
+
+        // Add the channel to the command
+        cmdParts.push(
+          "-Channel",
+          this.taskConfiguration.Inputs.Channel
+        );
+
+        // add the version if it has been specified
+        if (this.taskConfiguration.Inputs.Version) {
+          cmdParts.push(
+            "-Version",
+            this.taskConfiguration.Inputs.Version
+          );
         }
 
       } else {
@@ -232,6 +244,10 @@ export class InstallComponents {
         cmdParts.push("bash");
 
         cmdParts.push(this.taskConfiguration.Paths.Script);
+
+        if (this.taskConfiguration.Inputs.ComponentName !== "habitat") {
+
+        }
 
         // determine if a targetpath has been set 
         if (this.taskConfiguration.Inputs.TargetPath) {
@@ -244,18 +260,22 @@ export class InstallComponents {
           // installation will be performed using the download method from the script
           cmdParts.push(
             "-P",
-            this.taskConfiguration.Inputs.ComponentName,
-            "-c",
-            this.taskConfiguration.Inputs.Channel
+            this.taskConfiguration.Inputs.ComponentName
           );
 
-          // add the verson if it has been specified
-          if (this.taskConfiguration.Inputs.Version) {
-            cmdParts.push(
-              "-v",
-              this.taskConfiguration.Inputs.Version
-            );
-          }
+        }
+
+        cmdParts.push(
+          "-c",
+          this.taskConfiguration.Inputs.Channel
+        );
+
+        // add the version if it has been specified
+        if (this.taskConfiguration.Inputs.Version) {
+          cmdParts.push(
+            "-v",
+            this.taskConfiguration.Inputs.Version
+          );
         }
       }
     }
@@ -291,7 +311,7 @@ export class InstallComponents {
         installed = (result.stdout.trim() === "true");
       } else {
 
-        // When checking for ChefWorkstation or InSpec check the paths
+        // When checking for ChefWorkstation, InSpec or Habitat check the paths
         switch (this.taskConfiguration.Inputs.ComponentName) {
           case "chef-workstation":
             installed = tl.exist(this.taskConfiguration.Paths.ChefWorkstationDir);
@@ -301,6 +321,9 @@ export class InstallComponents {
             if (inspecInstalled) {
               installed = tl.exist(inspecInstalled);
             }
+            break;
+          case "habitat":
+            installed = tl.exist(this.taskConfiguration.Paths.Habitat);
             break;
         }
       }

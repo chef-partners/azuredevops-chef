@@ -28,8 +28,9 @@
       "helpMarkdown": "Select the software component to install",
       "options": {
         "chef-workstation": "Chef Workstation",
+        "gem": "Gem",
         "inspec": "InSpec",
-        "gem": "Gem"
+        "habitat": "Habitat"
       },
       "required": true
     },
