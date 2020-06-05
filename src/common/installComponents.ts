@@ -189,16 +189,29 @@ export class InstallComponents {
       // use the flag to determine if running on Windows to build up the install command
       // this checks whether installing Habitat or not
       if (this.taskConfiguration.IsWindows) {
-        
-        // Build up the cmdParts to be used
-        // this sets up the common parts
-        cmdParts = [
-          "powershell.exe",
-          "-Command",
-          this.taskConfiguration.Paths.Script
-        ];
 
-        if (this.taskConfiguration.Inputs.ComponentName !== "habitat") {
+        if (this.taskConfiguration.Inputs.ComponentName === "habitat") {
+
+          // Build up the command to install Habitat when running on Windows
+          cmdParts = [
+            "powershell.exe",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-Command",
+            "Invoke-Expression",
+            "-Command",
+            sprintf("((New-Object System.Net.WebClient).DownloadString('%s'))", this.taskConfiguration.Inputs.GetHabitatInstallScriptUrl(this.taskConfiguration.IsWindows))
+          ];
+
+        } else {
+
+          // Build up the cmdParts to be used
+          // this sets up the common parts
+          cmdParts = [
+            "powershell.exe",
+            "-Command",
+            this.taskConfiguration.Paths.Script
+          ];
 
           // add the necessary parts to the cmd
           cmdParts.push(
@@ -219,66 +232,84 @@ export class InstallComponents {
               "-Project",
               this.taskConfiguration.Inputs.ComponentName
             );
+
+            // Add the channel to the command
+            cmdParts.push(
+              "-Channel",
+              this.taskConfiguration.Inputs.Channel
+            );
+
+            // add the version if it has been specified
+            if (this.taskConfiguration.Inputs.Version) {
+              cmdParts.push(
+                "-Version",
+                this.taskConfiguration.Inputs.Version
+              );
+            }
           }
-        }
-
-        // Add the channel to the command
-        cmdParts.push(
-          "-Channel",
-          this.taskConfiguration.Inputs.Channel
-        );
-
-        // add the version if it has been specified
-        if (this.taskConfiguration.Inputs.Version) {
-          cmdParts.push(
-            "-Version",
-            this.taskConfiguration.Inputs.Version
-          );
         }
 
       } else {
 
-        // determine if using Sudo to perform the installation
-        cmdParts = this.utils.CheckSudo();
+        if (this.taskConfiguration.Inputs.ComponentName === "habitat") {
 
-        cmdParts.push("bash");
+          // Build up the command to install Habitat when running on Windows
+          cmdParts = [
+            this.utils.CheckSudo().length === 0 ? "" : this.utils.CheckSudo()[0],
+            "curl",
+            "-o",
+            "habitat_install.sh",
+            this.taskConfiguration.Inputs.GetHabitatInstallScriptUrl(this.taskConfiguration.IsWindows),
+            "&&",
+            this.utils.CheckSudo().length === 0 ? "" : this.utils.CheckSudo()[0],
+            "bash",
+            "habitat_install.sh"
+          ];
 
-        cmdParts.push(this.taskConfiguration.Paths.Script);
-
-        if (this.taskConfiguration.Inputs.ComponentName !== "habitat") {
-
-        }
-
-        // determine if a targetpath has been set 
-        if (this.taskConfiguration.Inputs.TargetPath) {
-          cmdParts.push(
-            "-f",
-            this.taskConfiguration.Inputs.TargetPath
-          );
         } else {
 
-          // installation will be performed using the download method from the script
-          cmdParts.push(
-            "-P",
-            this.taskConfiguration.Inputs.ComponentName
-          );
+          // determine if using Sudo to perform the installation
+          cmdParts = this.utils.CheckSudo();
 
-        }
+          cmdParts.push("bash");
 
-        cmdParts.push(
-          "-c",
-          this.taskConfiguration.Inputs.Channel
-        );
+          cmdParts.push(this.taskConfiguration.Paths.Script);
 
-        // add the version if it has been specified
-        if (this.taskConfiguration.Inputs.Version) {
-          cmdParts.push(
-            "-v",
-            this.taskConfiguration.Inputs.Version
-          );
+          // determine if a targetpath has been set 
+          if (this.taskConfiguration.Inputs.TargetPath) {
+            cmdParts.push(
+              "-f",
+              this.taskConfiguration.Inputs.TargetPath
+            );
+          } else {
+
+            // installation will be performed using the download method from the script
+            cmdParts.push(
+              "-P",
+              this.taskConfiguration.Inputs.ComponentName
+            );
+
+            cmdParts.push(
+              "-c",
+              this.taskConfiguration.Inputs.Channel
+            );
+    
+            // add the version if it has been specified
+            if (this.taskConfiguration.Inputs.Version) {
+              cmdParts.push(
+                "-v",
+                this.taskConfiguration.Inputs.Version
+              );
+            }
+          }
         }
       }
     }
+
+    // Remove any empty elements from the array
+    // this is handle situations where sudo may need to be added into the cmds, but
+    // is not required
+    cmdParts = cmdParts.filter(element => String(element).trim());
 
     return cmdParts;
   }

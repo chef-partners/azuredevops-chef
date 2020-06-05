@@ -26,9 +26,10 @@ class Inputs {
   public ForceInstall: boolean = false; // Force the installation of the software
   public UseSudo: boolean = false; // Should Sudo be used for the operations
   public Version: string = null; // The version of the software component to install
-  public Channel: string = null; // WHat channel should the software component be installed from
+  public Channel: string = null; // What channel should the software component be installed from
   public TargetPath: string = null; // The path to download software to
   public Arguments: string = null; // Arguments that need to be passed to the component being executed
+  public HabitatInstallScriptUrl: string = null; // URL to the script that will install Habitat
 
   public SudoIsSet(): boolean {
     let result: any = this.UseSudo;
@@ -44,6 +45,17 @@ class Inputs {
       result = (result === "true");
     }
     return result;
+  }
+
+  public GetHabitatInstallScriptUrl(isWindows: boolean): string {
+    let url: string;
+    if (isWindows) {
+      url = this.HabitatInstallScriptUrl.replace(/\.sh/, ".ps1");
+    } else {
+      url = this.HabitatInstallScriptUrl.replace(/\.ps1/, ".sh");
+    }
+
+    return url;
   }
 }
 
@@ -221,7 +233,8 @@ export class TaskConfiguration {
       "version": "Inputs.Version",
       "channel": "Inputs.Channel",
       "targetPath": "Inputs.TargetPath",
-      "arguments": "Inputs.Arguments"
+      "arguments": "Inputs.Arguments",
+      "habitatInstallScriptUrl": "Inputs.HabitatInstallScriptUrl"
     };
 
     try {

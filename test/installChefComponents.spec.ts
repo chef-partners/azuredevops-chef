@@ -250,6 +250,47 @@ describe("Install Components", () => {
         });
       });
     });
+
+    describe("Habitat", () => {
+
+      // configure the inputs to be used
+      before(() => {
+        inputs["component"] = "habitat";
+        inputs["habitatInstallScriptUrl"] = "https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh";
+      });
+
+      describe("Use default install script to download and install Habitat", () => {
+
+        // create the expected cmd parts
+        let expected = [
+          "powershell.exe",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-Command",
+          "Invoke-Expression",
+          "-Command",
+          "((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.ps1'))"
+        ];
+
+        it("should return an array", () => {
+          // create the objects that are required
+          tc = new TaskConfiguration();
+          ic = new InstallComponents(tc);
+
+          tc.getTaskParameters();
+          expect(ic.installCmd()).to.be.an("array");
+        });
+
+        it("should return the expected command", () => {
+          // create the objects that are required
+          tc = new TaskConfiguration();
+          ic = new InstallComponents(tc);
+
+          tc.getTaskParameters();
+          expect(ic.installCmd()).to.eql(expected);
+        });
+      });
+    });
   });
 
   describe("Linux", () => {
@@ -380,6 +421,47 @@ describe("Install Components", () => {
         });
       });
       
+    });
+
+    describe("Habitat", () => {
+
+      // configure the inputs to be used
+      before(() => {
+        inputs["component"] = "habitat";
+        inputs["habitatInstallScriptUrl"] = "https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.ps1";
+      });
+
+      describe("Use default install script to download and install Habitat", () => {
+
+        // create the expected cmd parts
+        let expected = [
+          "curl",
+          "-o",
+          "habitat_install.sh",
+          "https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh",
+          "&&",
+          "bash",
+          "habitat_install.sh"
+        ];
+
+        it("should return an array", () => {
+          // create the objects that are required
+          tc = new TaskConfiguration();
+          ic = new InstallComponents(tc);
+
+          tc.getTaskParameters();
+          expect(ic.installCmd()).to.be.an("array");
+        });
+
+        it("should return the expected command", () => {
+          // create the objects that are required
+          tc = new TaskConfiguration();
+          ic = new InstallComponents(tc);
+
+          tc.getTaskParameters();
+          expect(ic.installCmd()).to.eql(expected);
+        });
+      });
     });
   });
 

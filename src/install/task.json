@@ -64,7 +64,8 @@
       "label": "Version",
       "defaultValue": "",
       "helpMarkdown": "Version of the component that is to be installed. If not specified the latest version will be installed",
-      "groupName": "advanced"
+      "groupName": "advanced",
+      "visibleRule": "component != habitat"
     },
     {
       "name": "channel",
@@ -86,6 +87,15 @@
       "defaultValue": "",
       "helpMarkdown": "Full path the file to be installed. This is useful for air gapped environments",
       "groupName": "advanced"
+    },
+    {
+      "name": "habitatInstallScriptUrl",
+      "type": "string",
+      "label": "Habitat Install Script URL",
+      "defaultValue": "https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.ps1",
+      "helpMarkDown": "URL to the script to use to install Habitat. The '.ps1' or '.sh' will be modified based on the os that Habitat is being installed on",
+      "groupName": "advanced",
+      "visibleRule": "component == habitat"
     }
   ],
   "execution": {
