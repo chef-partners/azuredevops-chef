@@ -93,7 +93,6 @@ async function run() {
                     // fail the build if the values do not match the above
                     // or produce warnings if 100 or 101
                     if (command_result.code !== 0 &&
-                        command_result.code !== 100 &&
                         command_result.code !== 101) {
 
                         console.log(command_result.stderr);
@@ -106,9 +105,6 @@ async function run() {
                         // create message
                         let warn_message = "";
                         switch (command_result.code) {
-                            case 100:
-                                warn_message = "Execution was successful but some tests have failed";
-                                break;
                             case 101:
                                 warn_message = "Execution was successful but some tests were skipped";
                                 break;
