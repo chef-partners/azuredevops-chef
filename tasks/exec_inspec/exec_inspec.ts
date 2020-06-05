@@ -100,7 +100,7 @@ async function run() {
                         let fail_message = "InSpec tests failed. Please review errors and try again.";
                         tl.setResult(tl.TaskResult.Failed, fail_message);
 
-                    } else if (command_result.code === 100 || command_result.code === 101) {
+                    } else if (command_result.code === 101) {
 
                         // create message
                         let warn_message = "";
