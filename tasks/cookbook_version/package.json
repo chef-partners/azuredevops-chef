@@ -10,7 +10,7 @@
     "dependencies": {
         "sprintf-js": "^1.0.3",
         "moment": "^2.17.1",
-        "replace": "0.3.0",
+        "replace": "1.0.0",
         "dot-object": "^1.7.0",
         "vsts-task-lib": "^1.1.0"
     }
