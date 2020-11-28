@@ -1,3 +1,16 @@
+<div style="background-color: #99ccff; color: black; padding:4px">
+<strong>DEPRECATED</strong>
+<p>
+This extension is now deprecated in favour of the new Chef Extension for Azure DevOps which can be found <a href="https://marketplace.visualstudio.com/items?itemName=chef-software.chef-azdo">here</a>. The new extension allows the execution of any Chef component.
+</p>
+<p>
+This version of the Chef Extension will not be developed or maintained. We encourage everyone to upgrade to the new extension. Documentation and migration information can be found <a href="https://chef-partners.github.io/azuredevops-chef-extension">here</a>.
+</p>
+</div>
+
+<p />
+
+
 # Chef Integration for Azure Pipelines
 
 This [Chef](http://chef.io) integration for Azure Pipelines provides a set of tasks to automate commonly performed build and release activities when using the **[Chef Automate](https://www.chef.io/automate/)** platform.  Use these tasks to configure your servers ready for application deployment.

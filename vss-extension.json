@@ -9,7 +9,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Tasks for performing common Chef operations against the Chef Automate platform.",
+    "description": "DEPRECATED: Tasks for performing common Chef operations against the Chef Automate platform.",
     "categories": [
         "Build and release"
     ],
